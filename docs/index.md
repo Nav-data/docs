@@ -4,8 +4,8 @@ layout: home
 
 hero:
   name: "Nav-data"
-  text: "高质量飞行模拟导航数据"
-  tagline: "为 PMDG、iniBuilds 等插件提供数据支持"
+  text: "一群喜欢航空的人写的转换器罢了"
+  tagline: "✈️"
   actions:
     - theme: brand
       text: 关于我们
