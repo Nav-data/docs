@@ -119,7 +119,7 @@ export default defineConfig({
     // 页脚
     footer: {
       message: '基于 MIT 许可发布',
-      copyright: 'Copyright © 2024 Nav-data Team'
+      copyright: 'Copyright © 2025 Nav-data Team'
     },
 
     // 编辑链接

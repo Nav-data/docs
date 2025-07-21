@@ -20,7 +20,7 @@ Nav-data 是一个由航空爱好者共同维护的数据转换项目，致力�
 ## 🚀 快速开始
 
 ### 在线访问
-访问我们的在线文档：[https://nav-data.github.io/docs](https://nav-data.github.io/docs)
+访问我们的在线文档：[https://docs-ruddy-beta.vercel.app/](https://docs-ruddy-beta.vercel.app/)
 
 ### 本地开发
 
@@ -135,8 +135,7 @@ docs/
 
 - **GitHub Issues**: [提交问题或建议](https://github.com/nav-data/docs/issues)
 - **GitHub Discussions**: [社区讨论](https://github.com/nav-data/docs/discussions)
-- **邮箱**: contact@nav-data.org
-- **QQ 群**: 123456789 (飞行模拟器导航数据交流群)
+- **邮箱**: epa6643@gmail.com
 
 ## 📜 许可证
 
@@ -147,9 +146,8 @@ docs/
 感谢所有为本项目做出贡献的开发者和航空爱好者！
 
 ### 主要贡献者
-- [@contributor1](https://github.com/contributor1) - 项目发起人
-- [@contributor2](https://github.com/contributor2) - 数据维护
-- [@contributor3](https://github.com/contributor3) - 文档编写
+- [@Justin](https://github.com/6639835) - 项目发起人
+- [@Yuzuriha](https://github.com/yuzuriha03) - 数据维护
 
 ### 特别感谢
 - [PMDG Simulations](https://pmdg.com/) - 提供优秀的飞行模拟器插件
