@@ -13,15 +13,15 @@ Nav-data 是一个由航空爱好者共同维护的数据转换项目，致力�
 ---
 
 ## 🚀 快速开始
-1. 选择你的插件： [PMDG 指南](/PMDG/guide) | [iniBuilds 指南](/iniBuilds/guide)
+1. 选择你的插件： [PMDG 指南](/PMDG/guide/index) | [iniBuilds 指南](/iniBuilds/guide/index)
 2. 按照指南进行配置与安装
 3. 享受更真实的飞行体验！
 
 ---
 
 ## 🧭 快速导航
-- [PMDG 相关文档](/PMDG/guide)
-- [iniBuilds 相关文档](/iniBuilds/guide)
+- [PMDG 相关文档](/PMDG/guide/index)
+- [iniBuilds 相关文档](/iniBuilds/guide/index)
 - [项目架构说明](/iniBuilds/architecture)
 - [贡献指南](/iniBuilds/contributing)
 - [更新日志](/iniBuilds/changelog)

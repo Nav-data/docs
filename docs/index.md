@@ -12,10 +12,10 @@ hero:
       link: /introduction/about
     - theme: alt
       text: PMDG 指南
-      link: /PMDG/guide
+      link: /PMDG/guide/index
     - theme: alt
       text: iniBuilds 指南
-      link: /iniBuilds/guide
+      link: /iniBuilds/guide/index
 
 features:
   - icon: 🧭
