@@ -1,8 +1,8 @@
 # 架构说明
 
-## 总览
+## 项目简介
 
-PMDG 导航数据包为 PMDG 737 和 777 飞机在 Microsoft Flight Simulator 提供最新的导航信息。数据按功能分为多个文件。
+本项目为 PMDG 737 和 777 飞机在 Microsoft Flight Simulator 中提供最新的导航数据支持。数据按功能分为多个文件，便于维护和更新。
 
 ## 文件说明
 

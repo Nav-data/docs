@@ -14,6 +14,19 @@ export default defineConfig({
 
     sidebar: [
       {
+        text: '简介',
+        items: [
+          {
+            text: '关于我们',
+            link: '/introduction/about',
+          },
+          {
+            text: '如何加入',
+            link: '/introduction/join',
+          },
+        ],
+      },
+      {
           text: 'PMDG',
           items: [
               {
