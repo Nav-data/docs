@@ -118,7 +118,7 @@ export default defineConfig({
 
     // 页脚
     footer: {
-      message: '基于 MIT 许可发布',
+      message: '基于 MIT 许可发布<div class="footer-logos"><a href="https://pmdg.com/" target="_blank" rel="noopener noreferrer" title="PMDG"><img src="/logos/PMDG.svg" alt="PMDG" class="footer-logo" /></a><a href="https://www.x-plane.com/" target="_blank" rel="noopener noreferrer" title="X-Plane"><img src="/logos/xplane-12.svg" alt="X-Plane" class="footer-logo" /></a><a href="https://www.flightsimulator.com/" target="_blank" rel="noopener noreferrer" title="MSFS"><img src="/logos/MSFS.svg" alt="MSFS" class="footer-logo" /></a><a href="https://inibuilds.com/" target="_blank" rel="noopener noreferrer" title="iniBuilds"><img src="/logos/iniBuilds.svg" alt="Twitter" class="footer-logo" /></a></div>',
       copyright: 'Copyright © 2025 Nav-data Team'
     },
 
