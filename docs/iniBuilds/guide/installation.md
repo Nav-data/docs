@@ -1,191 +1,245 @@
-# iniBuilds 安装指南
+# 📥 安装指南
 
-本指南将帮助你为 iniBuilds 飞机在 Microsoft Flight Simulator 中安装最新的导航数据包。
+本指南将引导您完成Nav-data航空导航数据转换工具的完整安装过程，确保系统环境配置正确。
+
+## 🖥️ 系统要求
+
+### 📋 最低配置要求
+
+| 组件 | 要求 | 推荐配置 |
+|------|------|----------|
+| **操作系统** | Windows 10 1903+ | Windows 11 22H2+ |
+| **Python版本** | Python 3.8+ | Python 3.11+ |
+| **内存** | 8GB RAM | 16GB+ RAM |
+| **存储空间** | 2GB可用空间 | 5GB+可用空间 |
+| **网络** | 宽带互联网连接 | 稳定高速连接 |
+
+### ✈️ 必需软件
+
+- [**Microsoft Flight Simulator**](https://www.flightsimulator.com/) (2020或2024版本)
+- [**Python 3.8+**](https://www.python.org/downloads/) 开发环境
+- 目标飞机插件：[**iniBuilds A350**](https://www.inibuilds.com/) 或 [**PMDG 737/777**](https://pmdg.com/)
+
+### 📊 数据源订阅（选择其一）
+
+- [**Navigraph**](https://navigraph.com/) - 推荐，数据更新及时
+- [**Aerosoft NavDataPro**](https://www.aerosoft.com/en/microsoft-flight-simulator/msfs-tools/navigation-data/) - 价格实惠的替代方案
+
+## 🐍 Python环境安装
+
+### 步骤1：下载并安装Python
+
+1. 访问 [Python官方网站](https://www.python.org/downloads/)
+2. 下载最新的Python 3.11版本（推荐）
+3. **重要**：安装时勾选"Add Python to PATH"选项
+
+```powershell
+# 验证Python安装
+python --version
+# 应显示：Python 3.11.x
+
+# 验证pip安装
+pip --version
+# 应显示pip版本信息
+```
+
+### 步骤2：安装项目依赖
+
+```bash
+# 克隆或下载项目到本地
+cd /path/to/nav-data
+
+# 安装所需依赖包
+pip install -r requirements.txt
+```
+
+#### 依赖包说明
+
+| 包名 | 版本 | 用途 |
+|------|------|------|
+| `pandas` | ≥1.3.0 | 数据处理和分析 |
+| `requests` | ≥2.26.0 | HTTP请求处理 |
+| `tqdm` | ≥4.62.0 | 进度条显示 |
+| `chardet` | ≥4.0.0 | 字符编码检测 |
+| `ratelimit` | ≥2.2.1 | API请求限制 |
+| `pygeomag` | ≥0.9.0 | 地磁偏角计算 |
+
+### 步骤3：验证安装
+
+```python
+# 测试关键依赖
+python -c "import pandas, sqlite3, pygeomag; print('所有依赖安装成功！')"
+```
+
+## 🎮 Microsoft Flight Simulator配置
+
+### 🔍 确认MSFS安装位置
+
+根据您的MSFS版本和购买渠道，Community文件夹位置如下：
+
+#### MSFS 2020
+
+**Microsoft Store版**
+```
+%LOCALAPPDATA%\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalCache\Packages\Community
+```
+
+**Steam版**
+```
+%APPDATA%\Microsoft Flight Simulator\Packages\Community
+```
+
+#### MSFS 2024
+
+**Microsoft Store版**
+```
+%LOCALAPPDATA%\Packages\Microsoft.Limitless_8wekyb3d8bbwe\LocalCache\Packages\Community
+```
+
+**Steam版**
+```
+%APPDATA%\Microsoft Flight Simulator 2024\Packages\Community
+```
+
+### 🛠️ 快速路径检测脚本
+
+创建以下PowerShell脚本来自动检测您的MSFS安装：
+
+```powershell
+# 保存为 detect_msfs.ps1
+$paths = @(
+    "$env:LOCALAPPDATA\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalCache\Packages\Community",
+    "$env:APPDATA\Microsoft Flight Simulator\Packages\Community",
+    "$env:LOCALAPPDATA\Packages\Microsoft.Limitless_8wekyb3d8bbwe\LocalCache\Packages\Community",
+    "$env:APPDATA\Microsoft Flight Simulator 2024\Packages\Community"
+)
+
+foreach ($path in $paths) {
+    if (Test-Path $path) {
+        Write-Host "找到MSFS Community文件夹: $path" -ForegroundColor Green
+    }
+}
+```
+
+## ✈️ 飞机插件验证
+
+### iniBuilds A350验证
+
+检查以下目录是否存在：
+
+```
+[Community文件夹]\inibuilds-aircraft-a350\Config\NavigationData\
+```
+
+### PMDG插件验证
+
+检查以下目录是否存在（根据您的PMDG飞机型号）：
+
+```
+[Community文件夹]\pmdg-aircraft-737\Config\Navdata\
+[Community文件夹]\pmdg-aircraft-738\Config\Navdata\
+[Community文件夹]\pmdg-aircraft-77w\Config\Navdata\
+[Community文件夹]\pmdg-aircraft-77f\Config\Navdata\
+```
+
+## 📁 项目目录结构
+
+安装完成后，您的项目目录应该如下所示：
+
+```
+nav-data/
+├── XP2INI_NDB_Converter.py    # 主转换程序
+├── requirements.txt           # Python依赖列表
+├── README.md                 # 项目说明
+├── LICENSE                   # 许可证文件
+│
+├── 数据处理模块/
+│   ├── airports.py           # 机场数据处理
+│   ├── runways.py           # 跑道数据处理
+│   ├── vhfs.py              # VHF导航台处理
+│   ├── ndbs.py              # NDB导航台处理
+│   ├── enroute_waypoints.py # 航路点处理
+│   ├── terminal_waypoints.py# 终端点处理
+│   ├── sids.py              # SID程序处理
+│   ├── stars.py             # STAR程序处理
+│   ├── iaps.py              # 进近程序处理
+│   ├── airways.py           # 航路处理
+│   └── gs.py                # 着陆引导处理
+│
+└── docs/                    # 文档目录
+    ├── guide/               # 使用指南
+    └── ...                  # 其他文档
+```
+
+## 🔧 环境变量配置（可选）
+
+为了更便捷的使用，您可以设置以下环境变量：
+
+```powershell
+# 设置MSFS Community路径
+setx MSFS_COMMUNITY_PATH "C:\Users\[用户名]\AppData\Local\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalCache\Packages\Community"
+
+# 设置Nav-data工作目录
+setx NAVDATA_WORKSPACE "C:\path\to\nav-data"
+```
+
+## ✅ 安装验证清单
+
+完成安装后，请确认以下项目：
+
+- [ ] Python 3.8+已正确安装并添加到PATH
+- [ ] 所有依赖包已成功安装
+- [ ] MSFS Community文件夹已定位
+- [ ] 目标飞机插件已安装并验证
+- [ ] 项目文件已下载到本地目录
+- [ ] 具有足够的磁盘空间（至少2GB）
+
+## 🚨 常见安装问题
+
+### Python相关问题
+
+**问题**：`'python' 不是内部或外部命令`
+```bash
+# 解决方案：重新安装Python并确保勾选"Add to PATH"
+# 或手动添加Python到系统PATH
+```
+
+**问题**：`ModuleNotFoundError: No module named 'xxx'`
+```bash
+# 解决方案：重新安装依赖
+pip install --upgrade -r requirements.txt
+```
+
+### 权限问题
+
+**问题**：无法访问MSFS文件夹
+```powershell
+# 解决方案：以管理员身份运行PowerShell/命令提示符
+# 右键点击 → "以管理员身份运行"
+```
+
+### 路径问题
+
+**问题**：找不到飞机插件目录
+```bash
+# 解决方案：
+# 1. 确认飞机插件已正确安装
+# 2. 在MSFS中启动飞机一次以创建必要目录
+# 3. 检查插件是否在正确的Community文件夹中
+```
+
+## 🔄 更新说明
+
+要更新Nav-data到最新版本：
+
+```bash
+# 拉取最新代码
+git pull origin main
+
+# 更新依赖包
+pip install --upgrade -r requirements.txt
+```
 
 ---
 
-## 📋 系统要求
-
-### 最低要求
-- **操作系统**: Windows 10 (版本 1909 或更高)
-- **Microsoft Flight Simulator**: 标准版或豪华版
-- **磁盘空间**: 至少 500MB 可用空间
-- **内存**: 8GB RAM (推荐 16GB)
-
-### 支持的 iniBuilds 飞机
-- A300-600R/F 系列
-- A310-200/300 系列
-- BelugaXL 
-- 其他 iniBuilds 发布的航空器
-
----
-
-## 🛠️ 安装步骤
-
-### 1. 准备工作
-
-#### 1.1 备份现有数据
-在开始安装前，强烈建议备份现有的导航数据：
-
-```
-[Community 文件夹]\inibuilds-aircraft-XXX\SimObjects\Airplanes\XXXX\Navdata\
-```
-
-将 `Navdata` 文件夹重命名为 `Navdata_backup`。
-
-#### 1.2 获取最新数据包
-- 访问 [Nav-data 发布页面](https://github.com/nav-data/inibuilds/releases)
-- 下载最新版本的 `iniBuilds-NavData-vX.X.X.zip`
-- 解压到临时文件夹
-
-### 2. 定位 iniBuilds 飞机文件夹
-
-#### 2.1 找到 Community 文件夹
-Community 文件夹位置因 MSFS 安装方式而异：
-
-**Microsoft Store 版本：**
-```
-C:\Users\[用户名]\AppData\Local\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalCache\Packages\Community
-```
-
-**Steam 版本：**
-```
-C:\Users\[用户名]\AppData\Roaming\Microsoft Flight Simulator\Packages\Community
-```
-
-**Xbox Game Pass：**
-```
-C:\Users\[用户名]\AppData\Local\Packages\Microsoft.FlightDashboard_8wekyb3d8bbwe\LocalCache\Packages\Community
-```
-
-#### 2.2 定位飞机目录
-在 Community 文件夹中找到对应的 iniBuilds 飞机文件夹：
-```
-inibuilds-aircraft-a300    # A300 系列
-inibuilds-aircraft-a310    # A310 系列
-inibuilds-aircraft-beluga  # BelugaXL
-```
-
-### 3. 安装导航数据
-
-#### 3.1 定位 Navdata 文件夹
-进入飞机文件夹的导航数据目录：
-```
-[iniBuilds 飞机文件夹]\SimObjects\Airplanes\[飞机型号]\Navdata\
-```
-
-#### 3.2 复制新数据
-1. 删除或重命名现有的 `Navdata` 文件夹
-2. 将下载的新 `Navdata` 文件夹复制到此位置
-3. 确保文件夹结构正确：
-   ```
-   Navdata\
-   ├── airports\
-   ├── airways\
-   ├── fixes\
-   ├── navaids\
-   └── runways\
-   ```
-
-### 4. 清除缓存
-
-#### 4.1 清除 MSFS 导航缓存
-删除以下目录中的所有内容：
-```
-C:\Users\[用户名]\AppData\Local\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalState\packages\[inibuilds-aircraft-XXX]\work\NavigationData
-```
-
-#### 4.2 清除飞机缓存 (如果存在)
-某些 iniBuilds 飞机可能有额外的缓存文件夹：
-```
-[飞机文件夹]\Cache\
-[飞机文件夹]\Work\
-```
-
-如果存在这些文件夹，请删除其中的内容。
-
-### 5. 验证安装
-
-#### 5.1 重启 MSFS
-完全退出 Microsoft Flight Simulator，然后重新启动。
-
-#### 5.2 检查数据加载
-1. 进入 MSFS 并选择你的 iniBuilds 飞机
-2. 创建飞行计划或加载现有飞行计划
-3. 检查航点、导航台和机场信息是否正确显示
-
----
-
-## 🔧 故障排除
-
-### 常见问题
-
-#### 问题 1：飞机无法启动或崩溃
-**可能原因**：导航数据文件损坏或不兼容
-**解决方案**：
-1. 恢复备份的 `Navdata_backup` 文件夹
-2. 重新下载并安装导航数据包
-3. 检查飞机版本与数据包版本的兼容性
-
-#### 问题 2：导航信息显示错误
-**可能原因**：缓存未清除或数据包版本不匹配
-**解决方案**：
-1. 再次清除所有导航缓存
-2. 确认使用正确版本的数据包
-3. 检查飞机配置文件是否正确
-
-#### 问题 3：找不到 Community 文件夹
-**可能原因**：自定义安装路径或权限问题
-**解决方案**：
-1. 在 MSFS 设置中查看当前 Community 文件夹路径
-2. 检查文件夹权限，确保有读写权限
-3. 以管理员身份运行文件资源管理器
-
-### 高级故障排除
-
-#### 日志检查
-如果遇到问题，可以检查 MSFS 日志文件：
-```
-C:\Users\[用户名]\AppData\Local\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalState\Logs\
-```
-
-查找包含 "navdata" 或飞机名称的错误信息。
-
-#### 配置文件检查
-某些 iniBuilds 飞机有特定的配置文件：
-```
-[飞机文件夹]\SimObjects\Airplanes\[飞机型号]\aircraft.cfg
-```
-
-确保配置文件中的导航数据路径正确。
-
----
-
-## ⚠️ 注意事项
-
-### 版本兼容性
-- 始终使用与你的 iniBuilds 飞机版本匹配的导航数据包
-- 在更新飞机时，也需要相应更新导航数据
-
-### 数据更新
-- 建议每月检查一次数据包更新
-- 订阅我们的 [GitHub 发布通知](https://github.com/nav-data/inibuilds/releases) 获取最新消息
-
-### 性能影响
-- 新的导航数据可能会略微影响加载时间
-- 在配置较低的系统上，可以选择性安装数据包
-
----
-
-## 📞 获取帮助
-
-如果在安装过程中遇到问题：
-
-1. **查看常见问题**: [FAQ 页面](../contributing.md#常见问题)
-2. **社区支持**: 加入我们的 [QQ 群](../../Introduction/join.md#联系我们)
-3. **提交问题**: 在 [GitHub Issues](https://github.com/nav-data/docs/issues) 报告技术问题
-4. **邮件支持**: 发送邮件至 support@nav-data.org
-
----
-
-> 🎉 **安装完成！** 现在你可以享受更准确、更真实的飞行体验了。别忘了查看我们的 [使用指南](./usage.md) 了解更多高级功能！ 
+安装完成！接下来请查看 [**配置说明**](./configuration.md) 来设置数据源和AIRAC周期。 
