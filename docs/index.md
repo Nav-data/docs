@@ -24,6 +24,9 @@ features:
   - icon: ✨
     title: 项目特色
     details: 多插件支持、详细指南、结构清晰、社区协作。
+  - icon: 🆘
+    title: 获取帮助
+    details: 查看 FAQ 常见问题解答和故障排除指南，快速解决使用中的问题。
   - icon: 🌍
     title: 加入我们
     details: 参与贡献、反馈建议，或访问我们的 GitHub 社区。

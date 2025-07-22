@@ -55,6 +55,8 @@ export default defineConfig({
                 { text: '使用说明', link: '/PMDG/guide/usage' },
               ],
             },
+            { text: '常见问题', link: '/PMDG/faq' },
+            { text: '故障排除', link: '/PMDG/troubleshooting' },
             { text: '架构说明', link: '/PMDG/architecture' },
             { text: '贡献指南', link: '/PMDG/contributing' },
             { text: '更新日志', link: '/PMDG/changelog' },
@@ -76,6 +78,8 @@ export default defineConfig({
                 { text: '使用说明', link: '/iniBuilds/guide/usage' },
               ]
             },
+            { text: '常见问题', link: '/iniBuilds/faq' },
+            { text: '故障排除', link: '/iniBuilds/troubleshooting' },
             { text: '架构说明', link: '/iniBuilds/architecture' },
             { text: '贡献指南', link: '/iniBuilds/contributing' },
             { text: '更新日志', link: '/iniBuilds/changelog' },

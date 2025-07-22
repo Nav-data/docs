@@ -20,11 +20,21 @@ Nav-data 是一个由航空爱好者共同维护的数据转换项目，致力�
 ---
 
 ## 🧭 快速导航
-- [PMDG 相关文档](/PMDG/guide/index)
-- [iniBuilds 相关文档](/iniBuilds/guide/index)
-- [项目架构说明](/iniBuilds/architecture)
-- [贡献指南](/iniBuilds/contributing)
-- [更新日志](/iniBuilds/changelog)
+
+### 📚 使用指南
+- [PMDG 相关文档](/PMDG/guide/index) - PMDG 飞机导航数据转换
+- [iniBuilds 相关文档](/iniBuilds/guide/index) - iniBuilds A350 导航数据转换
+
+### 🆘 获取帮助
+- [PMDG 常见问题](/PMDG/faq) - PMDG 用户常见问题解答
+- [PMDG 故障排除](/PMDG/troubleshooting) - PMDG 问题诊断与解决
+- [iniBuilds 常见问题](/iniBuilds/faq) - iniBuilds 用户常见问题解答
+- [iniBuilds 故障排除](/iniBuilds/troubleshooting) - iniBuilds 问题诊断与解决
+
+### 🔧 技术文档
+- [项目架构说明](/iniBuilds/architecture) - 系统架构与技术实现
+- [贡献指南](/iniBuilds/contributing) - 如何参与项目开发
+- [更新日志](/iniBuilds/changelog) - 版本更新历史
 
 ---
 
