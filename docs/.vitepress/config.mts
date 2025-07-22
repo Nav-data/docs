@@ -9,7 +9,9 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#3c82f6' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    // Favicon配置 - 添加缓存破坏和多格式支持
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg?v=2' }],
+    ['link', { rel: 'shortcut icon', href: '/favicon.svg?v=2' }],
     ['link', { rel: 'manifest', href: '/manifest.json' }]
   ],
   
