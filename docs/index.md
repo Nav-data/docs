@@ -16,6 +16,9 @@ hero:
     - theme: alt
       text: iniBuilds 指南
       link: /iniBuilds/guide/index
+    - theme: alt
+      text: X-Plane 指南
+      link: /X-Plane/guide/index
 
 features:
   - icon: 🧭

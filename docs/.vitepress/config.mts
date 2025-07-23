@@ -22,6 +22,7 @@ export default defineConfig({
       { text: '首页', link: '/' },
       { text: 'PMDG', link: '/PMDG/guide/index' },
       { text: 'iniBuilds', link: '/iniBuilds/guide/index' },
+      { text: 'X-Plane', link: '/X-Plane/guide/index' },
       { 
         text: '关于', 
         items: [
@@ -84,6 +85,25 @@ export default defineConfig({
             { text: '贡献指南', link: '/iniBuilds/contributing' },
             { text: '更新日志', link: '/iniBuilds/changelog' },
             { text: '许可证', link: '/iniBuilds/license' },
+          ],
+        },
+      ],
+      '/X-Plane/': [
+        {
+          text: 'X-Plane',
+          items: [
+            { text: '指南', link: '/X-Plane/guide/index', 
+              collapsed: false, items: [
+              { text: '安装指南', link: '/X-Plane/guide/installation' },
+              { text: '配置说明', link: '/X-Plane/guide/configuration' },
+              { text: '使用说明', link: '/X-Plane/guide/usage' },
+            ] },
+            { text: '常见问题', link: '/X-Plane/faq' },
+            { text: '故障排除', link: '/X-Plane/troubleshooting' },
+            { text: '架构说明', link: '/X-Plane/architecture' },
+            { text: '贡献指南', link: '/X-Plane/contributing' },
+            { text: '更新日志', link: '/X-Plane/changelog' },
+            { text: '许可证', link: '/X-Plane/license' },
           ],
         },
       ],
