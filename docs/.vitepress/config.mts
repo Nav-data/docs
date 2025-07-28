@@ -18,6 +18,9 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     
+    // 添加logo到头部
+    logo: '/favicon.svg',
+    
     nav: [
       { text: '首页', link: '/' },
       { text: 'PMDG', link: '/PMDG/guide/index' },
