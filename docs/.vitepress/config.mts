@@ -25,6 +25,9 @@ export default defineConfig({
     ['link', { href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap', rel: 'stylesheet' }]
   ],
   
+  // 主题外观配置
+  appearance: 'dark', // 支持深色模式切换
+  
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     
@@ -32,15 +35,15 @@ export default defineConfig({
     logo: '/favicon.svg',
     
     nav: [
-      { text: '首页', link: '/' },
-      { text: 'PMDG', link: '/PMDG/guide/index' },
-      { text: 'iniBuilds', link: '/iniBuilds/guide/index' },
-      { text: 'X-Plane', link: '/X-Plane/guide/index' },
+      { text: '🏠 首页', link: '/' },
+      { text: '🛩️ PMDG', link: '/PMDG/guide/index' },
+      { text: '✈️ iniBuilds', link: '/iniBuilds/guide/index' },
+      { text: '🛫 X-Plane', link: '/X-Plane/guide/index' },
       { 
-        text: '关于', 
+        text: '📖 关于', 
         items: [
-          { text: '关于我们', link: '/Introduction/about' },
-          { text: '如何加入', link: '/Introduction/join' }
+          { text: '🎯 关于我们', link: '/Introduction/about' },
+          { text: '🤝 如何加入', link: '/Introduction/join' }
         ]
       }
     ],

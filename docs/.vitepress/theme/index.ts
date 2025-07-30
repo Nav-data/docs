@@ -1,11 +1,21 @@
-// .vitepress/theme/index.ts
-import type { Theme } from 'vitepress'
+import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
-import './style.css'
+import './custom.css'
+
+// Import custom components
+import FeatureCard from '../components/FeatureCard.vue'
+import StatusBadge from '../components/StatusBadge.vue'
 
 export default {
   extends: DefaultTheme,
+  Layout: () => {
+    return h(DefaultTheme.Layout, null, {
+      // https://vitepress.dev/guide/extending-default-theme#layout-slots
+    })
+  },
   enhanceApp({ app, router, siteData }) {
-    // Custom app enhancements can be added here
+    // Register global components
+    app.component('FeatureCard', FeatureCard)
+    app.component('StatusBadge', StatusBadge)
   }
-} satisfies Theme
+}

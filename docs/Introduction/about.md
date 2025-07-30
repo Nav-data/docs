@@ -139,15 +139,15 @@ graph TD
       </tr>
       <tr>
         <td><strong>安装难度</strong></td>
-        <td><span class="difficulty medium">中等</span></td>
-        <td><span class="difficulty easy">简单</span></td>
-        <td><span class="difficulty hard">复杂</span></td>
+        <td><StatusBadge type="warning" text="中等" icon="⚠️" /></td>
+        <td><StatusBadge type="success" text="简单" icon="✅" /></td>
+        <td><StatusBadge type="error" text="复杂" icon="🔴" /></td>
       </tr>
       <tr>
         <td><strong>数据覆盖</strong></td>
-        <td><span class="status complete">完整</span></td>
-        <td><span class="status complete">完整</span></td>
-        <td><span class="status partial">部分</span></td>
+        <td><StatusBadge type="success" text="完整" icon="✅" /></td>
+        <td><StatusBadge type="success" text="完整" icon="✅" /></td>
+        <td><StatusBadge type="warning" text="部分" icon="⚠️" /></td>
       </tr>
       <tr>
         <td><strong>更新频率</strong></td>
