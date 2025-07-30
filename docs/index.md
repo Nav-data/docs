@@ -4,32 +4,38 @@ layout: home
 
 hero:
   name: "Nav-data"
-  text: "一群喜欢航空的人写的转换器罢了"
-  tagline: "✈️"
+  text: "专业的航空导航数据转换工具"
+  tagline: "为飞行模拟器提供高质量导航数据支持 ✈️"
   actions:
     - theme: brand
-      text: 关于我们
-      link: /introduction/about
+      text: 🚀 快速开始
+      link: /Introduction/about
     - theme: alt
-      text: PMDG 指南
+      text: 📘 PMDG 指南
       link: /PMDG/guide/index
     - theme: alt
-      text: iniBuilds 指南
+      text: 🛫 iniBuilds 指南
       link: /iniBuilds/guide/index
     - theme: alt
-      text: X-Plane 指南
+      text: 🛩️ X-Plane 指南
       link: /X-Plane/guide/index
 
 features:
-  - icon: 🧭
-    title: 快速导航
-    details: 访问 PMDG、iniBuilds 指南、架构说明、贡献指南等核心文档。
-  - icon: ✨
-    title: 项目特色
-    details: 多插件支持、详细指南、结构清晰、社区协作。
-  - icon: 🆘
-    title: 获取帮助
-    details: 查看 FAQ 常见问题解答和故障排除指南，快速解决使用中的问题。
+  - icon: 🎯
+    title: 多平台支持
+    details: 完整支持 PMDG、iniBuilds A350、X-Plane 等主流飞行模拟器平台，提供统一的数据转换解决方案。
+  - icon: 📊
+    title: 高质量数据
+    details: 基于权威 AIRAC 数据源，提供精确的机场、导航台、航路和飞行程序信息，确保飞行体验的真实性。
+  - icon: ⚡
+    title: 智能转换
+    details: 自动化数据处理流程，支持批量转换和增量更新，大幅提升数据管理效率。
+  - icon: 🔧
+    title: 易于配置
+    details: 直观的配置向导和详细文档，即使是新手也能快速上手，轻松完成环境配置和数据转换。
   - icon: 🌍
-    title: 加入我们
-    details: 参与贡献、反馈建议，或访问我们的 GitHub 社区。
+    title: 开源协作
+    details: 完全开源的项目，欢迎社区贡献代码、反馈问题和提出改进建议，共同构建更好的工具。
+  - icon: 📱
+    title: 现代体验
+    details: 响应式设计，支持桌面和移动设备访问，提供流畅的用户体验和完善的中文搜索功能。

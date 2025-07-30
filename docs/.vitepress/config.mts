@@ -3,16 +3,26 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Nav-data",
-  description: "一群喜欢航空的人写的转换器罢了",
+  description: "高质量飞行模拟导航数据 - 专业的航空导航数据转换工具",
   lang: 'zh-CN',
   head: [
-    ['meta', { name: 'theme-color', content: '#3c82f6' }],
+    ['meta', { name: 'theme-color', content: '#1e40af' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
-    // Favicon配置 - 添加缓存破坏和多格式支持
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg?v=2' }],
-    ['link', { rel: 'shortcut icon', href: '/favicon.svg?v=2' }],
-    ['link', { rel: 'manifest', href: '/manifest.json' }]
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:locale', content: 'zh_CN' }],
+    ['meta', { property: 'og:title', content: 'Nav-data | 航空导航数据转换工具' }],
+    ['meta', { property: 'og:site_name', content: 'Nav-data' }],
+    ['meta', { property: 'og:image', content: '/og-image.png' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    // Enhanced favicon configuration
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg?v=3' }],
+    ['link', { rel: 'shortcut icon', href: '/favicon.svg?v=3' }],
+    ['link', { rel: 'manifest', href: '/manifest.json' }],
+    // Custom fonts
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    ['link', { href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap', rel: 'stylesheet' }]
   ],
   
   themeConfig: {

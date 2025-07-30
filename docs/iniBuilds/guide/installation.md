@@ -1,18 +1,289 @@
 # 📥 安装指南
 
-本指南将引导您完成Nav-data航空导航数据转换工具的完整安装过程，确保系统环境配置正确。
+<div class="installation-header">
+  <div class="header-content">
+    <h2>Nav-data iniBuilds A350 安装向导</h2>
+    <p>本指南将引导您完成Nav-data航空导航数据转换工具的完整安装过程，确保系统环境配置正确。</p>
+  </div>
+  <div class="progress-indicator">
+    <div class="step active" data-step="1">
+      <div class="step-number">1</div>
+      <div class="step-label">系统检查</div>
+    </div>
+    <div class="step" data-step="2">
+      <div class="step-number">2</div>
+      <div class="step-label">Python环境</div>
+    </div>
+    <div class="step" data-step="3">
+      <div class="step-number">3</div>
+      <div class="step-label">MSFS配置</div>
+    </div>
+    <div class="step" data-step="4">
+      <div class="step-number">4</div>
+      <div class="step-label">验证完成</div>
+    </div>
+  </div>
+</div>
 
 ## 🖥️ 系统要求
 
-### 📋 最低配置要求
+### 📋 配置要求对比
 
-| 组件 | 要求 | 推荐配置 |
-|------|------|----------|
-| **操作系统** | Windows 10 1903+ | Windows 11 22H2+ |
-| **Python版本** | Python 3.8+ | Python 3.11+ |
-| **内存** | 8GB RAM | 16GB+ RAM |
-| **存储空间** | 2GB可用空间 | 5GB+可用空间 |
-| **网络** | 宽带互联网连接 | 稳定高速连接 |
+<div class="requirements-comparison">
+  <div class="req-column">
+    <h4>🟡 最低配置</h4>
+    <div class="req-card minimal">
+      <div class="req-item">
+        <span class="req-icon">💻</span>
+        <div class="req-details">
+          <strong>操作系统</strong>
+          <span>Windows 10 1903+</span>
+        </div>
+      </div>
+      <div class="req-item">
+        <span class="req-icon">🐍</span>
+        <div class="req-details">
+          <strong>Python版本</strong>
+          <span>Python 3.8+</span>
+        </div>
+      </div>
+      <div class="req-item">
+        <span class="req-icon">🧠</span>
+        <div class="req-details">
+          <strong>内存</strong>
+          <span>8GB RAM</span>
+        </div>
+      </div>
+      <div class="req-item">
+        <span class="req-icon">💾</span>
+        <div class="req-details">
+          <strong>存储空间</strong>
+          <span>2GB 可用空间</span>
+        </div>
+      </div>
+      <div class="req-item">
+        <span class="req-icon">🌐</span>
+        <div class="req-details">
+          <strong>网络</strong>
+          <span>宽带互联网连接</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="req-column">
+    <h4>🟢 推荐配置</h4>
+    <div class="req-card recommended">
+      <div class="req-item">
+        <span class="req-icon">💻</span>
+        <div class="req-details">
+          <strong>操作系统</strong>
+          <span>Windows 11 22H2+</span>
+        </div>
+      </div>
+      <div class="req-item">
+        <span class="req-icon">🐍</span>
+        <div class="req-details">
+          <strong>Python版本</strong>
+          <span>Python 3.11+</span>
+        </div>
+      </div>
+      <div class="req-item">
+        <span class="req-icon">🧠</span>
+        <div class="req-details">
+          <strong>内存</strong>
+          <span>16GB+ RAM</span>
+        </div>
+      </div>
+      <div class="req-item">
+        <span class="req-icon">💾</span>
+        <div class="req-details">
+          <strong>存储空间</strong>
+          <span>5GB+ 可用空间</span>
+        </div>
+      </div>
+      <div class="req-item">
+        <span class="req-icon">🌐</span>
+        <div class="req-details">
+          <strong>网络</strong>
+          <span>稳定高速连接</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.installation-header {
+  background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(59, 130, 246, 0.05));
+  border: 1px solid rgba(30, 64, 175, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.header-content h2 {
+  margin: 0 0 1rem 0;
+  color: var(--vp-c-brand-1);
+  font-size: 1.5rem;
+}
+
+.header-content p {
+  margin: 0;
+  color: var(--vp-c-text-2);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.progress-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.progress-indicator::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: var(--vp-c-divider);
+  z-index: 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--vp-c-bg-soft);
+  border: 2px solid var(--vp-c-divider);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+  transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+  background: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-1);
+  color: white;
+}
+
+.step-label {
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2);
+  text-align: center;
+  font-weight: 500;
+}
+
+.step.active .step-label {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+}
+
+.requirements-comparison {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.req-column h4 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.req-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.req-card.minimal {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.req-card.recommended {
+  border-color: rgba(34, 197, 94, 0.3);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), rgba(34, 197, 94, 0.02));
+}
+
+.req-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.req-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.req-item:last-child {
+  border-bottom: none;
+}
+
+.req-icon {
+  font-size: 1.5rem;
+  width: 2rem;
+  text-align: center;
+}
+
+.req-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.req-details strong {
+  color: var(--vp-c-text-1);
+  font-size: 0.9rem;
+}
+
+.req-details span {
+  color: var(--vp-c-text-2);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .progress-indicator {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .progress-indicator::before {
+    display: none;
+  }
+  
+  .step {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  
+  .requirements-comparison {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 
 ### ✈️ 必需软件
 

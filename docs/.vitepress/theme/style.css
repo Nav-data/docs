@@ -1,0 +1,401 @@
+/**
+ * Nav-data Documentation Custom Styles
+ * Aviation-themed design with modern aesthetics
+ */
+
+/* ===== CSS Variables & Custom Properties ===== */
+:root {
+  /* Aviation-themed color palette */
+  --vp-c-brand-1: #1e40af;
+  --vp-c-brand-2: #3b82f6;
+  --vp-c-brand-3: #60a5fa;
+  --vp-c-brand-soft: rgba(30, 64, 175, 0.14);
+  
+  /* Custom aviation colors */
+  --aviation-sky: #0ea5e9;
+  --aviation-cloud: #e0f2fe;
+  --aviation-sunset: #f59e0b;
+  --aviation-night: #0f172a;
+  
+  /* Enhanced typography */
+  --vp-font-family-base: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, monospace;
+  
+  /* Custom spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  
+  /* Animation variables */
+  --animation-fast: 0.2s;
+  --animation-normal: 0.3s;
+  --animation-slow: 0.5s;
+}
+
+/* Dark mode color adjustments */
+:root.dark {
+  --vp-c-brand-1: #60a5fa;
+  --vp-c-brand-2: #3b82f6;
+  --vp-c-brand-3: #1e40af;
+  --aviation-cloud: rgba(224, 242, 254, 0.1);
+}
+
+/* ===== Global Styles ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  font-variation-settings: normal;
+}
+
+/* ===== Enhanced Homepage Styles ===== */
+.VPHome {
+  background: linear-gradient(135deg, 
+    var(--aviation-cloud) 0%, 
+    rgba(255, 255, 255, 0) 50%,
+    var(--aviation-cloud) 100%);
+}
+
+/* Hero section enhancements */
+.VPHero {
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-2xl);
+}
+
+.VPHero .VPImage {
+  opacity: 0.8;
+  transition: opacity var(--animation-normal) ease;
+  width: auto !important;
+  height: auto !important;
+}
+
+.VPHero:hover .VPImage {
+  opacity: 1;
+}
+
+.VPHero .name {
+  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--aviation-sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.VPHero .text {
+  color: var(--vp-c-text-2);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.6;
+  margin-top: var(--space-md);
+}
+
+.VPHero .tagline {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  animation: float 3s ease-in-out infinite;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Action buttons enhancement */
+.VPHero .VPButton {
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 12px 24px !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  min-height: 44px !important;
+  height: 44px !important;
+  transition: all var(--animation-normal) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.VPHero .VPButton:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left var(--animation-slow) ease;
+}
+
+.VPHero .VPButton:hover:before {
+  left: 100%;
+}
+
+.VPHero .VPButton.brand {
+  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--aviation-sky));
+  border: none;
+  box-shadow: 0 4px 14px rgba(30, 64, 175, 0.3);
+  /* Force same size as alt buttons */
+  padding: 12px 24px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  min-height: 44px !important;
+  height: 44px !important;
+  line-height: 1.4 !important;
+}
+
+.VPHero .VPButton.brand:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(30, 64, 175, 0.4);
+}
+
+.VPHero .VPButton.alt {
+  border: 2px solid var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.VPHero .VPButton.alt:hover {
+  background: var(--vp-c-brand-1);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ===== Enhanced Feature Cards ===== */
+.VPFeatures {
+  padding: var(--space-2xl) 0;
+}
+
+.VPFeature {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: var(--space-xl);
+  transition: all var(--animation-normal) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.VPFeature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.VPFeature:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--vp-c-brand-1), var(--aviation-sky));
+  transform: scaleX(0);
+  transition: transform var(--animation-normal) ease;
+}
+
+.VPFeature:hover:before {
+  transform: scaleX(1);
+}
+
+.VPFeature .icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-md);
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.VPFeature .title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  margin-bottom: var(--space-sm);
+}
+
+.VPFeature .details {
+  color: var(--vp-c-text-2);
+  line-height: 1.6;
+}
+
+/* ===== Navigation Enhancements ===== */
+.VPNavBar {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.dark .VPNavBar {
+  background: rgba(26, 26, 26, 0.9);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.VPNavBarTitle .title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ===== Sidebar Enhancements ===== */
+.VPSidebar {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.dark .VPSidebar {
+  background: rgba(26, 26, 26, 0.95);
+}
+
+.VPSidebarGroup .title {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ===== Content Enhancements ===== */
+.VPDoc {
+  --vp-doc-max-width: 65rem;
+}
+
+.VPDoc h1 {
+  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--aviation-sky));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.VPDoc h2 {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+  border-bottom: 2px solid var(--vp-c-brand-soft);
+  padding-bottom: var(--space-xs);
+}
+
+.VPDoc h3 {
+  color: var(--aviation-sky);
+  font-weight: 600;
+}
+
+/* Enhanced code blocks */
+div[class*="language-"] {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+div[class*="language-"]:before {
+  background: var(--vp-c-brand-1);
+  color: white;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 0 0 8px 0;
+}
+
+/* Enhanced tables */
+.VPDoc table {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.VPDoc th {
+  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--aviation-sky));
+  color: white;
+  font-weight: 600;
+}
+
+.VPDoc tr:nth-child(even) {
+  background: var(--aviation-cloud);
+}
+
+/* ===== Custom Components ===== */
+.aviation-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--vp-c-brand-1);
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: var(--space-xs);
+}
+
+.status-indicator.active {
+  background: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+}
+
+.status-indicator.warning {
+  background: var(--aviation-sunset);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.3);
+}
+
+.status-indicator.inactive {
+  background: #6b7280;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .VPHero .tagline {
+    font-size: 2rem;
+  }
+  
+  .VPFeature {
+    padding: var(--space-lg);
+  }
+  
+  .VPHero .text {
+    font-size: 1.1rem;
+  }
+}
+
+/* ===== Loading Animation ===== */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.loading {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ===== Accessibility Enhancements ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .VPHero .tagline {
+    animation: none;
+  }
+}
+
+/* Focus styles for better accessibility */
+.VPButton:focus-visible,
+.VPNavBarMenuLink:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+}

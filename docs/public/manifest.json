@@ -1,0 +1,17 @@
+{
+  "name": "Nav-data Documentation",
+  "short_name": "Nav-data",
+  "description": "高质量飞行模拟导航数据转换工具文档",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1e40af",
+  "background_color": "#ffffff",
+  "lang": "zh-CN"
+}
