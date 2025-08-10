@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default withMermaid(defineConfig({
   title: "Nav-data",
   description: "高质量飞行模拟导航数据 - 专业的航空导航数据转换工具",
   lang: 'zh-CN',
@@ -212,5 +213,18 @@ export default defineConfig({
       host: true,
       port: 5173
     }
+  },
+
+  // Mermaid configuration
+  mermaid: {
+    theme: 'default',
+    themeVariables: {
+      primaryColor: '#1e40af',
+      primaryTextColor: '#fff',
+      primaryBorderColor: '#3b82f6',
+      lineColor: '#374151',
+      secondaryColor: '#e5e7eb',
+      tertiaryColor: '#f3f4f6'
+    }
   }
-})
+}))
