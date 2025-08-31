@@ -67,10 +67,10 @@ pip3.11 --version
 #### 方法 A: 使用 Git (推荐)
 ```bash
 # 克隆仓库
-git clone https://github.com/your-username/Nav-data.git
+git clone https://github.com/Nav-data/docs.git
 
 # 进入项目目录
-cd Nav-data
+cd docs
 ```
 
 #### 方法 B: 下载压缩包

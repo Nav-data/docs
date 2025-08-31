@@ -41,8 +41,8 @@
 2. 点击右上角的 "Fork" 按钮
 3. 克隆您的 Fork 到本地：
    ```bash
-   git clone https://github.com/your-username/nav-data.git
-   cd nav-data
+   git clone https://github.com/Nav-data/docs.git
+   cd docs
    ```
 
 ## 🐛 报告问题

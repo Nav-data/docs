@@ -21,8 +21,8 @@
    ```bash
    # 在 GitHub 上 Fork 项目
    # 然后克隆到本地
-   git clone https://github.com/your-username/nav-data.git
-   cd nav-data
+   git clone https://github.com/Nav-data/docs.git
+   cd docs
    ```
 
 2. **设置开发环境**
