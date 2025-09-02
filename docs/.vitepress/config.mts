@@ -40,6 +40,8 @@ export default withMermaid(defineConfig({
       { text: '🛩️ PMDG', link: '/PMDG/guide/index' },
       { text: '✈️ iniBuilds', link: '/iniBuilds/guide/index' },
       { text: '🛫 X-Plane', link: '/X-Plane/guide/index' },
+      { text: '✈️ iFly', link: '/iFly/guide/index' },
+      { text: '🚁 TFDI', link: '/TFDI/guide/index' },
       { 
         text: '📖 关于', 
         items: [
@@ -121,6 +123,52 @@ export default withMermaid(defineConfig({
             { text: '贡献指南', link: '/X-Plane/contributing' },
             { text: '更新日志', link: '/X-Plane/changelog' },
             { text: '许可证', link: '/X-Plane/license' },
+          ],
+        },
+      ],
+      '/iFly/': [
+        {
+          text: 'iFly',
+          items: [
+            {
+              text: '指南',
+              link: '/iFly/guide/index',
+              collapsed: false,
+              items: [
+                { text: '安装指南', link: '/iFly/guide/installation' },
+                { text: '配置说明', link: '/iFly/guide/configuration' },
+                { text: '使用说明', link: '/iFly/guide/usage' },
+              ],
+            },
+            { text: '常见问题', link: '/iFly/faq' },
+            { text: '故障排除', link: '/iFly/troubleshooting' },
+            { text: '架构说明', link: '/iFly/architecture' },
+            { text: '贡献指南', link: '/iFly/contributing' },
+            { text: '更新日志', link: '/iFly/changelog' },
+            { text: '许可证', link: '/iFly/license' },
+          ],
+        },
+      ],
+      '/TFDI/': [
+        {
+          text: 'TFDI',
+          items: [
+            {
+              text: '指南',
+              link: '/TFDI/guide/index',
+              collapsed: false,
+              items: [
+                { text: '安装指南', link: '/TFDI/guide/installation' },
+                { text: '配置说明', link: '/TFDI/guide/configuration' },
+                { text: '使用说明', link: '/TFDI/guide/usage' },
+              ],
+            },
+            { text: '常见问题', link: '/TFDI/faq' },
+            { text: '故障排除', link: '/TFDI/troubleshooting' },
+            { text: '架构说明', link: '/TFDI/architecture' },
+            { text: '贡献指南', link: '/TFDI/contributing' },
+            { text: '更新日志', link: '/TFDI/changelog' },
+            { text: '许可证', link: '/TFDI/license' },
           ],
         },
       ],

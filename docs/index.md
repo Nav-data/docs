@@ -22,11 +22,17 @@ hero:
     - theme: alt
       text: 🛩️ X-Plane 指南
       link: /X-Plane/guide/index
+    - theme: alt
+      text: ✈️ iFly 指南
+      link: /iFly/guide/index
+    - theme: alt
+      text: 🚁 TFDI 指南
+      link: /TFDI/guide/index
 
 features:
   - icon: 🛫
     title: 多平台支持
-    details: 支持 PMDG、iniBuilds、X-Plane 等主流飞行模拟器平台，提供一站式导航数据解决方案
+    details: 支持 PMDG、iniBuilds、X-Plane、iFly、TFDI 等主流飞行模拟器平台，提供一站式导航数据解决方案
   - icon: 📊
     title: 高质量数据
     details: 基于 AIRAC 标准，提供精确的机场、导航设备、航路网络等完整数据覆盖
