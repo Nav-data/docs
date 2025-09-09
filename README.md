@@ -576,6 +576,6 @@ Nav-data/docs/
 
 ---
 
-<sub>Built with ❤️ by the Nav-data team • © 2024 Nav-data Project</sub>
+<sub>Built with ❤️ by the Nav-data team • © 2025 Nav-data Project</sub>
 
 </div> 
