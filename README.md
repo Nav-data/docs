@@ -1,16 +1,31 @@
 # Nav-data Documentation 🛩️
 
-[![VitePress](https://img.shields.io/badge/Built%20with-VitePress-646CFF.svg)](https://vitepress.dev/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/nav-data/docs)](https://github.com/nav-data/docs/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/nav-data/docs)](https://github.com/nav-data/docs/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/nav-data/docs)](https://github.com/nav-data/docs/pulls)
-[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000.svg)](https://docs-ruddy-beta.vercel.app/)
-[![Node.js Version](https://img.shields.io/badge/Node.js->=18.0.0-green.svg)](https://nodejs.org/)
+<div align="center">
 
-> 🧭 **高质量飞行模拟导航数据** - 为 PMDG、iniBuilds 等插件提供数据支持
+[![VitePress](https://img.shields.io/badge/Built%20with-VitePress%201.6+-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitepress.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/nav-data/docs?style=flat-square&logo=github)](https://github.com/nav-data/docs/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/nav-data/docs?style=flat-square&logo=github)](https://github.com/nav-data/docs/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/nav-data/docs?style=flat-square&logo=github)](https://github.com/nav-data/docs/pulls)
+[![GitHub Pages](https://img.shields.io/badge/Deployed%20on-GitHub%20Pages-222?style=flat-square&logo=github&logoColor=white)](https://nav-data.github.io/docs)
+[![Node.js Version](https://img.shields.io/badge/Node.js-%3E%3D18.0.0%20%7C%20LTS%2022.x-green?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Version](https://img.shields.io/github/package-json/v/nav-data/docs?style=flat-square&logo=npm)](https://github.com/nav-data/docs)
 
-Nav-data 是一个由航空爱好者共同维护的数据转换项目，致力于为飞行模拟器（如 Microsoft Flight Simulator、X-Plane）提供高质量的导航数据支持。
+</div>
+
+> 🧭 **高质量飞行模拟导航数据** - 为 PMDG、iniBuilds、X-Plane、iFly、TFDI 等插件提供数据支持
+
+Nav-data 是一个由航空爱好者共同维护的开源数据转换项目，致力于为各类飞行模拟器（Microsoft Flight Simulator、X-Plane 等）提供高质量、实时更新的导航数据支持。我们专注于确保数据的准确性、时效性和兼容性，为飞行模拟爱好者提供最优质的飞行体验。
+
+<div align="center">
+
+**🎯 支持的主要插件平台**
+
+🚀 **PMDG** • 🏗️ **iniBuilds** • ✈️ **X-Plane** • 🛩️ **iFly** • 🎯 **TFDI**
+
+[📖 阅读文档](https://nav-data.github.io/docs) • [🚀 快速开始](#-快速开始) • [🤝 参与贡献](#-参与贡献)
+
+</div>
 
 ## 📋 目录
 
@@ -36,7 +51,7 @@ Nav-data 是一个由航空爱好者共同维护的数据转换项目，致力�
 
 ## ✨ 特色功能
 
-- 📦 **多插件支持** - 支持 PMDG、iniBuilds、X-Plane 等主流飞行模拟器插件
+- 📦 **多插件支持** - 支持 PMDG、iniBuilds、X-Plane、iFly、TFDI 等主流飞行模拟器插件
 - 🛫 **详细指南** - 提供完整的配置、安装与使用指南，包含故障排除
 - 🗂️ **数据结构清晰** - 易于扩展与维护的数据结构，支持自定义配置
 - 🤝 **社区协作** - 开源项目，欢迎社区贡献与协作
@@ -56,18 +71,23 @@ Nav-data 是一个由航空爱好者共同维护的数据转换项目，致力�
 
 ## 💻 系统要求
 
-### 最低要求
-- **操作系统**: Windows 10/11, macOS 10.15+, Ubuntu 18.04+
-- **Node.js**: >= 18.0.0 (推荐使用 LTS 版本)
-- **包管理器**: npm >= 8.0.0 或 yarn >= 1.22.0
+### 🔧 最低要求
+- **操作系统**: Windows 10/11, macOS 11.0+, Ubuntu 20.04+
+- **Node.js**: >= 18.0.0 (支持最新 LTS)
+- **包管理器**: npm >= 9.0.0, yarn >= 3.0.0, 或 pnpm >= 8.0.0
 - **内存**: 最少 4GB RAM
 - **磁盘空间**: 至少 1GB 可用空间
 
-### 推荐配置
-- **Node.js**: 最新 LTS 版本 (20.x)
-- **包管理器**: npm 最新版本
-- **内存**: 8GB+ RAM（用于更好的构建性能）
+### ⚡ 推荐配置
+- **Node.js**: 最新 LTS 版本 (22.x)
+- **包管理器**: pnpm (最快) 或 npm 最新版本
+- **内存**: 8GB+ RAM（更好的构建性能）
+- **磁盘空间**: 2GB+ 可用空间（包含缓存）
 - **网络**: 稳定的互联网连接（用于依赖下载）
+
+### 🌐 浏览器支持
+- **现代浏览器**: Chrome 90+, Firefox 90+, Safari 14+, Edge 90+
+- **移动浏览器**: iOS Safari 14+, Chrome Mobile 90+
 
 ## 📥 安装指南
 
@@ -78,41 +98,69 @@ cd docs
 ```
 
 ### 步骤 2: 安装依赖
+
+#### 🚀 推荐方式 (pnpm)
+```bash
+# 使用 pnpm（最快、最高效）
+pnpm install
+```
+
+#### 📦 其他包管理器
 ```bash
 # 使用 npm
 npm install
 
-# 或使用 yarn
+# 使用 yarn
 yarn install
-
-# 或使用 pnpm（推荐）
-pnpm install
 ```
 
+> 💡 **提示**: 推荐使用 [pnpm](https://pnpm.io/) 获得更快的安装速度和更好的磁盘空间利用率
+
 ### 步骤 3: 启动开发服务器
+
+#### 🔥 开发模式
 ```bash
-# 启动开发服务器
+# 启动开发服务器（支持热重载）
+pnpm dev          # 推荐使用 pnpm
+# 或
 npm run dev
-# 或使用别名
-npm run docs:dev
+# 或
+yarn dev
 
 # 开发服务器将在 http://localhost:5173 启动
 ```
 
+#### 🌐 自定义端口
+```bash
+# 使用自定义端口启动
+pnpm dev --port 3000
+# 或
+npm run dev -- --port 3000
+```
+
 ### 步骤 4: 构建和预览
+
+#### 📦 生产构建
 ```bash
 # 构建生产版本
+pnpm build        # 推荐使用 pnpm
+# 或
 npm run build
-# 或使用别名
-npm run docs:build
+# 或  
+yarn build
+```
 
+#### 👀 预览构建结果
+```bash
 # 预览构建结果
+pnpm preview      # 端口 4173
+# 或
 npm run preview
-# 或使用别名
-npm run docs:preview
+# 或
+yarn preview
 
-# 启动预览服务器（自定义端口）
-npm run serve  # 端口 4173
+# 使用自定义端口预览
+pnpm preview --port 8080
 ```
 
 ### 🔧 常见问题解决
@@ -120,45 +168,85 @@ npm run serve  # 端口 4173
 <details>
 <summary>📋 点击查看常见安装问题</summary>
 
-#### Node.js 版本问题
+#### ⚙️ Node.js 版本问题
 ```bash
 # 检查 Node.js 版本
 node --version
+npm --version
 
-# 如果版本过低，推荐使用 nvm 管理版本
-# 安装 nvm (Linux/macOS)
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+# 推荐使用 Node 版本管理器
+# fnm (快速替代 nvm)
+curl -fsSL https://fnm.vercel.app/install | bash
+fnm install --lts
+fnm use lts-latest
 
-# 安装并使用最新 LTS 版本
+# 或使用传统 nvm (Linux/macOS)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
 nvm install --lts
 nvm use --lts
+
+# Windows 用户推荐使用 nvm-windows
+# 从 https://github.com/coreybutler/nvm-windows/releases 下载安装
 ```
 
-#### 依赖安装失败
+#### 📦 依赖安装失败
 ```bash
-# 清理缓存
+# 方案 1: 清理并重新安装 (pnpm)
+pnpm store prune
+rm -rf node_modules pnpm-lock.yaml
+pnpm install
+
+# 方案 2: 清理并重新安装 (npm)
 npm cache clean --force
-
-# 删除 node_modules 和 package-lock.json
 rm -rf node_modules package-lock.json
-
-# 重新安装
 npm install
+
+# 方案 3: 使用不同的镜像源
+npm config set registry https://registry.npmmirror.com
+# 或
+pnpm config set registry https://registry.npmmirror.com
 ```
 
-#### 端口占用问题
+#### 🔌 端口占用问题
 ```bash
 # 查看端口使用情况
+# macOS/Linux
 lsof -i :5173
 
-# 使用不同端口启动
+# Windows
+netstat -ano | findstr :5173
+
+# 终止占用端口的进程或使用不同端口
+pnpm dev --port 3000
+# 或
 npm run dev -- --port 3000
 ```
 
-#### 权限问题 (macOS/Linux)
+#### 🔐 权限问题 (macOS/Linux)
 ```bash
-# 修复 npm 权限
+# 方案 1: 修复 npm 权限（推荐）
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.profile
+source ~/.profile
+
+# 方案 2: 使用 pnpm（避免权限问题）
+curl -fsSL https://get.pnpm.io/install.sh | sh -
+
+# 方案 3: 临时解决方案
 sudo chown -R $(whoami) ~/.npm
+```
+
+#### 🐛 构建失败问题
+```bash
+# 清理构建缓存
+rm -rf docs/.vitepress/dist docs/.vitepress/cache
+
+# 检查 Node.js 内存限制
+node --max-old-space-size=4096 ./node_modules/.bin/vitepress build docs
+
+# 检查文件权限
+chmod -R 755 docs/
 ```
 
 </details>
@@ -182,20 +270,35 @@ sudo chown -R $(whoami) ~/.npm
 
 ### 🛠️ 插件支持
 
-#### PMDG
-- [安装指南](/docs/PMDG/guide/installation.md) - 详细的 PMDG 插件安装步骤
-- [配置说明](/docs/PMDG/guide/configuration.md) - 配置参数和选项
-- [使用说明](/docs/PMDG/guide/usage.md) - 日常使用技巧和最佳实践
+#### 🚀 PMDG
+- [📥 安装指南](/docs/PMDG/guide/installation.md) - 详细的 PMDG 插件安装步骤
+- [⚙️ 配置说明](/docs/PMDG/guide/configuration.md) - 配置参数和选项
+- [📖 使用说明](/docs/PMDG/guide/usage.md) - 日常使用技巧和最佳实践
+- [❓ 常见问题](/docs/PMDG/faq.md) - 问题解答和故障排除
 
-#### iniBuilds
-- [安装指南](/docs/iniBuilds/guide/installation.md) - iniBuilds 插件安装指南
-- [配置说明](/docs/iniBuilds/guide/configuration.md) - 详细配置选项
-- [使用说明](/docs/iniBuilds/guide/usage.md) - 使用技巧和故障排除
+#### 🏗️ iniBuilds
+- [📥 安装指南](/docs/iniBuilds/guide/installation.md) - iniBuilds 插件安装指南
+- [⚙️ 配置说明](/docs/iniBuilds/guide/configuration.md) - 详细配置选项
+- [📖 使用说明](/docs/iniBuilds/guide/usage.md) - 使用技巧和故障排除
+- [❓ 常见问题](/docs/iniBuilds/faq.md) - 问题解答和故障排除
 
-#### X-Plane
-- [安装指南](/docs/X-Plane/guide/installation.md) - X-Plane 插件安装指南
-- [配置说明](/docs/X-Plane/guide/configuration.md) - 详细配置选项和参数
-- [使用说明](/docs/X-Plane/guide/usage.md) - 使用技巧和故障排除
+#### ✈️ X-Plane
+- [📥 安装指南](/docs/X-Plane/guide/installation.md) - X-Plane 插件安装指南
+- [⚙️ 配置说明](/docs/X-Plane/guide/configuration.md) - 详细配置选项和参数
+- [📖 使用说明](/docs/X-Plane/guide/usage.md) - 使用技巧和故障排除
+- [❓ 常见问题](/docs/X-Plane/faq.md) - 问题解答和故障排除
+
+#### 🛩️ iFly
+- [📥 安装指南](/docs/iFly/guide/installation.md) - iFly 插件安装指南
+- [⚙️ 配置说明](/docs/iFly/guide/configuration.md) - 详细配置选项和参数
+- [📖 使用说明](/docs/iFly/guide/usage.md) - 使用技巧和最佳实践
+- [❓ 常见问题](/docs/iFly/faq.md) - 问题解答和故障排除
+
+#### 🎯 TFDI
+- [📥 安装指南](/docs/TFDI/guide/installation.md) - TFDI 插件安装指南
+- [⚙️ 配置说明](/docs/TFDI/guide/configuration.md) - 详细配置选项和参数
+- [📖 使用说明](/docs/TFDI/guide/usage.md) - 使用技巧和最佳实践
+- [❓ 常见问题](/docs/TFDI/faq.md) - 问题解答和故障排除
 
 ### 🏗️ 项目信息
 - [架构说明](/docs/iniBuilds/architecture.md) - 项目技术架构和模块介绍
@@ -290,9 +393,11 @@ git push origin feature/your-feature-name
 
 | 插件 | 安装指南 | 配置文档 | 使用教程 | 常见问题 |
 |------|----------|----------|----------|----------|
-| **PMDG** | [📥 安装](/docs/PMDG/guide/installation.md) | [⚙️ 配置](/docs/PMDG/guide/configuration.md) | [📖 使用](/docs/PMDG/guide/usage.md) | [❓ FAQ](/docs/PMDG/faq.md) |
-| **iniBuilds** | [📥 安装](/docs/iniBuilds/guide/installation.md) | [⚙️ 配置](/docs/iniBuilds/guide/configuration.md) | [📖 使用](/docs/iniBuilds/guide/usage.md) | [❓ FAQ](/docs/iniBuilds/faq.md) |
-| **X-Plane** | [📥 安装](/docs/X-Plane/guide/installation.md) | [⚙️ 配置](/docs/X-Plane/guide/configuration.md) | [📖 使用](/docs/X-Plane/guide/usage.md) | [❓ FAQ](/docs/X-Plane/faq.md) |
+| **🚀 PMDG** | [📥 安装](/docs/PMDG/guide/installation.md) | [⚙️ 配置](/docs/PMDG/guide/configuration.md) | [📖 使用](/docs/PMDG/guide/usage.md) | [❓ FAQ](/docs/PMDG/faq.md) |
+| **🏗️ iniBuilds** | [📥 安装](/docs/iniBuilds/guide/installation.md) | [⚙️ 配置](/docs/iniBuilds/guide/configuration.md) | [📖 使用](/docs/iniBuilds/guide/usage.md) | [❓ FAQ](/docs/iniBuilds/faq.md) |
+| **✈️ X-Plane** | [📥 安装](/docs/X-Plane/guide/installation.md) | [⚙️ 配置](/docs/X-Plane/guide/configuration.md) | [📖 使用](/docs/X-Plane/guide/usage.md) | [❓ FAQ](/docs/X-Plane/faq.md) |
+| **🛩️ iFly** | [📥 安装](/docs/iFly/guide/installation.md) | [⚙️ 配置](/docs/iFly/guide/configuration.md) | [📖 使用](/docs/iFly/guide/usage.md) | [❓ FAQ](/docs/iFly/faq.md) |
+| **🎯 TFDI** | [📥 安装](/docs/TFDI/guide/installation.md) | [⚙️ 配置](/docs/TFDI/guide/configuration.md) | [📖 使用](/docs/TFDI/guide/usage.md) | [❓ FAQ](/docs/TFDI/faq.md) |
 
 ### 🛠️ 使用示例
 
@@ -315,6 +420,14 @@ git push origin feature/your-feature-name
     },
     "xplane": {
       "enabled": false
+    },
+    "ifly": {
+      "enabled": true,
+      "compatibility_mode": "enhanced"
+    },
+    "tfdi": {
+      "enabled": true,
+      "advanced_features": true
     }
   }
 }
@@ -346,6 +459,19 @@ plugins:
   inibuilds:
     compatibility_mode: "enhanced"
     custom_procedures: true
+  
+  ifly:
+    aircraft_support:
+      - "737"
+      - "787"
+    features:
+      navigation: true
+      performance: true
+  
+  tfdi:
+    precision_mode: true
+    real_time_updates: true
+    custom_liveries: true
 ```
 
 ### 📊 数据格式
@@ -361,43 +487,62 @@ Nav-data 支持多种数据格式：
 
 ## 🛠️ 技术栈
 
-- **框架**: [VitePress](https://vitepress.dev/) ^1.6.3 - 基于 Vite 和 Vue 3 的静态站点生成器
-- **语言**: TypeScript/JavaScript + Markdown
-- **图表**: [Mermaid](https://mermaid.js.org/) ^11.9.0 - 支持流程图和图表渲染
-- **部署**: GitHub Pages
-- **搜索**: VitePress 内置本地搜索
+- **📦 框架**: [VitePress](https://vitepress.dev/) ^1.6.3 - 基于 Vite 和 Vue 3 的静态站点生成器
+- **💻 语言**: TypeScript/JavaScript + Markdown
+- **📊 图表**: [Mermaid](https://mermaid.js.org/) ^11.9.0 - 支持流程图和图表渲染
+- **🚀 部署**: GitHub Pages
+- **🔍 搜索**: VitePress 内置本地搜索
+- **🎨 样式**: CSS3 + 响应式设计
+- **⚡ 构建工具**: Vite - 极速构建和热重载
+- **🌐 PWA**: 渐进式 Web 应用支持
 
 ## 📄 项目结构
 
 ```
 Nav-data/docs/
-├── docs/                 # 文档目录
-│   ├── Introduction/     # 项目介绍
-│   │   ├── about.md     # 关于我们
-│   │   └── join.md      # 如何加入
-│   ├── PMDG/            # PMDG 相关文档
-│   │   ├── guide/       # 使用指南
-│   │   ├── architecture.md  # 架构说明
-│   │   ├── changelog.md     # 更新日志
-│   │   ├── contributing.md  # 贡献指南
-│   │   ├── faq.md          # 常见问题
-│   │   ├── license.md      # 许可证
-│   │   └── troubleshooting.md  # 故障排除
-│   ├── iniBuilds/       # iniBuilds 相关文档
-│   │   ├── guide/       # 使用指南
-│   │   ├── architecture.md  # 架构说明
-│   │   └── ...         # 其他文档
-│   ├── X-Plane/         # X-Plane 相关文档
-│   │   ├── guide/       # 使用指南
-│   │   ├── architecture.md  # 架构说明
-│   │   └── ...         # 其他文档
-│   ├── public/          # 静态资源
-│   │   ├── favicon.svg  # 网站图标
-│   │   ├── manifest.json    # PWA 配置
-│   │   └── og-image.png     # 社交媒体预览图
-│   └── index.md         # 首页
-├── package.json         # 项目配置
-└── README.md           # 项目说明
+├── 📁 docs/                    # 文档根目录
+│   ├── 📁 Introduction/        # 项目介绍
+│   │   ├── 📄 about.md        # 关于我们
+│   │   └── 📄 join.md         # 如何加入
+│   ├── 🚀 PMDG/               # PMDG 相关文档
+│   │   ├── 📁 guide/          # 使用指南
+│   │   │   ├── 📄 installation.md  # 安装指南
+│   │   │   ├── 📄 configuration.md # 配置说明
+│   │   │   └── 📄 usage.md         # 使用说明
+│   │   ├── 📄 architecture.md      # 架构说明
+│   │   ├── 📄 changelog.md         # 更新日志
+│   │   ├── 📄 contributing.md      # 贡献指南
+│   │   ├── 📄 faq.md              # 常见问题
+│   │   ├── 📄 license.md          # 许可证
+│   │   └── 📄 troubleshooting.md  # 故障排除
+│   ├── 🏗️ iniBuilds/           # iniBuilds 相关文档
+│   │   ├── 📁 guide/          # 使用指南
+│   │   ├── 📄 architecture.md  # 架构说明
+│   │   └── 📄 ...             # 其他文档
+│   ├── ✈️ X-Plane/             # X-Plane 相关文档
+│   │   ├── 📁 guide/          # 使用指南
+│   │   ├── 📄 architecture.md  # 架构说明
+│   │   └── 📄 ...             # 其他文档
+│   ├── 🛩️ iFly/                # iFly 相关文档
+│   │   ├── 📁 guide/          # 使用指南
+│   │   ├── 📄 architecture.md  # 架构说明
+│   │   ├── 📄 changelog.md     # 更新日志
+│   │   ├── 📄 faq.md          # 常见问题
+│   │   └── 📄 ...             # 其他文档
+│   ├── 🎯 TFDI/                # TFDI 相关文档
+│   │   ├── 📁 guide/          # 使用指南
+│   │   ├── 📄 architecture.md  # 架构说明
+│   │   ├── 📄 changelog.md     # 更新日志
+│   │   ├── 📄 faq.md          # 常见问题
+│   │   └── 📄 ...             # 其他文档
+│   ├── 📁 public/              # 静态资源
+│   │   ├── 🌐 favicon.svg      # 网站图标
+│   │   ├── 📱 manifest.json    # PWA 配置
+│   │   └── 🖼️ og-image.png     # 社交媒体预览图
+│   └── 📄 index.md            # 首页
+├── 📦 package.json            # 项目配置和依赖
+├── 🔒 package-lock.json       # 依赖锁定文件
+└── 📖 README.md              # 项目说明（本文件）
 ```
 
 ## 📊 数据来源
@@ -524,9 +669,12 @@ Nav-data/docs/
 
 | 合作伙伴 | 贡献 | 状态 |
 |----------|------|------|
-| [PMDG Simulations](https://pmdg.com/) | 优秀的飞行模拟器插件 | ✅ 官方支持 |
-| [iniBuilds](https://www.inibuilds.com/) | 高质量的航空器模型 | ✅ 官方支持 |
-| [VitePress](https://vitepress.dev/) | 强大的文档生成工具 | ✅ 技术支持 |
+| 🚀 [PMDG Simulations](https://pmdg.com/) | 优秀的飞行模拟器插件 | ✅ 官方支持 |
+| 🏗️ [iniBuilds](https://www.inibuilds.com/) | 高质量的航空器模型 | ✅ 官方支持 |
+| 🛩️ [iFly](https://www.ifly.com/) | 专业级航空器模拟 | ✅ 合作伙伴 |
+| 🎯 [TFDI Design](https://www.tfdidesign.com/) | 精细化航空器开发 | ✅ 合作伙伴 |
+| ⚡ [VitePress](https://vitepress.dev/) | 强大的文档生成工具 | ✅ 技术支持 |
+| 🌐 [GitHub](https://github.com/) | 代码托管和协作平台 | ✅ 基础设施 |
 
 </div>
 
@@ -554,8 +702,9 @@ Nav-data/docs/
 
 **关注我们的社交媒体获取最新动态**
 
-[![GitHub followers](https://img.shields.io/github/followers/nav-data?style=social)](https://github.com/nav-data)
-[![Twitter Follow](https://img.shields.io/twitter/follow/navdata?style=social)](https://twitter.com/navdata)
+[![GitHub followers](https://img.shields.io/github/followers/nav-data?style=social&logo=github)](https://github.com/nav-data)
+[![GitHub Organization](https://img.shields.io/badge/GitHub-nav--data-181717?style=social&logo=github)](https://github.com/nav-data)
+[![Email Contact](https://img.shields.io/badge/Email-epa6643%40gmail.com-D14836?style=social&logo=gmail)](mailto:epa6643@gmail.com)
 
 <br/>
 
@@ -565,17 +714,28 @@ Nav-data/docs/
 
 <br/>
 
-**💖 赞助项目**
+**💖 支持项目**
 
-如果您觉得这个项目对您有帮助，可以考虑赞助我们：
+如果您觉得这个项目对您有帮助，可以通过以下方式支持我们：
 
-[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/navdata)
-[![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/navdata)
+[![⭐ Star on GitHub](https://img.shields.io/badge/⭐_Star_on-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nav-data/docs)
+[![🐛 Report Issues](https://img.shields.io/badge/🐛_Report-Issues-red?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nav-data/docs/issues)
+[![💬 Discussions](https://img.shields.io/badge/💬_Join-Discussions-blue?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nav-data/docs/discussions)
+[![📧 Email Us](https://img.shields.io/badge/📧_Email-Contact-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:epa6643@gmail.com)
 
 <br/>
 
 ---
 
-<sub>Built with ❤️ by the Nav-data team • © 2025 Nav-data Project</sub>
+**📞 快速联系**
+
+- 🐛 **GitHub Issues**: [提交问题或建议](https://github.com/nav-data/docs/issues)
+- 💬 **GitHub Discussions**: [社区讨论](https://github.com/nav-data/docs/discussions)  
+- 📧 **邮箱联系**: [epa6643@gmail.com](mailto:epa6643@gmail.com)
+- 📚 **在线文档**: [https://nav-data.github.io/docs](https://nav-data.github.io/docs)
+
+---
+
+<sub>Built with ❤️ by the Nav-data team • © 2025 Nav-data Project • Powered by VitePress</sub>
 
 </div> 
