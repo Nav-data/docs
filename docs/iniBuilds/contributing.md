@@ -18,6 +18,7 @@
 ### 📋 开发环境设置
 
 1. **Fork 项目仓库**
+
    ```bash
    # 在 GitHub 上 Fork 项目
    # 然后克隆到本地
@@ -26,16 +27,17 @@
    ```
 
 2. **设置开发环境**
+
    ```bash
    # 创建虚拟环境
    python -m venv venv
-   
+
    # 激活虚拟环境
    # Windows:
    venv\Scripts\activate
    # macOS/Linux:
    source venv/bin/activate
-   
+
    # 安装依赖
    pip install -r requirements.txt
    pip install -r requirements-dev.txt  # 开发依赖
@@ -50,6 +52,7 @@
 ### 🔄 开发工作流
 
 1. **创建分支**
+
    ```bash
    git checkout -b feature/your-feature-name
    # 或者
@@ -63,6 +66,7 @@
    - 运行测试确保通过
 
 3. **提交代码**
+
    ```bash
    git add .
    git commit -m "feat: add new navigation data processor"
@@ -81,6 +85,7 @@
 我们遵循[PEP 8](https://pep8.org/)标准，并使用以下工具：
 
 #### **代码格式化**
+
 ```bash
 # 使用 black 进行代码格式化
 black *.py
@@ -90,6 +95,7 @@ isort *.py
 ```
 
 #### **代码检查**
+
 ```bash
 # 使用 flake8 进行代码检查
 flake8 *.py
@@ -101,6 +107,7 @@ pylint *.py
 ### 📝 代码规范要求
 
 #### **1. 函数和类命名**
+
 ```python
 # ✅ 正确的命名
 def process_airports(csv_file_path: str, db_path: str) -> None:
@@ -120,18 +127,19 @@ class coordinateCache:
 ```
 
 #### **2. 文档字符串**
+
 ```python
 def get_magnetic_variation(lat: float, lon: float) -> float:
     """
     计算指定坐标的磁偏角
-    
+
     参数:
         lat (float): 纬度（十进制度）
         lon (float): 经度（十进制度）
-    
+
     返回:
         float: 磁偏角（度），保留1位小数
-    
+
     示例:
         >>> get_magnetic_variation(39.9042, 116.4074)
         -6.2
@@ -141,6 +149,7 @@ def get_magnetic_variation(lat: float, lon: float) -> float:
 ```
 
 #### **3. 类型注解**
+
 ```python
 from typing import Dict, List, Optional, Tuple
 
@@ -151,7 +160,7 @@ def parse_dat_file(file_path: str) -> List[Dict[str, str]]:
     return records
 
 def find_coordinates(
-    identifier: str, 
+    identifier: str,
     icao_code: Optional[str] = None
 ) -> Tuple[float, float]:
     """查找坐标，返回经纬度元组"""
@@ -159,6 +168,7 @@ def find_coordinates(
 ```
 
 #### **4. 错误处理**
+
 ```python
 import logging
 
@@ -167,7 +177,7 @@ logger = logging.getLogger(__name__)
 def process_data_file(file_path: str) -> bool:
     """
     处理数据文件
-    
+
     返回:
         bool: 处理是否成功
     """
@@ -175,10 +185,10 @@ def process_data_file(file_path: str) -> bool:
         with open(file_path, 'r', encoding='utf-8') as file:
             # 处理逻辑
             data = file.read()
-            
+
         logger.info(f"成功处理文件: {file_path}")
         return True
-        
+
     except FileNotFoundError:
         logger.error(f"文件未找到: {file_path}")
         return False
@@ -191,6 +201,7 @@ def process_data_file(file_path: str) -> bool:
 ```
 
 #### **5. 常量定义**
+
 ```python
 # 在模块顶部定义常量
 SUPPORTED_ICAO_REGIONS = {
@@ -236,23 +247,24 @@ open htmlcov/index.html
 ### ✅ 测试示例
 
 #### **单元测试**
+
 ```python
 import unittest
 from unittest.mock import patch, MagicMock
 from airports import get_magnetic_variation, convert_dms_to_decimal
 
 class TestAirports(unittest.TestCase):
-    
+
     def test_convert_dms_to_decimal_north(self):
         """测试北纬DMS转换"""
         result = convert_dms_to_decimal("N390842.12")
         self.assertAlmostEqual(result, 39.145033, places=6)
-    
+
     def test_convert_dms_to_decimal_south(self):
         """测试南纬DMS转换"""
         result = convert_dms_to_decimal("S390842.12")
         self.assertAlmostEqual(result, -39.145033, places=6)
-    
+
     @patch('airports.geo_mag')
     def test_get_magnetic_variation(self, mock_geomag):
         """测试磁偏角计算"""
@@ -260,9 +272,9 @@ class TestAirports(unittest.TestCase):
         mock_result = MagicMock()
         mock_result.d = -6.234
         mock_geomag.calculate.return_value = mock_result
-        
+
         result = get_magnetic_variation(39.9042, 116.4074)
-        
+
         self.assertEqual(result, -6.2)
         mock_geomag.calculate.assert_called_once()
 
@@ -271,6 +283,7 @@ if __name__ == '__main__':
 ```
 
 #### **集成测试**
+
 ```python
 import tempfile
 import sqlite3
@@ -278,43 +291,43 @@ import os
 from airports import process_airports
 
 class TestAirportsIntegration(unittest.TestCase):
-    
+
     def setUp(self):
         """测试前设置"""
         self.temp_db = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
         self.temp_db.close()
         self.db_path = self.temp_db.name
-    
+
     def tearDown(self):
         """测试后清理"""
         os.unlink(self.db_path)
-    
+
     def test_process_airports_integration(self):
         """测试机场数据处理集成"""
         csv_file = "test_data/sample_airports.csv"
         lookup_file = "test_data/sample_icao.txt"
-        
+
         # 执行处理
         process_airports(csv_file, lookup_file, self.db_path)
-        
+
         # 验证结果
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
-        
+
         cursor.execute("SELECT COUNT(*) FROM tbl_airports")
         count = cursor.fetchone()[0]
-        
+
         self.assertGreater(count, 0)
-        
+
         # 验证数据质量
         cursor.execute("""
-            SELECT COUNT(*) FROM tbl_airports 
+            SELECT COUNT(*) FROM tbl_airports
             WHERE airport_latitude IS NULL OR airport_longitude IS NULL
         """)
         null_coords = cursor.fetchone()[0]
-        
+
         self.assertEqual(null_coords, 0, "不应存在空坐标")
-        
+
         conn.close()
 ```
 
@@ -344,20 +357,25 @@ tests/
 
 ```markdown
 ## Bug描述
+
 简明扼要地描述问题
 
 ## 重现步骤
+
 1. 运行命令 `python XP2INI_NDB_Converter.py`
 2. 选择配置 '...'
 3. 观察到错误 '...'
 
 ## 预期行为
+
 描述您预期应该发生什么
 
 ## 实际行为
+
 描述实际发生了什么
 
 ## 环境信息
+
 - 操作系统: Windows 11 22H2
 - Python版本: 3.11.5
 - MSFS版本: 2024
@@ -365,7 +383,9 @@ tests/
 
 ## 错误日志
 ```
+
 粘贴相关的错误信息和日志
+
 ```
 
 ## 其他信息
@@ -374,12 +394,12 @@ tests/
 
 ### 🔍 Bug分类
 
-| 优先级 | 标签 | 描述 |
-|--------|------|------|
-| 🔴 Critical | `priority:critical` | 导致程序崩溃或数据损坏 |
-| 🟠 High | `priority:high` | 影响主要功能，有变通方案 |
-| 🟡 Medium | `priority:medium` | 影响次要功能或用户体验 |
-| 🟢 Low | `priority:low` | 小问题，不影响核心功能 |
+| 优先级      | 标签                | 描述                     |
+| ----------- | ------------------- | ------------------------ |
+| 🔴 Critical | `priority:critical` | 导致程序崩溃或数据损坏   |
+| 🟠 High     | `priority:high`     | 影响主要功能，有变通方案 |
+| 🟡 Medium   | `priority:medium`   | 影响次要功能或用户体验   |
+| 🟢 Low      | `priority:low`      | 小问题，不影响核心功能   |
 
 ## 💡 功能建议
 
@@ -387,29 +407,34 @@ tests/
 
 ```markdown
 ## 功能概述
+
 简要描述建议的功能
 
 ## 使用场景
+
 描述什么情况下需要这个功能
 
 ## 详细描述
+
 详细说明功能的实现方式和预期效果
 
 ## 替代方案
+
 是否考虑过其他解决方案？
 
 ## 额外信息
+
 任何有助于理解建议的其他信息
 ```
 
 ### 🎯 功能分类
 
-| 类型 | 标签 | 描述 |
-|------|------|------|
-| ✨ Enhancement | `type:enhancement` | 改进现有功能 |
-| 🚀 Feature | `type:feature` | 全新功能 |
-| 📊 Performance | `type:performance` | 性能优化 |
-| 📖 Documentation | `type:documentation` | 文档改进 |
+| 类型             | 标签                 | 描述         |
+| ---------------- | -------------------- | ------------ |
+| ✨ Enhancement   | `type:enhancement`   | 改进现有功能 |
+| 🚀 Feature       | `type:feature`       | 全新功能     |
+| 📊 Performance   | `type:performance`   | 性能优化     |
+| 📖 Documentation | `type:documentation` | 文档改进     |
 
 ## 📖 文档贡献
 
@@ -422,7 +447,7 @@ tests/
 
 ### 🎨 文档风格指南
 
-```markdown
+````markdown
 ---
 title: 页面标题
 description: 页面描述
@@ -445,6 +470,7 @@ description: 页面描述
 def example_function():
     return "示例"
 ```
+````
 
 #### 注意事项
 
@@ -455,7 +481,8 @@ def example_function():
 - ✅ 使用表情符号增强可读性
 - 📝 保持列表项简洁明了
 - 🔗 适当添加内部链接
-```
+
+````
 
 ## 🔄 Pull Request流程
 
@@ -498,7 +525,7 @@ def example_function():
 - [ ] 代码格式正确
 - [ ] 文档已更新
 - [ ] 变更日志已更新
-```
+````
 
 ### 🏷️ 提交信息规范
 
@@ -531,12 +558,12 @@ build: update dependencies to latest versions
 
 ### 🏆 贡献者等级
 
-| 等级 | 要求 | 权限 |
-|------|------|------|
-| 👋 Contributor | 1+ 有效PR | 基本贡献者 |
-| 🎖️ Regular Contributor | 5+ 有效PR | 优先code review |
-| 🌟 Core Contributor | 10+ 有效PR + 长期参与 | Issue triage权限 |
-| 👑 Maintainer | 核心开发者 | 完整仓库权限 |
+| 等级                   | 要求                  | 权限             |
+| ---------------------- | --------------------- | ---------------- |
+| 👋 Contributor         | 1+ 有效PR             | 基本贡献者       |
+| 🎖️ Regular Contributor | 5+ 有效PR             | 优先code review  |
+| 🌟 Core Contributor    | 10+ 有效PR + 长期参与 | Issue triage权限 |
+| 👑 Maintainer          | 核心开发者            | 完整仓库权限     |
 
 ### 📜 贡献者名录
 
@@ -596,9 +623,10 @@ build: update dependencies to latest versions
 ### 📞 举报机制
 
 如遇到违反行为准则的情况，请联系项目维护者：
+
 - 📧 邮件：conduct@nav-data.org
 - 📱 私信：GitHub私信联系维护者
 
 ---
 
-感谢您考虑为Nav-data项目做出贡献！每一个贡献都让航空模拟社区变得更好。🛫 
+感谢您考虑为Nav-data项目做出贡献！每一个贡献都让航空模拟社区变得更好。🛫

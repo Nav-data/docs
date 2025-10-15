@@ -9,13 +9,16 @@
 ### ❌ 转换工具无法启动
 
 #### **问题**: Python环境问题导致工具无法运行
+
 **症状**:
+
 ```bash
 ModuleNotFoundError: No module named 'converter'
 ImportError: cannot import name 'XP2INI_Converter'
 ```
 
 **立即解决方案**:
+
 ```bash
 # 1. 验证Python环境
 python --version  # 应该显示3.8+
@@ -35,12 +38,15 @@ python setup.py install
 ```
 
 #### **问题**: 关键文件缺失
+
 **症状**:
+
 ```
 FileNotFoundError: [Errno 2] No such file or directory: 'XP2INI_NDB_Converter.py'
 ```
 
 **立即解决方案**:
+
 ```bash
 # 1. 验证文件完整性
 ls -la *.py  # Linux/macOS
@@ -60,9 +66,11 @@ chmod +x *.py  # Linux/macOS
 ### ❌ A350数据集成失败
 
 #### **问题**: iniBuilds A350无法识别导航数据
+
 **症状**: MCDU显示"NO NAV DATA" 或 AIRAC显示为空
 
 **诊断步骤**:
+
 ```bash
 # 1. 检查A350安装路径
 find /c/Users -name "*inibuilds*" -type d 2>/dev/null  # Windows (Git Bash)
@@ -77,6 +85,7 @@ ls -la *.db *.sqlite *.json  # 在A350数据目录中
 ```
 
 **解决方案**:
+
 ```bash
 # 1. 重新定位A350安装
 python converter.py --detect-aircraft --scan-community-folder
@@ -88,7 +97,7 @@ python converter.py --a350-path="/path/to/inibuilds-aircraft-a350" --force-insta
 # Windows
 icacls "A350数据目录" /grant Users:F /T
 
-# Linux/macOS  
+# Linux/macOS
 chmod -R 755 /path/to/inibuilds-aircraft-a350/
 chown -R $USER:$USER /path/to/inibuilds-aircraft-a350/
 
@@ -97,9 +106,11 @@ python verify_installation.py --aircraft=a350 --verbose
 ```
 
 #### **问题**: AIRAC周期不匹配
+
 **症状**: A350显示旧的或错误的AIRAC周期
 
 **解决方案**:
+
 ```bash
 # 1. 强制更新AIRAC标识
 python converter.py --force-airac --cycle=2024-01 --aircraft=a350
@@ -123,7 +134,9 @@ python check_airac.py --aircraft=a350 --expected-cycle=2024-01
 ### ❌ 依赖包安装失败
 
 #### **问题**: 特定包安装失败
+
 **常见错误**:
+
 ```bash
 # 数学库依赖问题
 ERROR: Failed building wheel for numpy
@@ -137,6 +150,7 @@ error: Microsoft Visual Studio 14.0 is required
 **按平台解决**:
 
 **Windows**:
+
 ```bash
 # 1. 安装Visual Studio Build Tools
 # 下载并安装: https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022
@@ -149,6 +163,7 @@ conda install numpy pandas sqlite3 lxml
 ```
 
 **macOS**:
+
 ```bash
 # 1. 安装Xcode Command Line Tools
 xcode-select --install
@@ -161,6 +176,7 @@ pip3 install -r requirements.txt
 ```
 
 **Linux**:
+
 ```bash
 # Ubuntu/Debian
 sudo apt update
@@ -177,13 +193,16 @@ pip3 install -r requirements.txt
 ### ❌ 数据源配置问题
 
 #### **问题**: 无法连接到数据源
+
 **症状**:
+
 ```
 ConnectionError: Failed to download AIRAC data
 TimeoutError: Data source unreachable
 ```
 
 **网络诊断**:
+
 ```bash
 # 1. 测试网络连接
 ping navigraph.com
@@ -199,6 +218,7 @@ nc -zv navigraph.com 443  # Linux/macOS
 ```
 
 **解决方案**:
+
 ```bash
 # 1. 配置代理 (如果需要)
 export HTTP_PROXY=http://proxy.company.com:8080
@@ -222,7 +242,9 @@ python converter.py --data-source=backup --mirror=asia
 ### ❌ 内存相关错误
 
 #### **问题**: 内存不足导致转换失败
+
 **症状**:
+
 ```
 MemoryError: Unable to allocate memory
 MemoryError: cannot allocate memory for array
@@ -230,6 +252,7 @@ OSError: [Errno 12] Cannot allocate memory
 ```
 
 **内存监控**:
+
 ```bash
 # 实时监控内存使用
 # Linux
@@ -246,13 +269,14 @@ wmic process get name,processid,workingsetsize
 ```
 
 **优化解决方案**:
+
 ```bash
 # 1. 启用流式处理模式
 python converter.py --streaming --chunk-size=512KB --memory-limit=2GB
 
 # 2. 分区域处理
 python converter.py --region=ZSPD --process-incrementally
-python converter.py --region=ZBAA --process-incrementally  
+python converter.py --region=ZBAA --process-incrementally
 python converter.py --region=ZGGG --process-incrementally
 
 # 3. 优化系统内存
@@ -272,7 +296,9 @@ python converter.py --low-memory --disable-cache --temp-cleanup
 ### ❌ 数据格式错误
 
 #### **问题**: 输入数据格式不兼容
+
 **症状**:
+
 ```
 ValueError: Invalid ARINC 424 format
 ParseError: Malformed XML data
@@ -280,6 +306,7 @@ UnicodeDecodeError: codec can't decode byte
 ```
 
 **数据验证**:
+
 ```bash
 # 1. 检查文件编码
 file input_data.dat
@@ -294,6 +321,7 @@ python validate_format.py --input=input_data.dat --format=arinc424
 ```
 
 **修复方案**:
+
 ```bash
 # 1. 转换文件编码
 iconv -f ISO-8859-1 -t UTF-8 input_data.dat > input_data_utf8.dat  # Linux/macOS
@@ -315,13 +343,16 @@ python repair_data.py --fix-encoding --fix-line-endings --input=input_data.dat
 ### ❌ 转换速度过慢
 
 #### **问题**: 转换过程异常缓慢
+
 **可能原因分析**:
+
 - 磁盘I/O瓶颈 (HDD vs SSD)
 - CPU使用率低 (单线程处理)
 - 内存不足导致频繁交换
 - 网络延迟 (在线验证)
 
 **性能诊断**:
+
 ```bash
 # 1. 监控系统资源
 # Linux
@@ -329,7 +360,7 @@ iostat -x 1    # I/O统计
 top -p $(pgrep python)  # CPU和内存
 
 # macOS
-iostat 1       # I/O统计  
+iostat 1       # I/O统计
 top -pid $(pgrep python)  # 进程监控
 
 # Windows
@@ -338,6 +369,7 @@ wmic process get name,processid,percentprocessortime
 ```
 
 **性能优化**:
+
 ```bash
 # 1. 启用多进程处理
 python converter.py --parallel=auto --workers=$(nproc)
@@ -358,7 +390,9 @@ python converter.py --compress-output --compression=lz4
 ### ❌ CPU使用率过高
 
 #### **问题**: 转换过程CPU占用率100%，系统响应缓慢
+
 **解决方案**:
+
 ```bash
 # 1. 限制CPU使用
 python converter.py --cpu-limit=75 --nice=10
@@ -370,7 +404,7 @@ python converter.py --parallel=2 --throttle=1000ms
 # Linux/macOS
 nice -n 19 python converter.py  # 最低优先级
 
-# Windows  
+# Windows
 start /low python converter.py
 ```
 
@@ -381,13 +415,16 @@ start /low python converter.py
 ### ❌ MCDU导航数据显示问题
 
 #### **问题**: MCDU中导航数据显示不正确或不完整
+
 **症状**:
+
 - 航路点无法找到
 - SID/STAR程序缺失
 - 频率信息错误
 - 坐标偏移
 
 **诊断工具**:
+
 ```bash
 # 1. 检查A350数据库完整性
 python check_a350_db.py --comprehensive --report=detailed
@@ -403,6 +440,7 @@ python diff_report.py --original=source_data --converted=a350_data --format=html
 ```
 
 **修复步骤**:
+
 ```bash
 # 1. 重新生成导航数据库
 python rebuild_navdb.py --aircraft=a350 --source=latest_airac
@@ -420,12 +458,15 @@ python validate_fix.py --aircraft=a350 --quick-test
 ### ❌ FMS航路规划问题
 
 #### **问题**: A350 FMS无法正确规划航路
+
 **症状**:
+
 - "NO ROUTE FOUND"错误
 - 航路段连接中断
 - 高度限制错误
 
 **解决步骤**:
+
 ```bash
 # 1. 检查航路连接性
 python check_airways.py --from=ZSPD --to=ZBAA --aircraft=a350
@@ -449,12 +490,13 @@ python rebuild_airways.py --aircraft=a350 --optimize-paths
 #### **常见错误模式和含义**:
 
 **数据转换错误**:
+
 ```bash
 # 坐标转换问题
 ERROR: CoordinateTransformError: Invalid coordinate format
 # -> 检查输入数据的坐标格式
 
-# 数据库写入失败  
+# 数据库写入失败
 ERROR: DatabaseError: database is locked
 # -> 关闭其他访问数据库的程序
 
@@ -464,17 +506,19 @@ ERROR: PermissionError: [Errno 13] Permission denied
 ```
 
 **网络连接错误**:
+
 ```bash
 # 连接超时
 ERROR: ConnectionTimeout: Failed to connect within 30 seconds
 # -> 检查网络连接，增加超时时间
 
 # DNS解析失败
-ERROR: socket.gaierror: [Errno -2] Name or service not known  
+ERROR: socket.gaierror: [Errno -2] Name or service not known
 # -> 检查DNS设置，使用备用DNS服务器
 ```
 
 #### **日志级别详解**:
+
 - **CRITICAL**: 程序无法继续执行的严重错误
 - **ERROR**: 功能执行失败，但程序可以继续
 - **WARNING**: 潜在问题，不影响当前执行
@@ -484,6 +528,7 @@ ERROR: socket.gaierror: [Errno -2] Name or service not known
 ### 🛠️ 高级调试技巧
 
 #### **启用详细调试**:
+
 ```bash
 # 1. 最详细的日志
 python converter.py --log-level=DEBUG --verbose --trace --profile
@@ -500,6 +545,7 @@ tail -f converter.log | grep -E "(ERROR|CRITICAL)"  # Linux/macOS
 ```
 
 #### **性能分析**:
+
 ```bash
 # 1. 启用性能分析
 python -m cProfile -o profile_output.prof converter.py
@@ -522,6 +568,7 @@ python -m memory_profiler converter.py --memory-profile
 ### 🚨 数据损坏恢复
 
 #### **快速恢复步骤**:
+
 ```bash
 # 1. 立即停止所有相关进程
 pkill -f "python.*converter"  # Linux/macOS
@@ -542,6 +589,7 @@ python verify_data_integrity.py --comprehensive --fix-minor-issues
 ### 🔄 完全重置程序
 
 #### **当所有方法都失败时**:
+
 ```bash
 # 警告：这将删除所有转换数据和配置
 echo "This will delete all converted data. Continue? (yes/no)"
@@ -549,13 +597,13 @@ read confirmation
 if [ "$confirmation" = "yes" ]; then
     # 1. 备份用户配置
     cp config.json config_backup_$(date +%Y%m%d).json
-    
+
     # 2. 完全清理
     python cleanup_all.py --nuclear-option --confirm-delete
-    
+
     # 3. 重新初始化
     python setup.py --fresh-install --default-config
-    
+
     # 4. 恢复用户配置
     python merge_config.py --base=config.json --user=config_backup_*.json
 fi
@@ -591,18 +639,22 @@ git log --oneline -5 >> version_info.txt
 #### **按紧急程度选择**:
 
 **🚨 紧急 (24小时内影响飞行)**:
+
 - 📧 **紧急邮箱**: emergency@nav-data.org
 - 📱 **急切联系**: 微信群 "Nav-data紧急支援"
 
 **⚠️ 重要 (1-3天内回复)**:
+
 - 🐛 **GitHub Issues**: [创建详细问题报告](https://github.com/nav-data/docs/issues/new?template=bug_report.md)
 - 📧 **技术支持**: technical@nav-data.org
 
 **💬 一般问题 (1周内回复)**:
+
 - 🗣️ **社区讨论**: [GitHub Discussions](https://github.com/nav-data/docs/discussions)
 - 📧 **一般支持**: support@nav-data.org
 
 #### **支持请求模板**:
+
 ```
 标题: [iniBuilds] 简洁描述问题 - 影响级别
 
@@ -644,6 +696,7 @@ git log --oneline -5 >> version_info.txt
 ### ✅ 定期维护清单
 
 #### **每周检查**:
+
 - [ ] 查看日志文件，识别潜在问题
 - [ ] 清理临时文件和缓存
 - [ ] 验证A350数据加载正常
@@ -655,6 +708,7 @@ python weekly_maintenance.py --clean-temp --check-logs --verify-data --disk-usag
 ```
 
 #### **每月检查**:
+
 - [ ] 更新AIRAC数据
 - [ ] 备份重要配置和数据
 - [ ] 检查工具版本更新
@@ -666,6 +720,7 @@ python monthly_maintenance.py --update-airac --backup-data --check-updates --ben
 ```
 
 #### **重大更新前**:
+
 - [ ] 完整数据备份
 - [ ] 测试环境验证
 - [ ] 版本兼容性检查
@@ -674,6 +729,7 @@ python monthly_maintenance.py --update-airac --backup-data --check-updates --ben
 ### 📊 监控和告警
 
 #### **设置自动监控**:
+
 ```bash
 # 1. 创建监控脚本
 python create_monitor.py --check-interval=1h --alert-email=admin@your-domain.com
@@ -692,4 +748,4 @@ schtasks /create /tn "Nav-Data Monitor" /tr "python monitor.py" /sc hourly
 
 **最后更新**: 2024年1月15日  
 **文档版本**: v2.1  
-**适用工具版本**: v2.1.0+ 
+**适用工具版本**: v2.1.0+

@@ -17,6 +17,7 @@
 ### 2. 文件准备
 
 #### Fenix 数据库位置
+
 ```bash
 # Windows 常见路径
 %APPDATA%\Microsoft Flight Simulator\Packages\fenix-a320\SimObjects\Airplanes\FenixA320\navdata\nd.db3
@@ -26,6 +27,7 @@ python -c "import pathlib; print('数据库存在' if pathlib.Path('nd.db3').exi
 ```
 
 #### 文件完整性检查
+
 ```python
 import sqlite3
 import os
@@ -33,19 +35,19 @@ import os
 def check_database_file(db_path):
     """检查数据库文件完整性"""
     print(f"🔍 检查数据库: {db_path}")
-    
+
     # 检查文件存在
     if not os.path.exists(db_path):
         print("❌ 文件不存在")
         return False
-    
+
     # 检查文件大小
     size_mb = os.path.getsize(db_path) / (1024 * 1024)
     print(f"📁 文件大小: {size_mb:.1f} MB")
-    
+
     if size_mb < 10:
         print("⚠️ 文件可能过小")
-    
+
     # 检查数据库连接
     try:
         conn = sqlite3.connect(db_path)
@@ -53,10 +55,10 @@ def check_database_file(db_path):
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
         tables = [row[0] for row in cursor.fetchall()]
         conn.close()
-        
+
         print(f"✅ 包含 {len(tables)} 个表")
         return True
-        
+
     except sqlite3.Error as e:
         print(f"❌ 数据库错误: {e}")
         return False
@@ -120,10 +122,11 @@ python Fenix2TFDINavDataConverter.py --help
 │                                                                                                │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
 
-请输入文件路径: 
+请输入文件路径:
 ```
 
 **输入方式:**
+
 ```bash
 # 方式一: 直接输入路径
 C:\Users\Username\AppData\Roaming\Microsoft Flight Simulator\Packages\fenix-a320\SimObjects\Airplanes\FenixA320\navdata\nd.db3
@@ -155,6 +158,7 @@ C:\Users\Username\AppData\Roaming\Microsoft Flight Simulator\Packages\fenix-a320
 ```
 
 **验证项目:**
+
 - ✅ 文件存在性和可读性
 - ✅ SQLite 数据库格式
 - ✅ 必需表结构完整性
@@ -179,31 +183,32 @@ C:\Users\Username\AppData\Roaming\Microsoft Flight Simulator\Packages\fenix-a320
 │                                                                                              │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────╯
 
-请输入起始终端 ID [默认: 1000]: 
+请输入起始终端 ID [默认: 1000]:
 ```
 
 **配置考虑因素:**
+
 ```python
 def calculate_terminal_id_range(airport_count, start_id=1000):
     """计算终端ID范围"""
     # 每个机场预留ID数量
     ids_per_airport = 20
-    
+
     # 计算所需ID总数
     total_ids_needed = airport_count * ids_per_airport
-    
+
     # 添加缓冲区 (20%)
     buffer = int(total_ids_needed * 0.2)
     total_with_buffer = total_ids_needed + buffer
-    
+
     end_id = start_id + total_with_buffer
-    
+
     print(f"📊 ID 分配预估:")
     print(f"   机场数量: {airport_count}")
     print(f"   起始 ID: {start_id}")
     print(f"   结束 ID: {end_id}")
     print(f"   可用范围: {total_with_buffer} 个 ID")
-    
+
     return start_id, end_id
 ```
 
@@ -234,7 +239,7 @@ def calculate_terminal_id_range(airport_count, start_id=1000):
 │                                                                                             │
 └─────────────────────────────────────────────────────────────────────────────────────────────┘
 
-确认开始转换? [Y/n]: 
+确认开始转换? [Y/n]:
 ```
 
 ## 🔄 转换过程监控
@@ -436,7 +441,7 @@ try:
         database_path="path/to/fenix_navdata.db3",
         start_terminal_id=1000
     )
-    
+
     if result.success:
         print(f"✅ 转换成功!")
         print(f"📁 输出文件: {result.output_archive}")
@@ -444,7 +449,7 @@ try:
         print(f"⏱️ 耗时: {result.duration:.2f} 秒")
     else:
         print(f"❌ 转换失败: {result.error_message}")
-        
+
 except Exception as e:
     print(f"💥 转换过程发生异常: {e}")
 ```
@@ -493,18 +498,18 @@ from pathlib import Path
 
 def batch_convert_databases():
     """批量转换多个数据库"""
-    
+
     database_files = [
         "fenix_navdata_2508.db3",
-        "fenix_navdata_2509.db3", 
+        "fenix_navdata_2509.db3",
         "fenix_navdata_2510.db3"
     ]
-    
+
     base_config = ConverterConfig(coordinate_precision=8)
-    
+
     for i, db_file in enumerate(database_files):
         print(f"\n🔄 处理数据库 {i+1}/{len(database_files)}: {db_file}")
-        
+
         # 为每个数据库创建独立的输出目录
         airac_cycle = db_file.split('_')[-1].replace('.db3', '')
         output_config = ConverterConfig(
@@ -513,20 +518,20 @@ def batch_convert_databases():
             coordinate_precision=base_config.coordinate_precision,
             vnav_threshold=base_config.vnav_threshold
         )
-        
+
         converter = FenixToTFDIConverter(output_config)
-        
+
         try:
             result = converter.convert(
                 database_path=db_file,
                 start_terminal_id=1000 + (i * 1000)  # 避免 ID 冲突
             )
-            
+
             if result.success:
                 print(f"✅ {db_file} 转换成功")
             else:
                 print(f"❌ {db_file} 转换失败: {result.error_message}")
-                
+
         except Exception as e:
             print(f"💥 处理 {db_file} 时发生异常: {e}")
 
@@ -543,34 +548,34 @@ def verify_conversion_output(archive_path):
     """验证转换输出"""
     import py7zr
     import json
-    
+
     print(f"🔍 验证压缩包: {archive_path}")
-    
+
     try:
         # 验证压缩包完整性
         with py7zr.SevenZipFile(archive_path, 'r') as archive:
             file_list = archive.getnames()
-            
+
         print(f"✅ 压缩包包含 {len(file_list)} 个文件")
-        
+
         # 验证必需文件
         required_files = [
             "Airports.json", "Runways.json", "Waypoints.json",
             "Navaids.json", "Airways.json", "AirwayLegs.json",
             "Terminals.json", "ILSes.json"
         ]
-        
+
         missing_files = []
         for required_file in required_files:
             if required_file not in file_list:
                 missing_files.append(required_file)
-        
+
         if missing_files:
             print(f"❌ 缺失必需文件: {missing_files}")
             return False
         else:
             print("✅ 所有必需文件都存在")
-        
+
         # 验证 JSON 格式
         with py7zr.SevenZipFile(archive_path, 'r') as archive:
             for file_name in required_files:
@@ -581,10 +586,10 @@ def verify_conversion_output(archive_path):
                 except json.JSONDecodeError as e:
                     print(f"❌ {file_name}: JSON 格式错误 - {e}")
                     return False
-        
+
         print("🎉 输出文件验证通过!")
         return True
-        
+
     except Exception as e:
         print(f"❌ 验证失败: {e}")
         return False
@@ -599,17 +604,17 @@ verify_conversion_output("Primary.7z")
 def test_tfdi_compatibility(json_file_path):
     """测试 TFDI 兼容性"""
     import json
-    
+
     print(f"🧪 测试 TFDI 兼容性: {json_file_path}")
-    
+
     try:
         with open(json_file_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
-        
+
         # 检查数据结构
         if isinstance(data, dict):
             print(f"✅ 数据结构: 字典 ({len(data)} 个条目)")
-            
+
             # 检查坐标格式 (以 Waypoints 为例)
             if "Waypoints" in json_file_path or any(key for key in data.keys() if "latitude" in str(data[key]).lower()):
                 coord_issues = []
@@ -618,26 +623,26 @@ def test_tfdi_compatibility(json_file_path):
                         if "Latitude" in value and "Longitude" in value:
                             lat = value["Latitude"]
                             lon = value["Longitude"]
-                            
+
                             if not (-90 <= lat <= 90):
                                 coord_issues.append(f"{key}: 纬度超出范围 ({lat})")
                             if not (-180 <= lon <= 180):
                                 coord_issues.append(f"{key}: 经度超出范围 ({lon})")
-                
+
                 if coord_issues:
                     print(f"⚠️ 坐标问题: {coord_issues}")
                 else:
                     print("✅ 坐标格式检查通过")
-        
+
         elif isinstance(data, list):
             print(f"✅ 数据结构: 列表 ({len(data)} 个元素)")
-        
+
         else:
             print(f"⚠️ 未知数据结构: {type(data)}")
-        
+
         print("✅ TFDI 兼容性测试通过")
         return True
-        
+
     except Exception as e:
         print(f"❌ 兼容性测试失败: {e}")
         return False
@@ -645,7 +650,7 @@ def test_tfdi_compatibility(json_file_path):
 # 测试所有输出文件
 output_files = [
     "Primary/Airports.json",
-    "Primary/Waypoints.json", 
+    "Primary/Waypoints.json",
     "Primary/Navaids.json"
 ]
 
@@ -669,24 +674,24 @@ for file_path in output_files:
 def check_system_optimization():
     """检查系统优化状态"""
     import psutil
-    
+
     print("🔧 系统优化检查:")
-    
+
     # 检查内存
     memory = psutil.virtual_memory()
     if memory.available < 4 * 1024**3:  # 4GB
         print("⚠️ 可用内存不足，建议关闭其他程序")
     else:
         print("✅ 内存充足")
-    
+
     # 检查磁盘类型
     disk_info = psutil.disk_usage('.')
     print(f"💿 磁盘可用空间: {disk_info.free // 1024**3} GB")
-    
+
     # 检查 CPU
     cpu_count = psutil.cpu_count()
     print(f"🖥️ CPU 核心数: {cpu_count}")
-    
+
     if cpu_count >= 4:
         print("✅ 建议启用多线程处理")
     else:

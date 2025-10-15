@@ -62,21 +62,21 @@ mypy *.py
 # ✅ 好的示例
 class AirportDataProcessor:
     """机场数据处理器
-    
+
     处理NAIP格式的机场数据，转换为PMDG兼容格式。
     """
-    
+
     def __init__(self, csv_file_path: str, output_db_path: str):
         self.csv_file_path = csv_file_path
         self.output_db_path = output_db_path
         self.processed_count = 0
-    
+
     def process_airport_data(self) -> ProcessingResult:
         """处理机场数据的主要方法
-        
+
         Returns:
             ProcessingResult: 包含处理统计信息的结果对象
-            
+
         Raises:
             FileNotFoundError: 当输入文件不存在时
             DatabaseError: 当数据库操作失败时
@@ -85,7 +85,7 @@ class AirportDataProcessor:
             data = self._load_csv_data()
             processed_data = self._transform_data(data)
             self._save_to_database(processed_data)
-            
+
             return ProcessingResult(
                 success=True,
                 processed_count=self.processed_count,
@@ -119,15 +119,15 @@ class ProcessingResult:
     message: Optional[str] = None
 
 def convert_coordinates(
-    dms_latitude: str, 
+    dms_latitude: str,
     dms_longitude: str
 ) -> Tuple[Optional[float], Optional[float]]:
     """转换DMS格式坐标为十进制度
-    
+
     Args:
         dms_latitude: DMS格式纬度字符串 (如: N390308.00)
         dms_longitude: DMS格式经度字符串 (如: E1162930.00)
-    
+
     Returns:
         (纬度, 经度) 元组，转换失败时返回 (None, None)
     """
@@ -164,21 +164,21 @@ def process_with_error_handling(data: Dict) -> bool:
         # 数据验证
         if not validate_required_fields(data):
             raise ValidationError("缺少必需字段")
-        
+
         # 坐标处理
         lat, lon = convert_coordinates(
             data.get('latitude'),
             data.get('longitude')
         )
-        
+
         if lat is None or lon is None:
             raise CoordinateError("坐标转换失败")
-        
+
         # 数据保存
         save_to_database(data)
         logging.info(f"成功处理记录: {data.get('identifier')}")
         return True
-        
+
     except ValidationError as e:
         logging.warning(f"数据验证失败: {e}")
         return False
@@ -196,20 +196,20 @@ def process_with_error_handling(data: Dict) -> bool:
 
 ```python
 def parse_dat_file(
-    file_path: str, 
+    file_path: str,
     batch_size: int = 1000,
     encoding: str = 'utf-8'
 ) -> List[Dict[str, Any]]:
     """解析X-Plane格式的DAT文件
-    
+
     该函数读取X-Plane导航数据文件，解析其中的航路点信息，
     并返回结构化的数据列表。支持大文件的批量处理。
-    
+
     Args:
         file_path: DAT文件的完整路径
         batch_size: 批处理大小，用于内存优化，默认1000
         encoding: 文件编码，默认utf-8
-    
+
     Returns:
         包含航路点信息的字典列表，每个字典包含以下键：
         - waypoint_identifier: 航路点标识符
@@ -217,23 +217,23 @@ def parse_dat_file(
         - longitude: 经度（十进制度）
         - waypoint_type: 航路点类型
         - icao_code: ICAO地区代码
-    
+
     Raises:
         FileNotFoundError: 当指定文件不存在时
         ValueError: 当文件格式不正确时
         MemoryError: 当可用内存不足时
-    
+
     Examples:
         基本用法:
         >>> waypoints = parse_dat_file('data/earth_fix.dat')
         >>> print(f"解析了 {len(waypoints)} 个航路点")
-        
+
         大文件处理:
         >>> waypoints = parse_dat_file(
-        ...     'large_file.dat', 
+        ...     'large_file.dat',
         ...     batch_size=5000
         ... )
-    
+
     Note:
         该函数会自动跳过文件头部的注释行，只处理有效的数据行。
         对于损坏的数据行，会记录警告日志但不中断处理。
@@ -270,7 +270,7 @@ License: MIT
 Examples:
     命令行使用:
     $ python PMDG_APT.py
-    
+
     编程接口:
     >>> from PMDG_APT import AirportProcessor
     >>> processor = AirportProcessor(
@@ -308,26 +308,26 @@ from PMDG_APT import AirportProcessor, convert_dms_to_decimal
 
 class TestCoordinateConversion(unittest.TestCase):
     """坐标转换功能测试"""
-    
+
     def test_valid_north_latitude(self):
         """测试有效的北纬坐标转换"""
         result, error = convert_dms_to_decimal("N390308.00")
         self.assertIsNone(error)
         self.assertAlmostEqual(result, 39.0522222, places=6)
-    
+
     def test_valid_east_longitude(self):
         """测试有效的东经坐标转换"""
         result, error = convert_dms_to_decimal("E1162930.00")
         self.assertIsNone(error)
         self.assertAlmostEqual(result, 116.4916667, places=6)
-    
+
     def test_invalid_format(self):
         """测试无效的坐标格式"""
         result, error = convert_dms_to_decimal("INVALID")
         self.assertIsNone(result)
         self.assertIsNotNone(error)
         self.assertIn("无效的DMS格式", error)
-    
+
     def test_boundary_coordinates(self):
         """测试边界坐标"""
         # 测试北极点
@@ -337,7 +337,7 @@ class TestCoordinateConversion(unittest.TestCase):
 
 class TestAirportProcessor(unittest.TestCase):
     """机场数据处理器测试"""
-    
+
     def setUp(self):
         """测试初始化"""
         self.processor = AirportProcessor(
@@ -345,7 +345,7 @@ class TestAirportProcessor(unittest.TestCase):
             lookup_file_path="test_data/Airport.dat",
             output_db_path="test_output/test.s3db"
         )
-    
+
     @patch('pandas.read_csv')
     def test_csv_loading(self, mock_read_csv):
         """测试CSV文件加载"""
@@ -356,19 +356,19 @@ class TestAirportProcessor(unittest.TestCase):
             'GEO_LONG_ACCURACY': ['E1162930.00', 'E1211056.00']
         })
         mock_read_csv.return_value = mock_data
-        
+
         result = self.processor._load_csv_data()
         self.assertEqual(len(result), 2)
         self.assertEqual(result.iloc[0]['CODE_ID'], 'ZBAA')
-    
+
     @patch('sqlite3.connect')
     def test_database_creation(self, mock_connect):
         """测试数据库创建"""
         mock_connection = mock_connect.return_value
         mock_cursor = mock_connection.cursor.return_value
-        
+
         self.processor._create_database_tables()
-        
+
         # 验证表创建SQL被执行
         mock_cursor.execute.assert_called()
         create_table_calls = [call[0][0] for call in mock_cursor.execute.call_args_list]
@@ -385,40 +385,40 @@ from pathlib import Path
 
 class TestIntegration(unittest.TestCase):
     """集成测试"""
-    
+
     def setUp(self):
         """创建临时测试环境"""
         self.test_dir = tempfile.mkdtemp()
         self.csv_file = Path(self.test_dir) / "test_airports.csv"
         self.lookup_file = Path(self.test_dir) / "airports.dat"
         self.output_db = Path(self.test_dir) / "output.s3db"
-        
+
         # 创建测试数据文件
         self.create_test_csv()
         self.create_test_lookup()
-    
+
     def tearDown(self):
         """清理测试环境"""
         import shutil
         shutil.rmtree(self.test_dir)
-    
+
     def create_test_csv(self):
         """创建测试CSV文件"""
         test_data = """CODE_ID,GEO_LAT_ACCURACY,GEO_LONG_ACCURACY
 ZBAA,N390308.00,E1162930.00
 ZSPD,N311133.00,E1211056.00"""
-        
+
         with open(self.csv_file, 'w', encoding='latin1') as f:
             f.write(test_data)
-    
+
     def create_test_lookup(self):
         """创建测试查找文件"""
         lookup_data = """ZBAA BEIJING/CAPITAL
 ZSPD SHANGHAI/PUDONG INTL"""
-        
+
         with open(self.lookup_file, 'w') as f:
             f.write(lookup_data)
-    
+
     def test_end_to_end_processing(self):
         """端到端处理测试"""
         processor = AirportProcessor(
@@ -426,29 +426,29 @@ ZSPD SHANGHAI/PUDONG INTL"""
             lookup_file_path=str(self.lookup_file),
             output_db_path=str(self.output_db)
         )
-        
+
         result = processor.process()
-        
+
         # 验证处理结果
         self.assertTrue(result.success)
         self.assertEqual(result.processed_count, 2)
-        
+
         # 验证数据库内容
         self.assertTrue(self.output_db.exists())
-        
+
         conn = sqlite3.connect(str(self.output_db))
         cursor = conn.cursor()
-        
+
         cursor.execute("SELECT COUNT(*) FROM tbl_airports")
         count = cursor.fetchone()[0]
         self.assertEqual(count, 2)
-        
+
         cursor.execute("SELECT airport_identifier, airport_name FROM tbl_airports ORDER BY airport_identifier")
         airports = cursor.fetchall()
-        
+
         self.assertEqual(airports[0][0], 'ZBAA')
         self.assertEqual(airports[0][1], 'BEIJING/CAPITAL')
-        
+
         conn.close()
 ```
 
@@ -534,9 +534,11 @@ Closes #45"
 
 ```markdown
 ## 📝 变更描述
+
 简要描述这个PR做了什么改动。
 
 ## 🔧 变更类型
+
 - [ ] Bug修复
 - [ ] 新功能
 - [ ] 性能优化
@@ -545,7 +547,9 @@ Closes #45"
 - [ ] 测试改进
 
 ## 🧪 测试
+
 描述如何测试这些更改：
+
 - [ ] 添加了新的单元测试
 - [ ] 添加了集成测试
 - [ ] 手动测试步骤：
@@ -553,13 +557,16 @@ Closes #45"
   2. 步骤2
 
 ## 📸 截图（如适用）
+
 如果有UI变更或输出格式变更，请添加截图。
 
 ## 🔗 相关Issue
+
 Fixes #123
 Related to #456
 
 ## 📋 检查清单
+
 - [ ] 我的代码遵循项目的代码规范
 - [ ] 我已经对我的代码进行了自我审查
 - [ ] 我已经添加了相应的测试
@@ -567,6 +574,7 @@ Related to #456
 - [ ] 我已经更新了相关文档
 
 ## 💬 额外说明
+
 添加任何其他需要说明的内容。
 ```
 
@@ -581,6 +589,7 @@ Related to #456
 简洁清晰地描述发生的问题。
 
 **🔄 复现步骤**
+
 1. 进入 '...'
 2. 点击 '...'
 3. 滚动到 '...'
@@ -590,6 +599,7 @@ Related to #456
 描述您期望发生什么。
 
 **💻 环境信息**
+
 - 操作系统: [例如 Windows 10, macOS 11.6, Ubuntu 20.04]
 - Python版本: [例如 3.9.7]
 - Nav-data版本: [例如 2.1.0]
@@ -597,9 +607,10 @@ Related to #456
 
 **📄 错误日志**
 如果适用，请添加错误日志或截图。
-
 ```
+
 [在此粘贴日志内容]
+
 ```
 
 **📁 输入数据**
@@ -619,6 +630,7 @@ Related to #456
 描述这个功能解决什么问题或改进什么流程。
 
 **📋 详细需求**
+
 - [ ] 需求1: 描述
 - [ ] 需求2: 描述
 - [ ] 需求3: 描述
@@ -630,6 +642,7 @@ Related to #456
 提供相关的文档、标准或参考资料链接。
 
 **📊 优先级**
+
 - [ ] 低 - 有时间的时候做
 - [ ] 中 - 重要但不紧急
 - [ ] 高 - 需要尽快实现
@@ -646,36 +659,38 @@ Related to #456
 #### Visual Studio Code
 
 推荐的扩展：
+
 ```json
 {
-    "recommendations": [
-        "ms-python.python",
-        "ms-python.flake8",
-        "ms-python.pylint",
-        "ms-python.black-formatter",
-        "njpwerner.autodocstring",
-        "ms-python.isort",
-        "charliermarsh.ruff"
-    ]
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.flake8",
+    "ms-python.pylint",
+    "ms-python.black-formatter",
+    "njpwerner.autodocstring",
+    "ms-python.isort",
+    "charliermarsh.ruff"
+  ]
 }
 ```
 
 工作区设置 (`.vscode/settings.json`)：
+
 ```json
 {
-    "python.defaultInterpreterPath": "./nav-data-dev/bin/python",
-    "python.linting.enabled": true,
-    "python.linting.flake8Enabled": true,
-    "python.linting.pylintEnabled": false,
-    "python.formatting.provider": "black",
-    "python.formatting.blackArgs": ["--line-length=88"],
-    "python.sortImports.args": ["--profile", "black"],
-    "python.testing.pytestEnabled": true,
-    "python.testing.pytestArgs": ["tests"],
-    "files.exclude": {
-        "**/__pycache__": true,
-        "**/*.pyc": true
-    }
+  "python.defaultInterpreterPath": "./nav-data-dev/bin/python",
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length=88"],
+  "python.sortImports.args": ["--profile", "black"],
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": ["tests"],
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true
+  }
 }
 ```
 
@@ -694,6 +709,7 @@ Related to #456
 #### pre-commit 钩子
 
 创建 `.pre-commit-config.yaml`：
+
 ```yaml
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -704,19 +720,19 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
       - id: check-merge-conflict
-  
+
   - repo: https://github.com/psf/black
     rev: 22.12.0
     hooks:
       - id: black
         language_version: python3
-  
+
   - repo: https://github.com/pycqa/flake8
     rev: 6.0.0
     hooks:
       - id: flake8
         args: [--max-line-length=88, --extend-ignore=E203]
-  
+
   - repo: https://github.com/pycqa/isort
     rev: 5.12.0
     hooks:
@@ -725,6 +741,7 @@ repos:
 ```
 
 安装和启用：
+
 ```bash
 pip install pre-commit
 pre-commit install
@@ -735,13 +752,14 @@ pre-commit install
 ### 性能优化
 
 1. **内存管理**
+
    ```python
    # ✅ 好的做法：使用生成器处理大文件
    def process_large_file(file_path):
        with open(file_path, 'r') as f:
            for line in f:
                yield process_line(line)
-   
+
    # ❌ 避免：一次性加载整个文件到内存
    def process_large_file_bad(file_path):
        with open(file_path, 'r') as f:
@@ -750,6 +768,7 @@ pre-commit install
    ```
 
 2. **数据库操作优化**
+
    ```python
    # ✅ 好的做法：批量插入
    def insert_records_batch(connection, records, batch_size=1000):
@@ -757,11 +776,11 @@ pre-commit install
        for i in range(0, len(records), batch_size):
            batch = records[i:i + batch_size]
            cursor.executemany(
-               "INSERT INTO table (col1, col2) VALUES (?, ?)", 
+               "INSERT INTO table (col1, col2) VALUES (?, ?)",
                batch
            )
            connection.commit()
-   
+
    # ❌ 避免：逐条插入
    def insert_records_one_by_one(connection, records):
        cursor = connection.cursor()
@@ -803,22 +822,22 @@ class TestCoordinateProcessing(unittest.TestCase):
         # Given
         dms_input = "N390308.00"
         expected_decimal = 39.0522222
-        
+
         # When
         result = convert_dms_to_decimal(dms_input)
-        
+
         # Then
         self.assertAlmostEqual(result, expected_decimal, places=6)
-    
+
     def test_invalid_format_raises_error(self):
         """测试无效格式抛出适当错误"""
         # Given
         invalid_input = "INVALID_FORMAT"
-        
+
         # When/Then
         with self.assertRaises(CoordinateError) as context:
             convert_dms_to_decimal(invalid_input)
-        
+
         self.assertIn("无法解析坐标", str(context.exception))
 
 # ❌ 避免的测试
@@ -848,6 +867,7 @@ def test_coordinate():  # 测试名称不清晰
 ## 🎉 认可贡献者
 
 我们会在以下地方认可贡献者：
+
 - README.md 的贡献者部分
 - CHANGELOG.md 中的版本更新记录
 - GitHub Releases 的感谢名单
@@ -856,4 +876,4 @@ def test_coordinate():  # 测试名称不清晰
 
 ---
 
-**记住**: 好的代码是写给人看的，机器只是恰好能执行它。 
+**记住**: 好的代码是写给人看的，机器只是恰好能执行它。

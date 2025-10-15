@@ -326,14 +326,14 @@ pip install -r requirements.txt
 
 #### 依赖包说明
 
-| 包名 | 版本 | 用途 |
-|------|------|------|
-| `pandas` | ≥1.3.0 | 数据处理和分析 |
-| `requests` | ≥2.26.0 | HTTP请求处理 |
-| `tqdm` | ≥4.62.0 | 进度条显示 |
-| `chardet` | ≥4.0.0 | 字符编码检测 |
-| `ratelimit` | ≥2.2.1 | API请求限制 |
-| `pygeomag` | ≥0.9.0 | 地磁偏角计算 |
+| 包名        | 版本    | 用途           |
+| ----------- | ------- | -------------- |
+| `pandas`    | ≥1.3.0  | 数据处理和分析 |
+| `requests`  | ≥2.26.0 | HTTP请求处理   |
+| `tqdm`      | ≥4.62.0 | 进度条显示     |
+| `chardet`   | ≥4.0.0  | 字符编码检测   |
+| `ratelimit` | ≥2.2.1  | API请求限制    |
+| `pygeomag`  | ≥0.9.0  | 地磁偏角计算   |
 
 ### 步骤3：验证安装
 
@@ -351,11 +351,13 @@ python -c "import pandas, sqlite3, pygeomag; print('所有依赖安装成功！'
 #### MSFS 2020
 
 **Microsoft Store版**
+
 ```
 %LOCALAPPDATA%\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalCache\Packages\Community
 ```
 
 **Steam版**
+
 ```
 %APPDATA%\Microsoft Flight Simulator\Packages\Community
 ```
@@ -363,11 +365,13 @@ python -c "import pandas, sqlite3, pygeomag; print('所有依赖安装成功！'
 #### MSFS 2024
 
 **Microsoft Store版**
+
 ```
 %LOCALAPPDATA%\Packages\Microsoft.Limitless_8wekyb3d8bbwe\LocalCache\Packages\Community
 ```
 
 **Steam版**
+
 ```
 %APPDATA%\Microsoft Flight Simulator 2024\Packages\Community
 ```
@@ -470,12 +474,14 @@ setx NAVDATA_WORKSPACE "C:\path\to\nav-data"
 ### Python相关问题
 
 **问题**：`'python' 不是内部或外部命令`
+
 ```bash
 # 解决方案：重新安装Python并确保勾选"Add to PATH"
 # 或手动添加Python到系统PATH
 ```
 
 **问题**：`ModuleNotFoundError: No module named 'xxx'`
+
 ```bash
 # 解决方案：重新安装依赖
 pip install --upgrade -r requirements.txt
@@ -484,6 +490,7 @@ pip install --upgrade -r requirements.txt
 ### 权限问题
 
 **问题**：无法访问MSFS文件夹
+
 ```powershell
 # 解决方案：以管理员身份运行PowerShell/命令提示符
 # 右键点击 → "以管理员身份运行"
@@ -492,6 +499,7 @@ pip install --upgrade -r requirements.txt
 ### 路径问题
 
 **问题**：找不到飞机插件目录
+
 ```bash
 # 解决方案：
 # 1. 确认飞机插件已正确安装
@@ -513,4 +521,4 @@ pip install --upgrade -r requirements.txt
 
 ---
 
-安装完成！接下来请查看 [**配置说明**](./configuration.md) 来设置数据源和AIRAC周期。 
+安装完成！接下来请查看 [**配置说明**](./configuration.md) 来设置数据源和AIRAC周期。

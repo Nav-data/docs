@@ -14,7 +14,7 @@ graph TB
         A3[CIFP数据<br/>飞行程序]
         A4[参考数据<br/>机场名称查找]
     end
-    
+
     subgraph "数据处理层"
         B1[机场数据处理<br/>PMDG_APT.py]
         B2[跑道数据处理<br/>PMDG_RUNWAY.py]
@@ -23,26 +23,26 @@ graph TB
         B5[航路处理<br/>PMDG_AWY_FINAL.py]
         B6[程序处理<br/>PMDG_SID/STAR/APPCH.py]
     end
-    
+
     subgraph "数据验证层"
         C1[坐标验证]
         C2[引用完整性检查]
         C3[重复数据检测]
         C4[ICAO代码验证]
     end
-    
+
     subgraph "输出层"
         D1[SQLite数据库<br/>e_dfd_PMDG.s3db]
         D2[处理日志]
         D3[验证报告]
     end
-    
+
     subgraph "目标系统"
         E1[PMDG 737系列]
         E2[PMDG 777系列]
         E3[Microsoft Flight Simulator]
     end
-    
+
     A1 --> B1
     A1 --> B2
     A2 --> B3
@@ -51,19 +51,19 @@ graph TB
     A2 --> B5
     A3 --> B6
     A4 --> B1
-    
+
     B1 --> C1
     B2 --> C2
     B3 --> C3
     B4 --> C4
     B5 --> C1
     B6 --> C2
-    
+
     C1 --> D1
     C2 --> D1
     C3 --> D2
     C4 --> D3
-    
+
     D1 --> E1
     D1 --> E2
     D1 --> E3
@@ -71,14 +71,14 @@ graph TB
 
 ### 核心组件说明
 
-| 组件 | 功能 | 技术栈 | 关键特性 |
-|------|------|--------|----------|
-| **数据解析器** | 多格式数据读取 | pandas, chardet | 自动编码检测、容错处理 |
-| **坐标转换器** | 地理坐标处理 | 自定义算法 | DMS↔Decimal转换、精度控制 |
-| **磁差计算器** | 磁偏角计算 | pygeomag | WMM2025模型、高精度计算 |
-| **数据库引擎** | SQLite数据库 | sqlite3 | PMDG兼容模式、事务处理 |
-| **验证引擎** | 数据质量保证 | 自定义验证器 | 多层验证、详细报告 |
-| **并发处理器** | 性能优化 | ThreadPoolExecutor | 多线程处理、进度监控 |
+| 组件           | 功能           | 技术栈             | 关键特性                   |
+| -------------- | -------------- | ------------------ | -------------------------- |
+| **数据解析器** | 多格式数据读取 | pandas, chardet    | 自动编码检测、容错处理     |
+| **坐标转换器** | 地理坐标处理   | 自定义算法         | DMS↔Decimal转换、精度控制 |
+| **磁差计算器** | 磁偏角计算     | pygeomag           | WMM2025模型、高精度计算    |
+| **数据库引擎** | SQLite数据库   | sqlite3            | PMDG兼容模式、事务处理     |
+| **验证引擎**   | 数据质量保证   | 自定义验证器       | 多层验证、详细报告         |
+| **并发处理器** | 性能优化       | ThreadPoolExecutor | 多线程处理、进度监控       |
 
 ## 🧩 模块架构设计
 
@@ -89,20 +89,20 @@ graph TB
 ```python
 class AirportProcessor:
     """机场数据处理器"""
-    
+
     def __init__(self):
         self.csv_parser = CSVParser(encoding='latin1')
         self.coordinate_converter = CoordinateConverter()
         self.database_writer = DatabaseWriter()
-    
+
     def process(self) -> ProcessResult:
         """主处理流程"""
         # 1. 读取NAIP机场数据
         airports_data = self.csv_parser.read_csv(self.csv_file_path)
-        
+
         # 2. 读取机场名称查找表
         name_lookup = self.load_airport_names()
-        
+
         # 3. 数据处理和转换
         processed_data = []
         for airport in airports_data:
@@ -111,7 +111,7 @@ class AirportProcessor:
                 airport['GEO_LAT_ACCURACY'],
                 airport['GEO_LONG_ACCURACY']
             )
-            
+
             # 数据验证和清理
             if self.validate_airport_data(airport, lat, lon):
                 processed_data.append({
@@ -122,7 +122,7 @@ class AirportProcessor:
                     'longitude': lon,
                     # ... 其他字段
                 })
-        
+
         # 4. 写入数据库
         return self.database_writer.write_airports(processed_data)
 ```
@@ -134,12 +134,12 @@ class AirportProcessor:
 ```python
 class AirwayProcessor:
     """航路数据处理器 - 支持智能合并"""
-    
+
     def process_airways(self):
         """航路处理主流程"""
         # 1. 读取CSV航路段数据
         route_segments = self.read_route_segments()
-        
+
         # 2. 匹配航路点坐标
         for segment in route_segments:
             icao_code, lat, lon = self.match_waypoint_coordinates(
@@ -147,28 +147,28 @@ class AirwayProcessor:
                 segment['code_type']
             )
             segment.update({'lat': lat, 'lon': lon, 'icao': icao_code})
-        
+
         # 3. 智能航路合并
         for route_id in self.get_unique_routes():
             existing_route = self.get_existing_route(route_id)
             new_segments = self.get_route_segments(route_id)
-            
+
             merged_route = self.intelligent_merge(existing_route, new_segments)
-            
+
             # 4. 重新计算航段距离和航向
             self.recalculate_route_geometry(merged_route)
-            
+
             # 5. 更新数据库
             self.update_route_in_database(route_id, merged_route)
-    
+
     def intelligent_merge(self, existing, new_segments):
         """智能航路合并算法"""
         if not existing:
             return new_segments
-        
+
         # 寻找公共航路点
         common_points = self.find_common_waypoints(existing, new_segments)
-        
+
         if not common_points:
             # 无公共点 - 直接追加
             return self.append_segments(existing, new_segments)
@@ -184,7 +184,7 @@ class AirwayProcessor:
 ```python
 class ValidationEngine:
     """数据验证引擎"""
-    
+
     def __init__(self):
         self.validators = [
             CoordinateValidator(),
@@ -193,36 +193,36 @@ class ValidationEngine:
             DuplicateDetector(),
             BusinessRuleValidator()
         ]
-    
+
     def validate(self, data: dict) -> ValidationResult:
         """执行多层验证"""
         result = ValidationResult()
-        
+
         for validator in self.validators:
             validator_result = validator.validate(data)
             result.merge(validator_result)
-            
+
             # 严重错误时停止验证
             if validator_result.has_critical_errors():
                 break
-        
+
         return result
 
 class CoordinateValidator:
     """坐标验证器"""
-    
+
     # 中国地区坐标边界
     CHINA_BOUNDS = {
         'lat_min': 15.0, 'lat_max': 55.0,
         'lon_min': 70.0, 'lon_max': 140.0
     }
-    
+
     def validate(self, data: dict) -> ValidationResult:
         lat, lon = data.get('latitude'), data.get('longitude')
-        
+
         if not self.is_valid_coordinate(lat, lon):
             return ValidationResult.error(f"坐标超出中国地区范围: {lat}, {lon}")
-        
+
         return ValidationResult.success()
 ```
 
@@ -233,22 +233,22 @@ class CoordinateValidator:
 ```python
 class ConcurrentProcessor:
     """并发处理器"""
-    
+
     def __init__(self, max_workers=50):
         self.max_workers = min(max_workers, multiprocessing.cpu_count() * 2)
         self.progress_tracker = ProgressTracker()
-    
+
     def process_in_parallel(self, tasks: List[Task]) -> List[Result]:
         """并行处理任务"""
         results = []
-        
+
         with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
             # 提交所有任务
             future_to_task = {
-                executor.submit(self.process_task, task): task 
+                executor.submit(self.process_task, task): task
                 for task in tasks
             }
-            
+
             # 收集结果并更新进度
             for future in as_completed(future_to_task):
                 task = future_to_task[future]
@@ -258,7 +258,7 @@ class ConcurrentProcessor:
                     self.progress_tracker.update()
                 except Exception as e:
                     logging.error(f"任务 {task.id} 失败: {e}")
-        
+
         return results
 ```
 
@@ -273,11 +273,11 @@ erDiagram
     tbl_airports ||--o{ tbl_sids : departure_from
     tbl_airports ||--o{ tbl_stars : arrival_to
     tbl_airports ||--o{ tbl_iaps : approach_to
-    
+
     tbl_enroute_waypoints ||--o{ tbl_enroute_airways : connects
     tbl_terminal_waypoints ||--o{ tbl_sids : uses
     tbl_terminal_waypoints ||--o{ tbl_stars : uses
-    
+
     tbl_airports {
         string area_code
         string icao_code PK
@@ -289,7 +289,7 @@ erDiagram
         integer elevation
         integer transition_altitude
     }
-    
+
     tbl_runways {
         string area_code
         string icao_code PK
@@ -302,7 +302,7 @@ erDiagram
         string surface_code
         real runway_magnetic_bearing
     }
-    
+
     tbl_enroute_airways {
         string area_code
         string route_identifier PK
@@ -386,10 +386,10 @@ sequenceDiagram
     participant Transformer as 转换器
     participant Database as 数据库
     participant Logger as 日志系统
-    
+
     Input->>Parser: 读取源数据文件
     Parser->>Validator: 原始数据验证
-    
+
     alt 验证通过
         Validator->>Transformer: 数据转换处理
         Transformer->>Database: 写入数据库
@@ -398,7 +398,7 @@ sequenceDiagram
         Validator->>Logger: 记录错误日志
         Logger->>Input: 跳过错误数据
     end
-    
+
     Database->>Validator: 最终数据验证
     Validator->>Logger: 生成验证报告
 ```
@@ -408,18 +408,18 @@ sequenceDiagram
 ```python
 class ErrorHandler:
     """错误处理策略"""
-    
+
     ERROR_STRATEGIES = {
         'missing_data': 'log_and_skip',
-        'invalid_coordinates': 'log_and_skip', 
+        'invalid_coordinates': 'log_and_skip',
         'duplicate_records': 'log_and_merge',
         'reference_not_found': 'log_and_continue',
         'critical_error': 'stop_processing'
     }
-    
+
     def handle_error(self, error_type: str, error_data: dict):
         strategy = self.ERROR_STRATEGIES.get(error_type, 'log_and_continue')
-        
+
         if strategy == 'log_and_skip':
             self.log_error(error_data)
             return ProcessingAction.SKIP
@@ -436,24 +436,24 @@ class ErrorHandler:
 ```python
 class MemoryManager:
     """内存管理器"""
-    
+
     def __init__(self, max_memory_mb=2048):
         self.max_memory = max_memory_mb * 1024 * 1024
         self.current_usage = 0
-    
+
     def process_in_batches(self, data_source, batch_size=1000):
         """分批处理大数据集"""
         batch = []
-        
+
         for item in data_source:
             batch.append(item)
             self.current_usage += sys.getsizeof(item)
-            
+
             if len(batch) >= batch_size or self.memory_threshold_reached():
                 yield batch
                 batch = []
                 self.gc_collect()  # 强制垃圾回收
-    
+
     def memory_threshold_reached(self) -> bool:
         return self.current_usage > self.max_memory * 0.8
 ```
@@ -463,7 +463,7 @@ class MemoryManager:
 ```python
 class DatabaseOptimizer:
     """数据库性能优化"""
-    
+
     PRAGMA_SETTINGS = {
         'journal_mode': 'DELETE',     # PMDG兼容模式
         'synchronous': 'FULL',        # 数据安全优先
@@ -471,15 +471,15 @@ class DatabaseOptimizer:
         'temp_store': 'MEMORY',       # 临时数据存内存
         'mmap_size': 268435456        # 256MB内存映射
     }
-    
+
     def optimize_database(self, connection):
         """应用性能优化设置"""
         for pragma, value in self.PRAGMA_SETTINGS.items():
             connection.execute(f"PRAGMA {pragma} = {value}")
-        
+
         # 创建关键索引
         self.create_performance_indexes(connection)
-    
+
     def create_performance_indexes(self, connection):
         """创建性能优化索引"""
         indexes = [
@@ -487,7 +487,7 @@ class DatabaseOptimizer:
             "CREATE INDEX IF NOT EXISTS idx_airways_route ON tbl_enroute_airways(route_identifier)",
             "CREATE INDEX IF NOT EXISTS idx_waypoints_id ON tbl_enroute_waypoints(waypoint_identifier)",
         ]
-        
+
         for index_sql in indexes:
             connection.execute(index_sql)
 ```
@@ -499,32 +499,32 @@ class DatabaseOptimizer:
 ```python
 class QualityAssurance:
     """质量保证框架"""
-    
+
     def __init__(self):
         self.validation_rules = self.load_validation_rules()
         self.test_cases = self.load_test_cases()
-    
+
     def comprehensive_validation(self, database_path: str) -> QAReport:
         """全面质量检查"""
         report = QAReport()
-        
+
         # 1. 结构验证
         report.add_section(self.validate_schema(database_path))
-        
+
         # 2. 数据完整性验证
         report.add_section(self.validate_integrity(database_path))
-        
+
         # 3. 业务规则验证
         report.add_section(self.validate_business_rules(database_path))
-        
+
         # 4. 性能基准测试
         report.add_section(self.performance_benchmark(database_path))
-        
+
         # 5. PMDG兼容性测试
         report.add_section(self.pmdg_compatibility_test(database_path))
-        
+
         return report
-    
+
     def validate_business_rules(self, database_path: str) -> ValidationSection:
         """业务规则验证"""
         rules = [
@@ -534,12 +534,12 @@ class QualityAssurance:
             "航路高度限制必须合理",
             "坐标必须在中国地区范围内"
         ]
-        
+
         results = []
         for rule in rules:
             result = self.check_business_rule(database_path, rule)
             results.append(result)
-        
+
         return ValidationSection("业务规则验证", results)
 ```
 
@@ -550,20 +550,20 @@ class QualityAssurance:
 ```python
 class PluginManager:
     """插件管理器"""
-    
+
     def __init__(self):
         self.processors = {}
         self.validators = {}
         self.exporters = {}
-    
+
     def register_processor(self, name: str, processor_class):
         """注册数据处理器插件"""
         self.processors[name] = processor_class
-    
+
     def register_validator(self, name: str, validator_class):
         """注册验证器插件"""
         self.validators[name] = validator_class
-    
+
     def load_plugins(self, plugin_directory: str):
         """动态加载插件"""
         for plugin_file in glob.glob(f"{plugin_directory}/*.py"):
@@ -574,7 +574,7 @@ class PluginManager:
 # 示例插件
 class CustomAirportProcessor(BaseProcessor):
     """自定义机场处理器插件"""
-    
+
     def process(self, data):
         # 自定义处理逻辑
         return super().process(data)
@@ -589,34 +589,34 @@ def register(plugin_manager):
 ```python
 class ConfigurationManager:
     """配置管理器"""
-    
+
     def __init__(self, config_path: str = "config/settings.yaml"):
         self.config = self.load_config(config_path)
         self.validators = self.load_config_validators()
-    
+
     def load_config(self, path: str) -> dict:
         """加载配置文件"""
         with open(path, 'r', encoding='utf-8') as f:
             return yaml.safe_load(f)
-    
+
     def validate_config(self) -> bool:
         """验证配置的有效性"""
         for validator in self.validators:
             if not validator.validate(self.config):
                 return False
         return True
-    
+
     def get_nested_value(self, key_path: str, default=None):
         """获取嵌套配置值"""
         keys = key_path.split('.')
         value = self.config
-        
+
         for key in keys:
             if isinstance(value, dict) and key in value:
                 value = value[key]
             else:
                 return default
-        
+
         return value
 
 # 配置文件示例 (settings.yaml)
@@ -657,17 +657,17 @@ validation:
 ```python
 class StructuredLogger:
     """结构化日志系统"""
-    
+
     def __init__(self, name: str):
         self.logger = logging.getLogger(name)
         self.setup_handlers()
-    
+
     def setup_handlers(self):
         """设置日志处理器"""
         # 控制台处理器
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(ColoredFormatter())
-        
+
         # 文件处理器
         file_handler = RotatingFileHandler(
             f"logs/{self.logger.name}.log",
@@ -675,10 +675,10 @@ class StructuredLogger:
             backupCount=5
         )
         file_handler.setFormatter(JSONFormatter())
-        
+
         self.logger.addHandler(console_handler)
         self.logger.addHandler(file_handler)
-    
+
     def log_processing_start(self, module: str, input_size: int):
         """记录处理开始"""
         self.logger.info("Processing started", extra={
@@ -687,7 +687,7 @@ class StructuredLogger:
             'timestamp': datetime.utcnow().isoformat(),
             'event_type': 'processing_start'
         })
-    
+
     def log_processing_complete(self, module: str, output_size: int, duration: float):
         """记录处理完成"""
         self.logger.info("Processing completed", extra={
@@ -707,38 +707,38 @@ class StructuredLogger:
 ```python
 class SecurityManager:
     """安全管理器"""
-    
+
     def __init__(self):
         self.input_sanitizer = InputSanitizer()
         self.path_validator = PathValidator()
-    
+
     def validate_input_path(self, path: str) -> bool:
         """验证输入路径安全性"""
         # 防止路径遍历攻击
         normalized_path = os.path.normpath(path)
         if '..' in normalized_path:
             raise SecurityException("路径包含非法字符")
-        
+
         # 确保路径在允许的目录内
         allowed_dirs = ['data/input', 'config']
         if not any(normalized_path.startswith(allowed) for allowed in allowed_dirs):
             raise SecurityException("路径不在允许的目录内")
-        
+
         return True
-    
+
     def sanitize_sql_input(self, value: str) -> str:
         """SQL输入清理"""
         if not isinstance(value, str):
             return value
-        
+
         # 移除潜在的SQL注入字符
         dangerous_chars = ["'", '"', ';', '--', '/*', '*/']
         for char in dangerous_chars:
             value = value.replace(char, '')
-        
+
         return value
 ```
 
 ---
 
-这个技术架构文档为 Nav-data 项目提供了全面的技术视图，涵盖了系统设计、数据流、性能优化、质量保证和安全性等各个方面。开发者可以基于这个架构进行二次开发和功能扩展。 
+这个技术架构文档为 Nav-data 项目提供了全面的技术视图，涵盖了系统设计、数据流、性能优化、质量保证和安全性等各个方面。开发者可以基于这个架构进行二次开发和功能扩展。

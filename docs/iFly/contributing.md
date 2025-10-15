@@ -5,6 +5,7 @@
 ## 🌟 贡献方式
 
 ### 💻 代码贡献
+
 - 🐛 修复 Bug
 - ✨ 添加新功能
 - 📈 性能优化
@@ -12,6 +13,7 @@
 - 📚 改进文档
 
 ### 📝 非代码贡献
+
 - 🐛 报告问题
 - 💡 提出功能建议
 - 📖 完善文档
@@ -123,39 +125,39 @@ logger = logging.getLogger(__name__)
 
 class NavigationDataConverter:
     """导航数据转换器主类。
-    
+
     这个类负责将 Fenix 导航数据转换为 iFly 格式。
-    
+
     Attributes:
         config: 转换器配置
         logger: 日志记录器
     """
-    
+
     def __init__(self, config: ConverterConfig) -> None:
         """初始化转换器。
-        
+
         Args:
             config: 转换器配置对象
         """
         self.config = config
         self.logger = logging.getLogger(self.__class__.__name__)
-    
+
     def convert_data(
-        self, 
+        self,
         source_path: Path,
         target_path: Path,
         options: Optional[Dict[str, Any]] = None
     ) -> bool:
         """转换导航数据。
-        
+
         Args:
             source_path: 源数据路径
-            target_path: 目标数据路径  
+            target_path: 目标数据路径
             options: 可选的转换选项
-            
+
         Returns:
             转换是否成功
-            
+
         Raises:
             ConversionError: 转换过程中出现错误
         """
@@ -180,6 +182,7 @@ class NavigationDataConverter:
 ```
 
 **类型标识：**
+
 - `feat`: 新功能
 - `fix`: 修复 Bug
 - `docs`: 文档更新
@@ -189,6 +192,7 @@ class NavigationDataConverter:
 - `chore`: 构建过程或辅助工具的变动
 
 **示例：**
+
 ```
 feat(converter): add magnetic declination calculation
 
@@ -221,7 +225,7 @@ from ifly_converter.converter import NavigationDataConverter
 
 class TestNavigationDataConverter:
     """导航数据转换器测试类。"""
-    
+
     @pytest.fixture
     def converter(self):
         """创建测试用的转换器实例。"""
@@ -230,22 +234,22 @@ class TestNavigationDataConverter:
             coordinate_precision=8
         )
         return NavigationDataConverter(config)
-    
+
     def test_convert_data_success(self, converter, tmp_path):
         """测试数据转换成功情况。"""
         source = tmp_path / "source.db3"
         target = tmp_path / "target"
-        
+
         # 创建测试数据
         source.touch()
-        
+
         # 执行转换
         result = converter.convert_data(source, target)
-        
+
         # 验证结果
         assert result is True
         assert target.exists()
-    
+
     def test_convert_data_failure(self, converter):
         """测试数据转换失败情况。"""
         with pytest.raises(ConversionError):
@@ -292,7 +296,7 @@ docs/
 
 ### 文档示例
 
-```markdown
+````markdown
 ## 🔧 配置管理
 
 ### 基本配置
@@ -312,15 +316,17 @@ config = ConverterConfig(
     enable_validation=True
 )
 ```
+````
 
 ### 配置选项
 
-| 选项 | 类型 | 默认值 | 描述 |
-|------|------|--------|------|
-| `output_dir` | str | "output" | 输出目录 |
-| `coordinate_precision` | int | 8 | 坐标精度 |
-| `enable_validation` | bool | True | 启用验证 |
-```
+| 选项                   | 类型 | 默认值   | 描述     |
+| ---------------------- | ---- | -------- | -------- |
+| `output_dir`           | str  | "output" | 输出目录 |
+| `coordinate_precision` | int  | 8        | 坐标精度 |
+| `enable_validation`    | bool | True     | 启用验证 |
+
+````
 
 ## 🐛 报告问题
 
@@ -350,8 +356,10 @@ config = ConverterConfig(
 - 项目版本: [如 v2.0.0]
 
 **日志信息**
-```
+````
+
 粘贴相关的日志信息
+
 ```
 
 **截图**
@@ -396,18 +404,21 @@ config = ConverterConfig(
 ## 🎯 开发路线图
 
 ### 近期目标（1-3个月）
+
 - [ ] GUI 界面开发
 - [ ] 批量处理功能
 - [ ] 数据验证工具增强
 - [ ] 性能优化
 
 ### 中期目标（3-6个月）
+
 - [ ] 多格式支持
 - [ ] 云端处理
 - [ ] REST API 接口
 - [ ] 插件系统
 
 ### 长期目标（6-12个月）
+
 - [ ] 机器学习优化
 - [ ] 实时数据更新
 - [ ] 移动端支持

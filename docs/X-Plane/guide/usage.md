@@ -12,11 +12,11 @@ graph TD
     B -->|CSV 航路数据| C[航路处理模块]
     B -->|PDF 程序文件| D[PDF 提取模块]
     B -->|NAIP 数据| E[X-Plane CIFP 模块]
-    
+
     C --> F[earth_awy.dat]
     D --> G[程序数据库]
     E --> H[X-Plane CIFP 文件]
-    
+
     F --> I[数据验证]
     G --> I
     H --> I
@@ -28,6 +28,7 @@ graph TD
 ### 数据准备
 
 #### 1. 准备输入文件
+
 确保以下文件在工作目录中：
 
 ```bash
@@ -39,20 +40,22 @@ earth_awy.dat        # X-Plane 航路数据（将被更新）
 ```
 
 #### 2. CSV 文件格式验证
+
 `RTE_SEG.csv` 必须包含以下字段：
 
-| 字段名 | 说明 | 示例 |
-|--------|------|------|
-| `CODE_POINT_START` | 起始点代码 | ABCDE |
-| `CODE_TYPE_START` | 起始点类型 | DESIGNATED_POINT |
-| `CODE_POINT_END` | 终点代码 | FGHIJ |
-| `CODE_TYPE_END` | 终点类型 | VOR/DME |
-| `CODE_DIR` | 方向代码 | N |
-| `TXT_DESIG` | 航路名称 | A123 |
+| 字段名             | 说明       | 示例             |
+| ------------------ | ---------- | ---------------- |
+| `CODE_POINT_START` | 起始点代码 | ABCDE            |
+| `CODE_TYPE_START`  | 起始点类型 | DESIGNATED_POINT |
+| `CODE_POINT_END`   | 终点代码   | FGHIJ            |
+| `CODE_TYPE_END`    | 终点类型   | VOR/DME          |
+| `CODE_DIR`         | 方向代码   | N                |
+| `TXT_DESIG`        | 航路名称   | A123             |
 
 ### 执行航路转换
 
 #### 基本使用
+
 ```bash
 # 进入航路模块目录
 cd Airway
@@ -62,6 +65,7 @@ python airway.py
 ```
 
 #### 高级使用
+
 ```bash
 # 使用自定义参数
 python airway.py --config custom_config.ini
@@ -77,6 +81,7 @@ python airway.py --areas ZB,ZG,ZY
 ```
 
 #### 脚本内配置修改
+
 如需修改处理参数，编辑 `Airway/airway.py`：
 
 ```python
@@ -93,11 +98,13 @@ earth_awy_path = '/path/to/earth_awy.dat'
 ### 输出文件说明
 
 处理完成后，`earth_awy.dat` 文件将包含：
+
 - 过滤后的原始航路数据
 - 新添加的中国空域航路数据
 - 符合 X-Plane 格式的航路信息
 
 输出格式示例：
+
 ```
 ABCDE  ZB  11 FGHIJ  ZG   3 N  1    0  600 A123
 ```
@@ -107,6 +114,7 @@ ABCDE  ZB  11 FGHIJ  ZG   3 N  1    0  600 A123
 ### 程序数据处理流程
 
 #### 流程 1：PDF 原始提取
+
 ```bash
 # 进入 PDF 提取目录
 cd "PDF extract"
@@ -119,6 +127,7 @@ python 1_terminal_pdf.py
 ```
 
 **使用示例：**
+
 ```python
 # 自定义 PDF 处理
 import pdfplumber
@@ -128,7 +137,7 @@ from utils import *
 with pdfplumber.open("ZBAA_procedures.pdf") as pdf:
     # 提取文本和图形元素
     extracted_data = extract(pdf)
-    
+
     # 保存提取结果
     with open("ZBAA_procedure.txt", "w", encoding="utf-8") as f:
         for line in extracted_data:
@@ -136,6 +145,7 @@ with pdfplumber.open("ZBAA_procedures.pdf") as pdf:
 ```
 
 #### 流程 2：数据标准化编码
+
 ```bash
 # 运行编码脚本
 python 2_terminal_encode.py
@@ -145,27 +155,31 @@ python 2_terminal_encode.py
 ```
 
 **编码规则：**
+
 - 清理无效字符和格式
 - 标准化程序名称
 - 规范坐标格式
 - 验证数据完整性
 
 #### 流程 3：数据库格式生成
+
 ```bash
 # 运行数据库生成脚本
 python 3_terminal_db.py
 
-# 输入：ZXXX_encode.txt  
+# 输入：ZXXX_encode.txt
 # 输出：ZXXX_db.txt
 ```
 
 **数据库格式特性：**
+
 - 分离多跑道程序
 - 拼接过渡、复飞、等待程序
 - 生成 X-Plane 兼容格式
 - 添加程序描述编码
 
 #### 流程 4：程序增殖（可选）
+
 ```bash
 # 修正程序名称不一致问题
 python 4_程序增殖.py
@@ -177,6 +191,7 @@ python 4_程序增殖.py
 ### 航路点坐标提取流程
 
 #### 自动提取（推荐）
+
 ```bash
 # 运行自动坐标提取
 python waypoint_1_pdf.py
@@ -187,12 +202,14 @@ output_txt = "ZBAA_waypoint.txt"
 ```
 
 **自动提取特性：**
+
 - 智能识别坐标格式
 - 自动处理度分秒转换
 - 支持多种 PDF 布局
 - 包含数据验证
 
 #### 手动提取（备用方案）
+
 当自动提取精度不理想时：
 
 ```bash
@@ -201,12 +218,14 @@ python waypoint_2_edge.py
 ```
 
 **手动提取步骤：**
+
 1. 用 Microsoft Edge 打开 PDF 文件
 2. 右键选择并复制相关文本
 3. 将文本保存到输入文件
 4. 运行脚本进行格式化处理
 
 #### 单文件处理（特殊情况）
+
 ```bash
 # 处理包含特殊字符的文件
 python debug_single.py
@@ -220,6 +239,7 @@ python debug_single.py
 ### PDF 处理最佳实践
 
 #### 1. PDF 文件预处理
+
 ```bash
 # 检查 PDF 文件质量
 python -c "
@@ -231,6 +251,7 @@ with pdfplumber.open('input.pdf') as pdf:
 ```
 
 #### 2. 批量处理
+
 ```python
 # 批量处理多个机场 PDF
 import os
@@ -241,26 +262,27 @@ output_folder = "output_txt/"
 
 for pdf_file in Path(pdf_folder).glob("*.pdf"):
     airport_code = pdf_file.stem[:4]  # 提取机场代码
-    
+
     # 处理单个文件
     os.system(f"python 1_terminal_pdf.py {pdf_file}")
     os.system(f"python 2_terminal_encode.py {airport_code}_procedure.txt")
     os.system(f"python 3_terminal_db.py {airport_code}_encode.txt")
-    
+
     print(f"完成处理: {airport_code}")
 ```
 
 #### 3. 质量检查
+
 ```python
 # 验证提取结果
 def validate_extraction(output_file):
     with open(output_file, 'r', encoding='utf-8') as f:
         lines = f.readlines()
-    
+
     # 检查坐标格式
     coord_pattern = r'\d+\.\d{8}'
     valid_coords = sum(1 for line in lines if re.search(coord_pattern, line))
-    
+
     print(f"文件: {output_file}")
     print(f"总行数: {len(lines)}")
     print(f"有效坐标行数: {valid_coords}")
@@ -275,6 +297,7 @@ validate_extraction("ZBAA_waypoint.txt")
 ### 数据编码修复
 
 #### 使用编码器
+
 ```bash
 # 进入修复模块目录
 cd "Terminal Patch"
@@ -290,12 +313,14 @@ python terminal_encoder.py "PDF extract/public" "PDF extract/encoded"
 ```
 
 **编码器功能：**
+
 - 识别 IF 点位置
 - 添加过渡段编码
 - 标记程序关键点
 - 生成标准描述代码
 
 #### 使用格式修复器
+
 ```bash
 # 批量格式修复（默认路径）
 python terminal_reencode.py
@@ -310,12 +335,14 @@ python terminal_reencode.py "/input/folder" "/output/folder"
 **修复规则说明：**
 
 1. **APPCH 行 GY M 规则**
+
    ```
    修复前: APPCH ... RW01 ... ... GY M
    修复后: APPCH ... RW01 ... G GY M
    ```
 
 2. **纯字母第五部分规则**
+
    ```
    修复前: SID ... ABC ... ... EY M
    修复后: SID ... ABC ... D B VY M
@@ -337,7 +364,7 @@ def custom_fix_procedure(input_file, output_file):
     """自定义程序修复函数"""
     with open(input_file, 'r', encoding='utf-8') as f:
         lines = f.readlines()
-    
+
     fixed_lines = []
     for line in lines:
         # 应用自定义修复规则
@@ -349,9 +376,9 @@ def custom_fix_procedure(input_file, output_file):
                 if parts[8] == 'EY':
                     parts[8] = 'GY'
                 line = ' '.join(parts) + '\n'
-        
+
         fixed_lines.append(line)
-    
+
     with open(output_file, 'w', encoding='utf-8') as f:
         f.writelines(fixed_lines)
 
@@ -364,6 +391,7 @@ custom_fix_procedure('ZBAA.dat', 'ZBAA_custom_fixed.dat')
 ### 导航设备处理
 
 #### VOR/DME 和 NDB 数据处理
+
 ```bash
 cd "X-Plane CIFP"
 
@@ -372,6 +400,7 @@ python 1_navaid.py
 ```
 
 **配置路径：**
+
 ```python
 # 修改脚本中的路径配置
 nav路径 = "path/to/earth_nav.dat"
@@ -382,9 +411,11 @@ ndb路径 = "path/to/NDB.csv"
 **CSV 数据格式要求：**
 
 VOR.csv 字段：
+
 - 机场代码、名称、频率、坐标、高度等
 
 NDB.csv 字段：
+
 - 机场代码、名称、频率、坐标、高度等
 
 ### 航路点处理
@@ -395,6 +426,7 @@ python 2_waypoint.py
 ```
 
 **配置示例：**
+
 ```python
 # 修改路径配置
 naipPath = "path/to/naip/waypoints"
@@ -413,6 +445,7 @@ python 3_terminal.py
 ```
 
 **配置路径：**
+
 ```python
 # 主要路径配置
 inputPath = "path/to/encoded/procedures"
@@ -422,6 +455,7 @@ csvFolder = "path/to/naip/csv/data"
 ```
 
 **处理流程：**
+
 1. 读取编码后的程序文件
 2. 建立航路点数据库
 3. 处理 SID、STAR、进近程序
@@ -431,6 +465,7 @@ csvFolder = "path/to/naip/csv/data"
 ### 特殊功能模块
 
 #### Fenix 数据提取
+
 ```bash
 # 提取特定格式的跑道和 MAP 信息
 python Fenix.py
@@ -442,6 +477,7 @@ output_file = "fenix_output.txt"
 ```
 
 #### 跑道生成
+
 ```bash
 # 生成跑道相关数据
 python spawn_runway.py
@@ -473,38 +509,38 @@ def validate_airway_data(file_path):
             line = line.strip()
             if not line or line == "99":
                 continue
-                
+
             # X-Plane 航路格式验证
             parts = line.split()
             if len(parts) < 11:
                 errors.append(f"行 {line_num}: 字段数不足")
                 continue
-                
+
             # 坐标范围验证
             try:
                 # 这里添加具体的坐标验证逻辑
                 pass
             except ValueError as e:
                 errors.append(f"行 {line_num}: 坐标格式错误 - {e}")
-    
+
     return errors
 
 def validate_waypoint_data(file_path):
     """验证航路点数据格式"""
     errors = []
     coord_pattern = r'^-?\d+\.\d{8}$'
-    
+
     with open(file_path, 'r', encoding='utf-8') as f:
         for line_num, line in enumerate(f, 1):
             line = line.strip()
             if not line:
                 continue
-                
+
             parts = line.split()
             if len(parts) < 3:
                 errors.append(f"行 {line_num}: 字段数不足")
                 continue
-                
+
             # 验证坐标格式
             try:
                 lat, lon = float(parts[1]), float(parts[2])
@@ -514,42 +550,42 @@ def validate_waypoint_data(file_path):
                     errors.append(f"行 {line_num}: 经度超出范围")
             except ValueError:
                 errors.append(f"行 {line_num}: 坐标格式错误")
-    
+
     return errors
 
 def validate_cifp_data(file_path):
     """验证 CIFP 数据格式"""
     errors = []
     procedure_types = ['SID', 'STAR', 'APPCH']
-    
+
     with open(file_path, 'r', encoding='utf-8') as f:
         for line_num, line in enumerate(f, 1):
             line = line.strip()
             if not line:
                 continue
-                
+
             # 检查程序类型
             if any(line.startswith(ptype) for ptype in procedure_types):
                 parts = line.split()
                 if len(parts) < 15:
                     errors.append(f"行 {line_num}: CIFP 格式字段不足")
-    
+
     return errors
 
 def main():
     """主验证函数"""
     print("🔍 Nav-data 输出验证")
     print("=" * 40)
-    
+
     # 验证配置
     validation_config = {
         'earth_awy.dat': validate_airway_data,
         '*.txt': validate_waypoint_data,  # 航路点文件
         '*.dat': validate_cifp_data,      # CIFP 文件
     }
-    
+
     total_errors = 0
-    
+
     for pattern, validator in validation_config.items():
         if '*' in pattern:
             # 通配符模式
@@ -558,12 +594,12 @@ def main():
         else:
             # 具体文件
             files = [Path(pattern)] if Path(pattern).exists() else []
-        
+
         for file_path in files:
             if file_path.exists():
                 print(f"\n📄 验证文件: {file_path}")
                 errors = validator(str(file_path))
-                
+
                 if errors:
                     print(f"❌ 发现 {len(errors)} 个错误:")
                     for error in errors[:5]:  # 只显示前5个错误
@@ -573,7 +609,7 @@ def main():
                     total_errors += len(errors)
                 else:
                     print("✅ 验证通过")
-    
+
     print(f"\n" + "=" * 40)
     if total_errors == 0:
         print("🎉 所有数据验证通过！")
@@ -587,6 +623,7 @@ if __name__ == "__main__":
 ```
 
 ### 使用验证脚本
+
 ```bash
 # 运行验证
 python validate_output.py
@@ -636,79 +673,79 @@ class BatchProcessor:
         self.config = config
         self.processed_count = 0
         self.error_count = 0
-    
+
     def process_airway_data(self):
         """处理航路数据"""
         logger.info("开始处理航路数据...")
-        
+
         try:
             os.chdir('Airway')
-            result = subprocess.run(['python', 'airway.py'], 
+            result = subprocess.run(['python', 'airway.py'],
                                   capture_output=True, text=True)
-            
+
             if result.returncode == 0:
                 logger.info("航路数据处理成功")
                 self.processed_count += 1
             else:
                 logger.error(f"航路数据处理失败: {result.stderr}")
                 self.error_count += 1
-                
+
         except Exception as e:
             logger.error(f"航路数据处理异常: {e}")
             self.error_count += 1
         finally:
             os.chdir('..')
-    
+
     def process_pdf_data(self, pdf_files):
         """批量处理 PDF 数据"""
         logger.info(f"开始处理 {len(pdf_files)} 个 PDF 文件...")
-        
+
         os.chdir('PDF extract')
-        
+
         for pdf_file in pdf_files:
             try:
                 airport_code = Path(pdf_file).stem[:4]
                 logger.info(f"处理机场: {airport_code}")
-                
+
                 # 步骤 1: PDF 提取
                 subprocess.run(['python', '1_terminal_pdf.py', pdf_file], check=True)
-                
+
                 # 步骤 2: 编码
-                subprocess.run(['python', '2_terminal_encode.py', 
+                subprocess.run(['python', '2_terminal_encode.py',
                               f'{airport_code}_procedure.txt'], check=True)
-                
+
                 # 步骤 3: 数据库生成
-                subprocess.run(['python', '3_terminal_db.py', 
+                subprocess.run(['python', '3_terminal_db.py',
                               f'{airport_code}_encode.txt'], check=True)
-                
+
                 logger.info(f"完成处理: {airport_code}")
                 self.processed_count += 1
-                
+
             except subprocess.CalledProcessError as e:
                 logger.error(f"处理 {pdf_file} 失败: {e}")
                 self.error_count += 1
             except Exception as e:
                 logger.error(f"处理 {pdf_file} 异常: {e}")
                 self.error_count += 1
-        
+
         os.chdir('..')
-    
+
     def process_terminal_patch(self):
         """处理终端补丁"""
         logger.info("开始处理终端补丁...")
-        
+
         try:
             os.chdir('Terminal Patch')
-            
+
             # 编码器
             subprocess.run(['python', 'terminal_encoder.py'], check=True)
-            
+
             # 格式修复
             subprocess.run(['python', 'terminal_reencode.py'], check=True)
-            
+
             logger.info("终端补丁处理成功")
             self.processed_count += 1
-            
+
         except subprocess.CalledProcessError as e:
             logger.error(f"终端补丁处理失败: {e}")
             self.error_count += 1
@@ -717,26 +754,26 @@ class BatchProcessor:
             self.error_count += 1
         finally:
             os.chdir('..')
-    
+
     def process_cifp_data(self):
         """处理 CIFP 数据"""
         logger.info("开始处理 CIFP 数据...")
-        
+
         try:
             os.chdir('X-Plane CIFP')
-            
+
             # 导航设备
             subprocess.run(['python', '1_navaid.py'], check=True)
-            
+
             # 航路点
             subprocess.run(['python', '2_waypoint.py'], check=True)
-            
+
             # 终端程序
             subprocess.run(['python', '3_terminal.py'], check=True)
-            
+
             logger.info("CIFP 数据处理成功")
             self.processed_count += 1
-            
+
         except subprocess.CalledProcessError as e:
             logger.error(f"CIFP 数据处理失败: {e}")
             self.error_count += 1
@@ -745,28 +782,28 @@ class BatchProcessor:
             self.error_count += 1
         finally:
             os.chdir('..')
-    
+
     def run_validation(self):
         """运行数据验证"""
         logger.info("开始数据验证...")
-        
+
         try:
-            result = subprocess.run(['python', 'validate_output.py'], 
+            result = subprocess.run(['python', 'validate_output.py'],
                                   capture_output=True, text=True)
-            
+
             if result.returncode == 0:
                 logger.info("数据验证通过")
             else:
                 logger.warning(f"数据验证发现问题: {result.stdout}")
-                
+
         except Exception as e:
             logger.error(f"数据验证异常: {e}")
-    
+
     def generate_report(self):
         """生成处理报告"""
         total = self.processed_count + self.error_count
         success_rate = (self.processed_count / total * 100) if total > 0 else 0
-        
+
         report = f"""
 Nav-data 批量处理报告
 ========================
@@ -777,9 +814,9 @@ Nav-data 批量处理报告
 
 详细日志请查看控制台输出。
         """
-        
+
         logger.info(report)
-        
+
         # 保存报告到文件
         with open('batch_process_report.txt', 'w', encoding='utf-8') as f:
             f.write(report)
@@ -791,41 +828,41 @@ def main():
         'enable_validation': True,
         'generate_report': True
     }
-    
+
     processor = BatchProcessor(config)
-    
+
     # 查找 PDF 文件
     pdf_files = list(Path(config['pdf_folder']).glob('*.pdf')) if Path(config['pdf_folder']).exists() else []
-    
+
     # 执行处理流程
     try:
         # 1. 航路数据处理
         if Path('Airway/RTE_SEG.csv').exists():
             processor.process_airway_data()
-        
+
         # 2. PDF 数据处理
         if pdf_files:
             processor.process_pdf_data(pdf_files)
-        
+
         # 3. 终端补丁处理
         processor.process_terminal_patch()
-        
+
         # 4. CIFP 数据处理
         processor.process_cifp_data()
-        
+
         # 5. 数据验证
         if config['enable_validation']:
             processor.run_validation()
-        
+
         # 6. 生成报告
         if config['generate_report']:
             processor.generate_report()
-            
+
     except KeyboardInterrupt:
         logger.info("用户中断处理")
     except Exception as e:
         logger.error(f"批量处理异常: {e}")
-    
+
     logger.info("批量处理完成")
 
 if __name__ == "__main__":
@@ -833,6 +870,7 @@ if __name__ == "__main__":
 ```
 
 ### 使用批量处理
+
 ```bash
 # 运行批量处理
 python batch_process.py
@@ -850,23 +888,26 @@ python batch_process.py
 ## ❓ 常见问题解答 (FAQ)
 
 ### Q1: 为什么航路转换失败？
+
 **A:** 常见原因和解决方案：
 
 1. **CSV 文件格式错误**
+
    ```bash
    # 检查 CSV 文件编码
    file -I RTE_SEG.csv
-   
+
    # 转换编码（如需要）
    iconv -f gbk -t utf-8 RTE_SEG.csv > RTE_SEG_utf8.csv
    ```
 
 2. **缺少必需字段**
+
    ```python
    # 验证 CSV 字段
    import pandas as pd
    df = pd.read_csv('RTE_SEG.csv')
-   required_fields = ['CODE_POINT_START', 'CODE_TYPE_START', 'CODE_POINT_END', 
+   required_fields = ['CODE_POINT_START', 'CODE_TYPE_START', 'CODE_POINT_END',
                      'CODE_TYPE_END', 'CODE_DIR', 'TXT_DESIG']
    missing_fields = [f for f in required_fields if f not in df.columns]
    print(f"缺失字段: {missing_fields}")
@@ -879,14 +920,17 @@ python batch_process.py
    ```
 
 ### Q2: PDF 提取精度不理想怎么办？
+
 **A:** 尝试以下解决方案：
 
 1. **使用手动提取方法**
+
    ```bash
    python waypoint_2_edge.py
    ```
 
 2. **调整 PDF 处理参数**
+
    ```python
    # 在 waypoint_1_pdf.py 中调整
    crop_margin = 50  # 增加裁剪边距
@@ -899,9 +943,11 @@ python batch_process.py
    - 移除不必要的图形元素
 
 ### Q3: 程序编码错误如何修复？
+
 **A:** 使用修复工具：
 
 1. **自动修复**
+
    ```bash
    cd "Terminal Patch"
    python terminal_reencode.py
@@ -919,18 +965,21 @@ python batch_process.py
    ```
 
 ### Q4: X-Plane 无法识别生成的数据？
+
 **A:** 检查以下项目：
 
 1. **文件路径正确性**
+
    ```bash
    # X-Plane 11
    ls "$XPLANE_PATH/Custom Data/"
-   
+
    # X-Plane 12
    ls "$XPLANE_PATH/Output/FMS plans/"
    ```
 
 2. **文件格式兼容性**
+
    ```python
    # 检查文件编码
    with open('earth_awy.dat', 'rb') as f:
@@ -945,9 +994,11 @@ python batch_process.py
    ```
 
 ### Q5: 处理大文件时内存不足？
+
 **A:** 优化内存使用：
 
 1. **增加虚拟内存**
+
    ```bash
    # Linux 系统
    sudo swapon --show
@@ -957,6 +1008,7 @@ python batch_process.py
    ```
 
 2. **分批处理**
+
    ```python
    # 修改批处理大小
    BATCH_SIZE = 500  # 减少批处理大小
@@ -970,14 +1022,17 @@ python batch_process.py
    ```
 
 ### Q6: 坐标精度问题？
+
 **A:** 提高坐标处理精度：
 
 1. **调整精度设置**
+
    ```python
    COORDINATE_PRECISION = 8  # 保持8位小数精度
    ```
 
 2. **验证坐标范围**
+
    ```python
    # 中国区域坐标范围
    LAT_MIN, LAT_MAX = 15.0, 55.0
@@ -991,9 +1046,11 @@ python batch_process.py
    ```
 
 ### Q7: 如何更新 AIRAC 数据？
+
 **A:** AIRAC 数据更新流程：
 
 1. **自动计算当前周期**
+
    ```python
    from datetime import datetime
    # 工具会自动计算当前 AIRAC 周期
@@ -1002,6 +1059,7 @@ python batch_process.py
    ```
 
 2. **手动指定周期**
+
    ```python
    # 在配置中指定
    manual_cycle = "2504"  # 2025年第4个周期
@@ -1014,6 +1072,7 @@ python batch_process.py
    ```
 
 ### Q8: 如何贡献代码或报告问题？
+
 **A:** 参与项目开发：
 
 1. **报告问题**
@@ -1033,4 +1092,4 @@ python batch_process.py
 
 ---
 
-**使用愉快！** ✈️ 如果您遇到其他问题，请查看项目的 GitHub Issues 或创建新的问题报告。 
+**使用愉快！** ✈️ 如果您遇到其他问题，请查看项目的 GitHub Issues 或创建新的问题报告。

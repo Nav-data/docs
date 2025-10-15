@@ -10,21 +10,26 @@ description: Nav-data 用户常见问题和解决方案
 ## 🚀 快速解答
 
 ### Q: Nav-data 是什么？
+
 **A:** Nav-data 是一个开源的航空导航数据转换工具，专门将中国民航的 NAIP 数据转换为 X-Plane 飞行模拟器可使用的格式。它包含四个主要模块：航路处理、PDF提取、终端修复和X-Plane CIFP生成。
 
 ### Q: 我需要什么才能使用 Nav-data？
+
 **A:** 您需要：
+
 - Python 3.6+ 环境
 - 相应的导航数据源文件（CSV、PDF等）
 - X-Plane 飞行模拟器（使用转换后的数据）
 - 基本的命令行操作知识
 
 ### Q: Nav-data 是免费的吗？
+
 **A:** 是的，Nav-data 采用 MIT 开源许可证，完全免费使用，包括商业用途。
 
 ## 📦 安装相关问题
 
 ### Q: 安装时提示 "Python 版本过低" 怎么办？
+
 **A:** Nav-data 需要 Python 3.6 或更高版本。解决方案：
 
 ```bash
@@ -38,6 +43,7 @@ python --version
 ```
 
 ### Q: pip install 命令失败怎么办？
+
 **A:** 常见解决方案：
 
 ```bash
@@ -57,6 +63,7 @@ source nav-data-env/bin/activate  # Linux/macOS
 ```
 
 ### Q: 依赖包安装失败，提示权限不足？
+
 **A:** 解决方案：
 
 ```bash
@@ -73,6 +80,7 @@ sudo pip install package_name
 ```
 
 ### Q: Windows 下安装 pdfplumber 失败？
+
 **A:** 这通常是缺少 Visual C++ 编译环境导致的：
 
 1. 安装 Microsoft Visual C++ Build Tools
@@ -84,6 +92,7 @@ sudo pip install package_name
 ## 🗂️ 数据处理问题
 
 ### Q: CSV 文件无法读取，提示编码错误？
+
 **A:** 这是中文CSV文件常见问题：
 
 ```python
@@ -98,15 +107,18 @@ iconv -f gbk -t utf-8 input.csv > output.csv
 ```
 
 ### Q: 航路转换后数据不完整？
+
 **A:** 检查以下项目：
 
 1. **CSV 文件格式**：确保包含必需字段
+
    ```
-   CODE_POINT_START, CODE_TYPE_START, CODE_POINT_END, 
+   CODE_POINT_START, CODE_TYPE_START, CODE_POINT_END,
    CODE_TYPE_END, CODE_DIR, TXT_DESIG
    ```
 
 2. **区域过滤设置**：检查是否意外过滤了需要的数据
+
    ```python
    # 在 airway.py 中检查区域设置
    china_areas = {'ZB', 'ZG', 'ZY', 'ZS', 'ZW', 'ZJ', 'ZP', 'ZL', 'ZH', 'ZU'}
@@ -115,14 +127,17 @@ iconv -f gbk -t utf-8 input.csv > output.csv
 3. **参考数据文件**：确保 earth_fix.dat 和 earth_nav.dat 存在且完整
 
 ### Q: PDF 提取的坐标精度不够？
+
 **A:** 尝试以下解决方案：
 
 1. **使用手动提取模式**：
+
    ```bash
    python waypoint_2_edge.py
    ```
 
 2. **调整处理参数**：
+
    ```python
    # 在脚本中修改精度设置
    COORDINATE_PRECISION = 8
@@ -134,6 +149,7 @@ iconv -f gbk -t utf-8 input.csv > output.csv
    - 使用 Adobe Acrobat 等工具优化 PDF
 
 ### Q: 坐标转换结果不正确？
+
 **A:** 检查坐标格式和转换设置：
 
 ```python
@@ -149,6 +165,7 @@ def dms_to_decimal(degrees, minutes, seconds):
 ## 🔧 程序修复问题
 
 ### Q: 终端程序编码后格式不正确？
+
 **A:** 检查编码规则配置：
 
 ```python
@@ -166,6 +183,7 @@ ENCODING_MAPPINGS = {
 ```
 
 ### Q: 批量处理时部分文件失败？
+
 **A:** 使用容错处理模式：
 
 ```python
@@ -179,6 +197,7 @@ except Exception as e:
 ```
 
 ### Q: 修复规则不生效？
+
 **A:** 确认修复规则的优先级和匹配条件：
 
 ```python
@@ -195,18 +214,21 @@ print(check_rule_match(test_line, r"APPCH.*GY M"))
 ## 🛩️ X-Plane 集成问题
 
 ### Q: X-Plane 无法识别转换后的数据？
+
 **A:** 检查以下项目：
 
 1. **文件路径正确性**：
+
    ```bash
    # X-Plane 11
    /path/to/X-Plane/Custom Data/
-   
+
    # X-Plane 12
    /path/to/X-Plane/Output/FMS plans/
    ```
 
 2. **文件格式完整性**：
+
    ```bash
    # 检查文件是否以 "99" 结尾
    tail -n 5 earth_awy.dat
@@ -219,6 +241,7 @@ print(check_rule_match(test_line, r"APPCH.*GY M"))
    ```
 
 ### Q: CIFP 数据在 X-Plane 中显示异常？
+
 **A:** 验证 CIFP 格式规范：
 
 ```python
@@ -237,6 +260,7 @@ with open('airport.dat', 'r') as f:
 ```
 
 ### Q: 程序在 X-Plane 中无法选择？
+
 **A:** 检查程序命名和跑道标识：
 
 1. **跑道标识符格式**：确保符合 ICAO 标准（如 RW25L, RW03R）
@@ -246,6 +270,7 @@ with open('airport.dat', 'r') as f:
 ## ⚡ 性能问题
 
 ### Q: 处理大文件时速度很慢？
+
 **A:** 优化处理性能：
 
 ```python
@@ -263,6 +288,7 @@ CACHE_DIR = "cache/"
 ```
 
 ### Q: 内存使用过高怎么办？
+
 **A:** 内存优化策略：
 
 ```python
@@ -290,6 +316,7 @@ def data_generator():
 ## 🐛 错误排查
 
 ### Q: 程序运行时突然崩溃？
+
 **A:** 收集调试信息：
 
 ```python
@@ -312,6 +339,7 @@ print(f"磁盘空间: {psutil.disk_usage('/').percent}%")
 ```
 
 ### Q: 输出结果与预期不符？
+
 **A:** 逐步调试流程：
 
 ```python
@@ -336,6 +364,7 @@ assert all(validate_item(item) for item in processed_data), "数据验证失败"
 ## 🌐 平台特定问题
 
 ### Q: Windows 下路径包含空格导致错误？
+
 **A:** 正确处理文件路径：
 
 ```python
@@ -353,6 +382,7 @@ subprocess.run(['python', 'script.py', '"C:/path with spaces/file.csv"'])
 ```
 
 ### Q: macOS 下权限被拒绝？
+
 **A:** 修复权限问题：
 
 ```bash
@@ -370,6 +400,7 @@ cd ~/nav-data
 ```
 
 ### Q: Linux 下缺少系统依赖？
+
 **A:** 安装必要的系统包：
 
 ```bash
@@ -387,6 +418,7 @@ conda install -c conda-forge pdfplumber
 ## 🔄 数据更新问题
 
 ### Q: 如何获取最新的 NAIP 数据？
+
 **A:** 数据更新流程：
 
 1. **数据来源**：从民航局官方网站获取最新 NAIP 数据
@@ -406,6 +438,7 @@ def get_current_airac():
 ```
 
 ### Q: 转换后的数据过期了怎么办？
+
 **A:** 定期更新数据：
 
 1. **建立更新提醒**：每28天检查一次新的 AIRAC 数据
@@ -415,6 +448,7 @@ def get_current_airac():
 ## 📞 获取更多帮助
 
 ### Q: 在哪里可以获得技术支持？
+
 **A:** 多种获取帮助的途径：
 
 1. **文档资源**：
@@ -433,27 +467,32 @@ def get_current_airac():
    - 提供可重现问题的示例数据
 
 ### Q: 如何报告问题或建议改进？
+
 **A:** 有效的问题报告包含：
 
 ```markdown
 **问题描述**: 简要描述遇到的问题
-**重现步骤**: 
+**重现步骤**:
+
 1. 使用的命令或操作
 2. 输入的数据文件
 3. 期望的结果 vs 实际结果
 
 **环境信息**:
+
 - 操作系统: Windows 10 / macOS 12 / Ubuntu 20.04
 - Python 版本: 3.9.7
 - Nav-data 版本: v2.1.0
 
 **附加信息**:
+
 - 错误日志
-- 相关截图  
+- 相关截图
 - 示例数据文件（如可分享）
 ```
 
 ### Q: 想要贡献代码或文档？
+
 **A:** 欢迎参与项目开发！
 
 1. **查看贡献指南**：[contributing.md](./contributing.md)
@@ -466,6 +505,7 @@ def get_current_airac():
 ## 💡 实用提示
 
 ### 快速诊断命令
+
 ```bash
 # 环境检查
 python --version
@@ -481,7 +521,9 @@ free -h  # 内存使用（Linux）
 ```
 
 ### 调试开关
+
 在脚本中添加调试模式：
+
 ```python
 DEBUG = True  # 设置为 True 启用调试输出
 
@@ -491,4 +533,4 @@ if DEBUG:
     print(f"处理时间: {elapsed_time:.2f}s")
 ```
 
-**如果您的问题不在上述列表中，请不要犹豫，通过 GitHub Issues 提出新的问题！**我们会持续更新这个FAQ文档，让它更好地为社区服务。 ✈️ 
+**如果您的问题不在上述列表中，请不要犹豫，通过 GitHub Issues 提出新的问题！**我们会持续更新这个FAQ文档，让它更好地为社区服务。 ✈️

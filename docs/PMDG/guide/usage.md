@@ -17,35 +17,37 @@ graph TD
 
 ### 转换模块说明
 
-| 模块名 | 功能 | 输入数据 | 输出表 |
-|--------|------|----------|--------|
-| `PMDG_APT.py` | 机场数据处理 | AD_HP.csv + Airport.dat | tbl_airports |
-| `PMDG_RUNWAY.py` | 跑道信息处理 | RWY*.csv + earth_nav.dat | tbl_runways |
-| `PMDG_VHF.py` | VOR/DME数据处理 | earth_nav.dat | tbl_vhfnavaids |
-| `PMDG_ENRT_NDB.py` | NDB数据处理 | earth_nav.dat | tbl_enroute_ndbnavaids |
-| `PMDG_ENRT_WAYPOINT.py` | 航路点处理 | earth_fix.dat | tbl_enroute_waypoints |
-| `PMDG_TMA_WAYPOINT.py` | 终端区航路点 | earth_fix.dat | tbl_terminal_waypoints |
-| `PMDG_AWY_FINAL.py` | 航路数据处理 | RTE_SEG.csv + earth_*.dat | tbl_enroute_airways |
-| `PMDG_ILS.py` | ILS/GS数据处理 | earth_nav.dat | tbl_localizers_glideslopes |
-| `PMDG_SID.py` | 标准离场程序 | CIFP .dat文件 | tbl_sids |
-| `PMDG_STAR.py` | 标准到达程序 | CIFP .dat文件 | tbl_stars |
-| `PMDG_APPCH.py` | 进近程序 | CIFP .dat文件 | tbl_iaps |
+| 模块名                  | 功能            | 输入数据                   | 输出表                     |
+| ----------------------- | --------------- | -------------------------- | -------------------------- |
+| `PMDG_APT.py`           | 机场数据处理    | AD_HP.csv + Airport.dat    | tbl_airports               |
+| `PMDG_RUNWAY.py`        | 跑道信息处理    | RWY\*.csv + earth_nav.dat  | tbl_runways                |
+| `PMDG_VHF.py`           | VOR/DME数据处理 | earth_nav.dat              | tbl_vhfnavaids             |
+| `PMDG_ENRT_NDB.py`      | NDB数据处理     | earth_nav.dat              | tbl_enroute_ndbnavaids     |
+| `PMDG_ENRT_WAYPOINT.py` | 航路点处理      | earth_fix.dat              | tbl_enroute_waypoints      |
+| `PMDG_TMA_WAYPOINT.py`  | 终端区航路点    | earth_fix.dat              | tbl_terminal_waypoints     |
+| `PMDG_AWY_FINAL.py`     | 航路数据处理    | RTE*SEG.csv + earth*\*.dat | tbl_enroute_airways        |
+| `PMDG_ILS.py`           | ILS/GS数据处理  | earth_nav.dat              | tbl_localizers_glideslopes |
+| `PMDG_SID.py`           | 标准离场程序    | CIFP .dat文件              | tbl_sids                   |
+| `PMDG_STAR.py`          | 标准到达程序    | CIFP .dat文件              | tbl_stars                  |
+| `PMDG_APPCH.py`         | 进近程序        | CIFP .dat文件              | tbl_iaps                   |
 
 ## 🔄 数据转换步骤
 
 ### 第一步: 数据准备
 
 1. **获取 NAIP 数据**
+
    ```bash
    # 将 NAIP CSV 文件放置到指定目录
    cp /source/path/*.csv data/input/naip/
-   
+
    # 验证文件完整性
    ls data/input/naip/
    # 应显示: AD_HP.csv, RWY_DIRECTION.csv, RWY.csv, RTE_SEG.csv
    ```
 
 2. **获取 X-Plane 数据**
+
    ```bash
    # 从 X-Plane 安装目录复制数据文件
    cp "/path/to/X-Plane/Custom Data/earth_fix.dat" data/input/xplane/
@@ -53,6 +55,7 @@ graph TD
    ```
 
 3. **获取 CIFP 数据**
+
    ```bash
    # 复制 CIFP 程序数据文件
    cp -r /path/to/CIFP/* data/input/cifp/
@@ -152,7 +155,7 @@ start_time=$(date +%s)
 run_module() {
     local module=$1
     local description=$2
-    
+
     echo "📊 $description"
     if python $module.py; then
         echo "✅ $module 完成"
@@ -225,9 +228,8 @@ conn.close()
 ### 第一步: 定位 PMDG 飞机
 
 1. **找到 MSFS Community 文件夹**
-   
+
    根据您的 MSFS 安装方式：
-   
    - **Microsoft Store**: `%LOCALAPPDATA%\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalCache\Packages\Community`
    - **Steam**: `%APPDATA%\Microsoft Flight Simulator\Packages\Community`
    - **Xbox Game Pass**: `%LOCALAPPDATA%\Packages\Microsoft.FlightDashboard_8wekyb3d8bbwe\LocalCache\Packages\Community`
@@ -252,7 +254,7 @@ REM 示例：备份 PMDG 737-800
 cd "Community\pmdg-aircraft-738\Config"
 ren Navdata Navdata_backup_%DATE:~0,10%
 
-REM 备份 PMDG 777-300ER  
+REM 备份 PMDG 777-300ER
 cd "..\..\..\pmdg-aircraft-77w\Config"
 ren Navdata Navdata_backup_%DATE:~0,10%
 ```
@@ -277,7 +279,7 @@ REM Microsoft Store 版本
 rmdir /s /q "%LOCALAPPDATA%\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalState\packages\pmdg-aircraft-738\work\NavigationData"
 rmdir /s /q "%LOCALAPPDATA%\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalState\packages\pmdg-aircraft-77w\work\NavigationData"
 
-REM Steam 版本  
+REM Steam 版本
 rmdir /s /q "%APPDATA%\Microsoft Flight Simulator\LocalState\packages\pmdg-aircraft-738\work\NavigationData"
 rmdir /s /q "%APPDATA%\Microsoft Flight Simulator\LocalState\packages\pmdg-aircraft-77w\work\NavigationData"
 ```
@@ -367,7 +369,7 @@ def find_msfs_community():
         os.path.expandvars(r"%APPDATA%\Microsoft Flight Simulator\Packages\Community"),
         os.path.expandvars(r"%LOCALAPPDATA%\Packages\Microsoft.FlightDashboard_8wekyb3d8bbwe\LocalCache\Packages\Community")
     ]
-    
+
     for path in possible_paths:
         if os.path.exists(path):
             return path
@@ -375,33 +377,33 @@ def find_msfs_community():
 
 def install_navdata():
     """安装导航数据到所有 PMDG 飞机"""
-    
+
     community_path = find_msfs_community()
     if not community_path:
         print("❌ 无法找到 MSFS Community 文件夹")
         return False
-    
+
     print(f"📂 找到 Community 文件夹: {community_path}")
-    
+
     # 查找 PMDG 飞机
     pmdg_aircraft = glob.glob(os.path.join(community_path, "pmdg-aircraft-*"))
-    
+
     if not pmdg_aircraft:
         print("❌ 未找到 PMDG 飞机")
         return False
-    
+
     database_path = "data/output/e_dfd_PMDG.s3db"
     if not os.path.exists(database_path):
         print(f"❌ 数据库文件不存在: {database_path}")
         return False
-    
+
     for aircraft_path in pmdg_aircraft:
         aircraft_name = os.path.basename(aircraft_path)
         config_path = os.path.join(aircraft_path, "Config")
         navdata_path = os.path.join(config_path, "Navdata")
-        
+
         print(f"🛫 处理 {aircraft_name}...")
-        
+
         # 备份原有数据
         if os.path.exists(navdata_path):
             backup_path = f"{navdata_path}_backup"
@@ -409,15 +411,15 @@ def install_navdata():
                 shutil.rmtree(backup_path)
             shutil.move(navdata_path, backup_path)
             print(f"  💾 已备份原有数据到 {backup_path}")
-        
+
         # 创建新的 Navdata 目录
         os.makedirs(navdata_path, exist_ok=True)
-        
+
         # 复制数据库文件
         dest_db = os.path.join(navdata_path, "e_dfd_PMDG.s3db")
         shutil.copy2(database_path, dest_db)
         print(f"  ✅ 已安装数据库到 {dest_db}")
-    
+
     print("✅ 所有 PMDG 飞机的导航数据安装完成!")
     print("⚠️  请重启 Microsoft Flight Simulator 以加载新数据")
     return True
@@ -437,45 +439,45 @@ import sys
 
 def compare_databases(db1_path, db2_path):
     """对比两个数据库的差异"""
-    
+
     conn1 = sqlite3.connect(db1_path)
     conn2 = sqlite3.connect(db2_path)
-    
+
     cursor1 = conn1.cursor()
     cursor2 = conn2.cursor()
-    
+
     # 获取表列表
     cursor1.execute("SELECT name FROM sqlite_master WHERE type='table'")
     tables1 = {row[0] for row in cursor1.fetchall()}
-    
+
     cursor2.execute("SELECT name FROM sqlite_master WHERE type='table'")
     tables2 = {row[0] for row in cursor2.fetchall()}
-    
+
     print("📊 数据库对比报告")
     print("=" * 50)
-    
+
     # 对比表结构
     common_tables = tables1.intersection(tables2)
     only_in_db1 = tables1 - tables2
     only_in_db2 = tables2 - tables1
-    
+
     if only_in_db1:
         print(f"仅在 {db1_path} 中的表: {only_in_db1}")
     if only_in_db2:
         print(f"仅在 {db2_path} 中的表: {only_in_db2}")
-    
+
     # 对比记录数量
     for table in common_tables:
         cursor1.execute(f"SELECT COUNT(*) FROM {table}")
         count1 = cursor1.fetchone()[0]
-        
+
         cursor2.execute(f"SELECT COUNT(*) FROM {table}")
         count2 = cursor2.fetchone()[0]
-        
+
         diff = count2 - count1
         status = "📈" if diff > 0 else "📉" if diff < 0 else "➡️"
         print(f"{status} {table}: {count1} → {count2} ({diff:+d})")
-    
+
     conn1.close()
     conn2.close()
 
@@ -483,7 +485,7 @@ if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("用法: python compare_databases.py <数据库1> <数据库2>")
         sys.exit(1)
-    
+
     compare_databases(sys.argv[1], sys.argv[2])
 ```
 
@@ -492,8 +494,10 @@ if __name__ == "__main__":
 ### 常见问题及解决方案
 
 #### 1. 转换过程中断
+
 **症状**: 转换过程中出现错误并停止
 **解决**:
+
 ```bash
 # 检查错误日志
 cat logs/PMDG_*.log | grep ERROR
@@ -503,8 +507,10 @@ python [失败的模块].py
 ```
 
 #### 2. MSFS 无法识别数据
+
 **症状**: PMDG FMC 显示 "DB OUT OF DATE"
 **解决**:
+
 ```bash
 # 确认数据库文件位置正确
 ls "Community/pmdg-aircraft-*/Config/Navdata/"
@@ -516,8 +522,10 @@ rmdir /s /q "%LOCALAPPDATA%\...\NavigationData"
 ```
 
 #### 3. 内存不足错误
+
 **症状**: "MemoryError" 或系统变慢
 **解决**:
+
 ```bash
 # 减少批处理大小
 # 编辑 PMDG_TMA_WAYPOINT.py
@@ -528,8 +536,10 @@ rmdir /s /q "%LOCALAPPDATA%\...\NavigationData"
 ```
 
 #### 4. 权限问题
+
 **症状**: "Permission denied" 错误
 **解决**:
+
 ```cmd
 REM Windows: 以管理员身份运行
 REM 或修改文件夹权限
@@ -553,4 +563,4 @@ grep "WARNING\|警告" logs/PMDG_*.log
 
 ---
 
-**完成**: 您现在已经掌握了 Nav-data 的完整使用流程！如需了解更多高级功能，请参考[技术架构](../architecture.md)文档。 
+**完成**: 您现在已经掌握了 Nav-data 的完整使用流程！如需了解更多高级功能，请参考[技术架构](../architecture.md)文档。

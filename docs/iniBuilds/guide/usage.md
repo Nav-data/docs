@@ -26,7 +26,7 @@ python -c "
 import os
 files = [
     'NAIP/AD_HP.csv',
-    'NAIP/RWY.csv', 
+    'NAIP/RWY.csv',
     'NAIP/RWY_DIRECTION.csv',
     'NAIP/RTE_SEG.csv',
     'X-Plane/earth_fix.dat',
@@ -51,12 +51,14 @@ python XP2INI_NDB_Converter.py
 程序将引导您完成路径配置：
 
 #### 3.1 基础目录设置
+
 ```
-请输入基础目录路径（包含NAIP, NDBs和XP_Data文件夹）: 
+请输入基础目录路径（包含NAIP, NDBs和XP_Data文件夹）:
 > C:\NavData\Workspace
 ```
 
 #### 3.2 自动路径检测
+
 程序会自动扫描并显示检测到的文件：
 
 ```
@@ -71,6 +73,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### 3.3 路径确认
+
 ```
 是否确认以上路径全部正确？(Y/N): Y
 ```
@@ -80,6 +83,7 @@ python XP2INI_NDB_Converter.py
 转换程序将按以下顺序处理各类数据：
 
 #### 4.1 机场数据处理
+
 ```
 开始处理机场数据...
 📍 正在解析机场基础信息
@@ -88,6 +92,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### 4.2 跑道数据处理
+
 ```
 开始处理跑道数据...
 🛬 正在处理跑道信息
@@ -96,6 +101,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### 4.3 VHF导航台处理
+
 ```
 开始处理VHF数据...
 📡 正在处理VOR/DME导航台
@@ -104,6 +110,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### 4.4 GS着陆引导系统
+
 ```
 开始处理GS数据...
 🛬 正在处理ILS着陆系统
@@ -112,6 +119,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### 4.5 NDB导航台处理
+
 ```
 开始处理NDB数据...
 📻 正在处理非定向信标台
@@ -120,6 +128,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### 4.6 航路点数据处理
+
 ```
 开始处理航路点数据...
 🗺️ 正在处理航路航路点
@@ -127,6 +136,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### 4.7 终端区域点处理
+
 ```
 开始处理终端点数据...
 🏢 正在处理终端区域航路点
@@ -134,6 +144,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### 4.8 SID离场程序处理
+
 ```
 开始处理离场程序...
 🛫 正在处理SID程序
@@ -142,6 +153,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### 4.9 STAR进场程序处理
+
 ```
 开始处理进场程序...
 🛬 正在处理STAR程序
@@ -150,6 +162,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### 4.10 IAP进近程序处理
+
 ```
 开始处理进近程序...
 🎯 正在处理进近程序
@@ -158,6 +171,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### 4.11 航路数据处理
+
 ```
 开始处理航路数据...
 🛣️ 正在处理高低空航路
@@ -166,6 +180,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### 4.12 数据库优化
+
 ```
 🗜️ 正在压缩数据库...
 📊 删除临时索引...
@@ -200,11 +215,13 @@ python XP2INI_NDB_Converter.py
 根据您使用的飞机插件选择对应的部署路径：
 
 #### iniBuilds A350系列
+
 ```
 [MSFS Community文件夹]\inibuilds-aircraft-a350\work\NavigationData\
 ```
 
 #### PMDG 737系列
+
 ```
 [MSFS Community文件夹]\pmdg-aircraft-737\Config\Navdata\
 [MSFS Community文件夹]\pmdg-aircraft-738\Config\Navdata\
@@ -212,6 +229,7 @@ python XP2INI_NDB_Converter.py
 ```
 
 #### PMDG 777系列
+
 ```
 [MSFS Community文件夹]\pmdg-aircraft-77w\Config\Navdata\
 [MSFS Community文件夹]\pmdg-aircraft-77f\Config\Navdata\
@@ -236,21 +254,25 @@ Write-Host "备份创建完成: $backupDir"
 清空MSFS的导航数据缓存：
 
 **MSFS 2020 (Microsoft Store)**
+
 ```
 %LOCALAPPDATA%\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalState\packages\[aircraft-folder]\work\NavigationData\
 ```
 
-**MSFS 2020 (Steam)** 
+**MSFS 2020 (Steam)**
+
 ```
 %APPDATA%\Microsoft Flight Simulator\Packages\[aircraft-folder]\work\NavigationData\
 ```
 
 **MSFS 2024 (Microsoft Store)**
+
 ```
 %LOCALAPPDATA%\Packages\Microsoft.Limitless_8wekyb3d8bbwe\LocalState\WASM\MSFS2024\[aircraft-folder]\work\NavigationData\
 ```
 
 **MSFS 2024 (Steam)**
+
 ```
 %APPDATA%\Microsoft Flight Simulator 2024\WASM\MSFS2024\[aircraft-folder]\work\NavigationData\
 ```
@@ -322,18 +344,18 @@ from datetime import datetime
 def update_navdata():
     """执行导航数据更新"""
     print(f"🔄 开始更新导航数据 - {datetime.now()}")
-    
+
     try:
         # 运行转换程序
-        result = subprocess.run(['python', 'XP2INI_NDB_Converter.py'], 
+        result = subprocess.run(['python', 'XP2INI_NDB_Converter.py'],
                               capture_output=True, text=True)
-        
+
         if result.returncode == 0:
             print("✅ 导航数据更新成功！")
             # 这里可以添加自动部署逻辑
         else:
             print("❌ 更新失败：", result.stderr)
-            
+
     except Exception as e:
         print(f"❌ 更新异常：{e}")
 
@@ -360,18 +382,18 @@ import os
 
 def validate_database(db_path):
     """验证数据库完整性和数据质量"""
-    
+
     if not os.path.exists(db_path):
         print(f"❌ 数据库文件不存在: {db_path}")
         return False
-    
+
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    
+
     # 检查表结构
     tables = [
         'tbl_airports',
-        'tbl_runways', 
+        'tbl_runways',
         'tbl_d_vhfnavaids',
         'tbl_db_enroute_ndbnavaids',
         'tbl_ea_enroute_waypoints',
@@ -379,10 +401,10 @@ def validate_database(db_path):
         'tbl_pd_sids',
         'tbl_er_enroute_airways'
     ]
-    
+
     print("🔍 数据库验证报告")
     print("=" * 40)
-    
+
     for table in tables:
         try:
             cursor.execute(f"SELECT COUNT(*) FROM {table}")
@@ -390,23 +412,23 @@ def validate_database(db_path):
             print(f"✅ {table}: {count} 条记录")
         except sqlite3.OperationalError as e:
             print(f"❌ {table}: 表不存在或查询失败")
-    
+
     # 检查数据质量
     print("\n📊 数据质量检查")
     print("=" * 40)
-    
+
     # 检查空坐标
     cursor.execute("""
-        SELECT COUNT(*) FROM tbl_airports 
+        SELECT COUNT(*) FROM tbl_airports
         WHERE airport_latitude IS NULL OR airport_longitude IS NULL
     """)
     null_coords = cursor.fetchone()[0]
-    
+
     if null_coords == 0:
         print("✅ 机场坐标: 无空值")
     else:
         print(f"⚠️ 机场坐标: {null_coords} 个空值")
-    
+
     conn.close()
     return True
 
@@ -419,6 +441,7 @@ if __name__ == "__main__":
 ### 转换过程问题
 
 #### 问题：程序中途停止
+
 ```bash
 # 原因：数据文件损坏或路径错误
 # 解决：检查所有输入文件的完整性
@@ -433,6 +456,7 @@ for f in ['NAIP/AD_HP.csv', 'X-Plane/earth_fix.dat']:
 ```
 
 #### 问题：内存不足错误
+
 ```python
 # 解决：减少批处理大小
 # 在配置中设置较小的BATCH_SIZE
@@ -440,6 +464,7 @@ BATCH_SIZE = 500  # 减少到500
 ```
 
 #### 问题：数据库锁定错误
+
 ```bash
 # 原因：其他程序正在使用数据库
 # 解决：关闭所有相关程序后重新运行
@@ -449,6 +474,7 @@ taskkill /f /im "FlightSimulator.exe"
 ### 部署问题
 
 #### 问题：FMC显示"DB OUT OF DATE"
+
 ```bash
 # 原因：
 # 1. 数据库文件未正确复制
@@ -462,6 +488,7 @@ taskkill /f /im "FlightSimulator.exe"
 ```
 
 #### 问题：部分航路点或程序缺失
+
 ```bash
 # 原因：CIFP数据不完整
 # 解决：
@@ -497,7 +524,7 @@ def monitor_performance():
         cpu = psutil.cpu_percent()
         memory = psutil.virtual_memory().percent
         disk = psutil.disk_usage('.').percent
-        
+
         print(f"CPU: {cpu}% | 内存: {memory}% | 磁盘: {disk}%")
         time.sleep(5)
 
@@ -507,4 +534,4 @@ monitor_performance()
 
 ---
 
-恭喜！您已经掌握了Nav-data工具的完整使用流程。 
+恭喜！您已经掌握了Nav-data工具的完整使用流程。

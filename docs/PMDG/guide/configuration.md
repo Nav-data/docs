@@ -5,6 +5,7 @@
 ## 📋 配置概览
 
 Nav-data 需要配置以下类型的数据源：
+
 - **NAIP 数据** - 中国民航信息处理系统数据 (CSV格式)
 - **X-Plane 数据** - X-Plane 导航数据文件 (DAT格式)
 - **CIFP 数据** - 编码仪表飞行程序数据 (DAT格式)
@@ -17,6 +18,7 @@ Nav-data 需要配置以下类型的数据源：
 NAIP (National Aeronautical Information Processing) 数据包含中国地区的官方航空信息：
 
 #### 必需文件列表
+
 ```
 data/input/naip/
 ├── AD_HP.csv              # 机场基础数据 (机场位置、磁差)
@@ -26,6 +28,7 @@ data/input/naip/
 ```
 
 #### 文件格式要求
+
 - **编码**: Latin-1 (ISO-8859-1)
 - **分隔符**: 逗号 (,)
 - **换行符**: Windows (CRLF) 或 Unix (LF)
@@ -33,18 +36,21 @@ data/input/naip/
 #### 关键字段说明
 
 **AD_HP.csv** - 机场数据:
+
 - `CODE_ID`: 4字母ICAO代码 (如: ZBAA)
 - `GEO_LAT_ACCURACY`: 纬度 (DMS格式: N390308.00)
 - `GEO_LONG_ACCURACY`: 经度 (DMS格式: E1162930.00)
 - `VAL_MAG_VAR`: 磁差值
 
 **RWY.csv** - 跑道数据:
+
 - `CODE_ID`: 机场ICAO代码
 - `TXT_DESIG`: 跑道标识符 (如: 18L/36R)
 - `VAL_LEN`: 跑道长度 (米)
 - `VAL_WID`: 跑道宽度 (米)
 
 **RTE_SEG.csv** - 航路数据:
+
 - `TXT_DESIG`: 航路标识符 (如: A1, G212)
 - `CODE_POINT_START`: 起点标识符
 - `CODE_TYPE_START`: 点类型 (DESIGNATED_POINT, VORDME, NDB)
@@ -56,6 +62,7 @@ data/input/naip/
 X-Plane 提供高质量的导航数据，支持全球范围：
 
 #### 必需文件
+
 ```
 data/input/xplane/
 ├── earth_fix.dat          # 全球航路点数据
@@ -65,23 +72,26 @@ data/input/xplane/
 #### 数据格式说明
 
 **earth_fix.dat** 格式:
+
 ```
 纬度 经度 标识符 地区代码 ICAO代码 类型
 39.051639 116.497222 ADNAP ZZZZ ZB DESIGNATED_POINT
 ```
 
 **earth_nav.dat** 格式:
+
 ```
 类型 纬度 经度 高程 频率 航程 磁差 标识符 地区代码 ICAO代码 名称 设备类型
 3 39.051639 116.497222 35 11030 130 -6.0 BJK ENRT ZB BEIJING VOR/DME
 ```
 
 #### 支持的ICAO地区代码
+
 ```python
 # 目前支持的中国地区代码
 VALID_ICAO_CODES = {
     'ZB',  # 华北地区
-    'ZG',  # 广州地区  
+    'ZG',  # 广州地区
     'ZS',  # 上海地区
     'ZJ',  # 新疆地区
     'ZY',  # 中南地区
@@ -98,6 +108,7 @@ VALID_ICAO_CODES = {
 CIFP (Coded Instrument Flight Procedures) 包含标准仪表飞行程序：
 
 #### 文件结构
+
 ```
 data/input/cifp/
 ├── ZBAA.dat              # 北京首都机场程序
@@ -107,11 +118,13 @@ data/input/cifp/
 ```
 
 #### 程序类型
+
 - **SID** - 标准仪表离场程序
-- **STAR** - 标准终端到达程序  
+- **STAR** - 标准终端到达程序
 - **APPCH** - 仪表进近程序
 
 #### 数据格式示例
+
 ```
 SID:010,D,ABING1,T,ZBAA,ABING,ZB,001,IF,L,0.30,IF,,-6.0,ZBAA,0,0,0,270.0,0,D,+,1700,,,,,0.0,,ABING,,J
 ```
@@ -119,6 +132,7 @@ SID:010,D,ABING1,T,ZBAA,ABING,ZB,001,IF,L,0.30,IF,,-6.0,ZBAA,0,0,0,270.0,0,D,+,1
 ### 4. 参考数据文件
 
 #### 机场名称查找文件
+
 ```
 data/input/Airport.dat
 
@@ -135,6 +149,7 @@ ZGGG GUANGZHOU/BAIYUN INTL
 每个Python模块都包含路径配置，需要根据您的实际环境调整：
 
 #### PMDG_APT.py 配置示例
+
 ```python
 # 机场数据处理配置
 csv_file_path = r'/path/to/naip/AD_HP.csv'
@@ -144,6 +159,7 @@ missing_airports_path = r'/path/to/logs/missing_airports_data.txt'
 ```
 
 #### PMDG_RUNWAY.py 配置示例
+
 ```python
 # 跑道数据处理配置
 path_to_first_csv = r'/path/to/naip/RWY_DIRECTION.csv'
@@ -154,6 +170,7 @@ earth_nav_dat_path = r'/path/to/xplane/earth_nav.dat'
 ```
 
 #### 程序数据配置示例
+
 ```python
 # SID/STAR/APPCH 程序配置
 source_dat_directory = '/path/to/cifp/'
@@ -366,9 +383,9 @@ from config.paths import *
 
 def validate_config():
     """验证配置文件的完整性和正确性"""
-    
+
     print("🔍 验证配置文件...")
-    
+
     # 检查必需目录
     required_dirs = [DATA_DIR, INPUT_DIR, OUTPUT_DIR, LOGS_DIR]
     for dir_path in required_dirs:
@@ -376,26 +393,26 @@ def validate_config():
             print(f"❌ 缺少目录: {dir_path}")
             return False
         print(f"✅ 目录存在: {dir_path}")
-    
+
     # 检查必需的输入文件
     required_files = []
     required_files.extend(NAIP_FILES.values())
     required_files.extend(XPLANE_FILES.values())
     required_files.append(AIRPORT_LOOKUP)
-    
+
     missing_files = []
     for file_path in required_files:
         if not os.path.exists(file_path):
             missing_files.append(file_path)
         else:
             print(f"✅ 文件存在: {os.path.basename(file_path)}")
-    
+
     if missing_files:
         print(f"❌ 缺少必需文件:")
         for file_path in missing_files:
             print(f"   - {file_path}")
         return False
-    
+
     print("✅ 配置验证通过！")
     return True
 
@@ -426,4 +443,4 @@ if __name__ == "__main__":
 
 ---
 
-**下一步**: 阅读[使用说明](usage.md)了解如何运行数据转换流程。 
+**下一步**: 阅读[使用说明](usage.md)了解如何运行数据转换流程。

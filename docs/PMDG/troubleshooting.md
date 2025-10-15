@@ -9,12 +9,15 @@
 ### ❌ Python 环境问题
 
 #### **问题**: `python: command not found` 或 `'python' 不是内部或外部命令`
-**症状**: 
+
+**症状**:
+
 ```bash
 'python' is not recognized as an internal or external command
 ```
 
 **解决方案**:
+
 ```bash
 # 1. 验证Python安装
 python --version
@@ -30,12 +33,15 @@ echo %PATH%  # Windows
 ```
 
 #### **问题**: 依赖包安装失败
+
 **症状**:
+
 ```bash
 ERROR: Could not find a version that satisfies the requirement
 ```
 
 **解决方案**:
+
 ```bash
 # 1. 更新pip
 python -m pip install --upgrade pip
@@ -55,12 +61,15 @@ nav_data_env\Scripts\activate     # Windows
 ### ❌ 权限问题
 
 #### **问题**: 访问 MSFS 目录被拒绝
+
 **症状**:
+
 ```
 PermissionError: [Errno 13] Permission denied
 ```
 
 **解决方案**:
+
 ```bash
 # Windows用户
 # 1. 以管理员身份运行命令提示符
@@ -78,12 +87,15 @@ icacls "C:\Users\[用户名]\AppData\Local\Packages" /grant Users:F /T
 ### ❌ 数据文件问题
 
 #### **问题**: 无法找到AIRAC数据文件
+
 **症状**:
+
 ```
 FileNotFoundError: AIRAC data file not found
 ```
 
 **诊断步骤**:
+
 ```bash
 # 1. 验证文件路径
 ls -la ./input/AIRAC2024-01/  # Linux/macOS
@@ -94,6 +106,7 @@ ls -la *.dat *.txt *.xml      # 检查数据文件
 ```
 
 **解决方案**:
+
 ```bash
 # 1. 确认数据文件格式和位置
 mkdir -p ./input/AIRAC2024-01
@@ -104,12 +117,15 @@ python validate_data.py --check-integrity --input-dir=./input/AIRAC2024-01
 ```
 
 #### **问题**: 数据格式不兼容
+
 **症状**:
+
 ```
 ValueError: Unsupported data format or corrupted file
 ```
 
 **解决方案**:
+
 ```bash
 # 1. 检查支持的格式
 python converter.py --list-supported-formats
@@ -124,12 +140,15 @@ python converter.py --debug --verbose --input=problematic_file.dat
 ### ❌ 转换过程错误
 
 #### **问题**: 内存不足错误
+
 **症状**:
+
 ```
 MemoryError: Unable to allocate array
 ```
 
 **解决方案**:
+
 ```bash
 # 1. 分块处理大型数据集
 python converter.py --batch-size=1000 --memory-limit=4GB
@@ -146,12 +165,15 @@ python converter.py --streaming-mode --temp-dir=/tmp/nav_data
 ```
 
 #### **问题**: 坐标转换错误
+
 **症状**:
+
 ```
 CoordinateTransformError: Invalid coordinate conversion
 ```
 
 **解决方案**:
+
 ```bash
 # 1. 验证坐标系统设置
 python converter.py --coordinate-system=WGS84 --verify-coordinates
@@ -170,9 +192,11 @@ python converter.py --magnetic-model=WMM2020 --declination-check
 ### ❌ PMDG 集成问题
 
 #### **问题**: PMDG 飞机无法识别导航数据
+
 **症状**: FMC显示"NAV DATA NOT FOUND"或导航点无法加载
 
 **诊断步骤**:
+
 ```bash
 # 1. 检查PMDG数据目录
 dir "C:\Users\%USERNAME%\AppData\Local\Packages\Microsoft.FlightSimulator_*\LocalCache\PMDG\"
@@ -182,6 +206,7 @@ python verify_pmdg_db.py --check-tables --check-indexes
 ```
 
 **解决方案**:
+
 ```bash
 # 1. 确认PMDG数据路径
 python converter.py --pmdg-path="C:\Users\[用户名]\AppData\Local\Packages\Microsoft.FlightSimulator_[ID]\LocalCache\PMDG"
@@ -196,9 +221,11 @@ icacls "PMDG数据目录" /grant Users:F /T
 ```
 
 #### **问题**: 数据版本不匹配
+
 **症状**: PMDG显示旧的AIRAC周期或数据不更新
 
 **解决方案**:
+
 ```bash
 # 1. 强制更新AIRAC标识
 python converter.py --force-airac-update --airac-cycle=2024-01
@@ -217,13 +244,16 @@ python verify_airac.py --current-cycle --check-validity
 ### ❌ 转换速度慢
 
 #### **问题**: 转换过程异常缓慢
+
 **可能原因**:
+
 - 硬盘I/O瓶颈
 - 内存不足
 - CPU使用率低
 - 网络延迟（在线验证）
 
 **优化方案**:
+
 ```bash
 # 1. 启用多进程处理
 python converter.py --parallel=4 --workers=auto
@@ -241,16 +271,19 @@ python converter.py --buffer-size=64MB --async-io
 ### ❌ 内存使用过高
 
 #### **问题**: 转换过程消耗大量内存
+
 **监控内存使用**:
+
 ```bash
 # Windows
 tasklist /fi "imagename eq python.exe"
 
-# Linux/macOS  
+# Linux/macOS
 top -p $(pgrep python)
 ```
 
 **解决方案**:
+
 ```bash
 # 1. 启用流式处理
 python converter.py --streaming --chunk-size=10MB
@@ -269,12 +302,15 @@ python converter.py --process-by-region --region-size=small
 ### ❌ 数据完整性检查失败
 
 #### **问题**: 验证工具报告数据不完整
+
 **症状**:
+
 ```
 ValidationError: Missing required navigation points
 ```
 
 **诊断工具**:
+
 ```bash
 # 1. 运行完整验证
 python validate_data.py --comprehensive --output-report=validation_report.html
@@ -287,6 +323,7 @@ python compare_data.py --reference=official_data.xml --current=converted_data.db
 ```
 
 **修复方案**:
+
 ```bash
 # 1. 重新下载源数据
 # 确保AIRAC数据完整和最新
@@ -301,7 +338,9 @@ python manual_fix.py --add-missing-waypoints --config=fixes.json
 ### ❌ 坐标精度问题
 
 #### **问题**: 导航点位置不准确
+
 **检查方法**:
+
 ```bash
 # 1. 验证特定航点坐标
 python check_waypoint.py --icao=ZSPD --waypoint=SASAN
@@ -320,6 +359,7 @@ python deviation_report.py --threshold=0.001 --output=deviations.html
 ### 🔍 理解日志文件
 
 #### **日志级别说明**:
+
 - **DEBUG**: 详细调试信息
 - **INFO**: 一般处理信息
 - **WARNING**: 警告信息，不影响功能
@@ -327,6 +367,7 @@ python deviation_report.py --threshold=0.001 --output=deviations.html
 - **CRITICAL**: 严重错误，处理中断
 
 #### **常见日志模式**:
+
 ```bash
 # 查找错误日志
 grep "ERROR\|CRITICAL" converter.log
@@ -341,6 +382,7 @@ grep "Processing time" converter.log | tail -10
 ### 🔧 日志配置
 
 #### **增加日志详细程度**:
+
 ```bash
 # 启用详细日志
 python converter.py --log-level=DEBUG --log-format=detailed
@@ -356,6 +398,7 @@ python converter.py --log-split --error-log=errors.log --debug-log=debug.log
 ### 🚨 数据损坏恢复
 
 #### **步骤1**: 立即备份
+
 ```bash
 # 备份当前状态
 cp -r ./output ./backup_$(date +%Y%m%d_%H%M%S)  # Linux/macOS
@@ -363,6 +406,7 @@ xcopy .\output .\backup_%date:~0,4%%date:~5,2%%date:~8,2%_%time:~0,2%%time:~3,2%
 ```
 
 #### **步骤2**: 从备份恢复
+
 ```bash
 # 恢复最近的有效备份
 python restore_backup.py --list-backups
@@ -370,6 +414,7 @@ python restore_backup.py --restore=backup_20240115_1430 --target=./output
 ```
 
 #### **步骤3**: 验证恢复
+
 ```bash
 # 验证恢复的数据
 python validate_data.py --quick-check --report-only-errors
@@ -378,6 +423,7 @@ python validate_data.py --quick-check --report-only-errors
 ### 🚨 重置为默认状态
 
 #### **完全重置**:
+
 ```bash
 # 警告：这将删除所有转换的数据
 python reset_tool.py --full-reset --confirm
@@ -396,6 +442,7 @@ python init.py --first-time-setup
 ### 📝 报告问题时请提供
 
 1. **系统信息**:
+
    ```bash
    python --version
    python system_info.py --full-report
@@ -443,4 +490,4 @@ python init.py --first-time-setup
 - **每季度**: 完整系统检查，性能优化
 - **重要更新时**: 完整备份，谨慎升级
 
-记住：预防胜于治疗！定期维护可以避免大部分问题的发生。 
+记住：预防胜于治疗！定期维护可以避免大部分问题的发生。

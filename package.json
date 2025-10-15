@@ -10,7 +10,9 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "serve": "vitepress preview docs --port 4173"
+    "serve": "vitepress preview docs --port 4173",
+    "format": "prettier --write \"docs/**/*.md\" \"*.md\"",
+    "format:check": "prettier --check \"docs/**/*.md\" \"*.md\""
   },
   "keywords": [
     "flight-simulator",
@@ -34,6 +36,7 @@
   },
   "devDependencies": {
     "mermaid": "^11.9.0",
+    "prettier": "^3.6.2",
     "vitepress": "^1.6.3",
     "vitepress-plugin-mermaid": "^2.0.17"
   },

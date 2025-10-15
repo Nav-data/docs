@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "Nav-data"
-  text: "专业的航空导航数据转换工具"
-  tagline: "为飞行模拟器提供高质量导航数据支持，让每一次飞行都更加真实 ✈️"
+  name: 'Nav-data'
+  text: '专业的航空导航数据转换工具'
+  tagline: '为飞行模拟器提供高质量导航数据支持，让每一次飞行都更加真实 ✈️'
   image:
     src: /favicon.svg
     alt: Nav-data Logo

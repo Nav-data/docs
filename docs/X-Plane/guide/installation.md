@@ -5,6 +5,7 @@
 ## 📋 系统要求
 
 ### 最低系统要求
+
 - **操作系统**：Windows 10/11, macOS 10.15+, Ubuntu 18.04+ 或其他主流 Linux 发行版
 - **Python 版本**：Python 3.6 或更高版本
 - **内存**：建议 4GB RAM 以上
@@ -12,7 +13,8 @@
 - **网络**：用于下载依赖包和更新数据
 
 ### 推荐系统配置
-- **Python 版本**：Python 3.8+ 
+
+- **Python 版本**：Python 3.8+
 - **内存**：8GB RAM 或更高
 - **存储空间**：10GB+ SSD 存储
 - **处理器**：多核 CPU（用于大文件批量处理）
@@ -22,6 +24,7 @@
 ### 1. Python 环境安装
 
 #### Windows 系统
+
 1. 访问 [Python 官网](https://www.python.org/downloads/) 下载最新版本
 2. 运行安装程序，**务必勾选 "Add Python to PATH"**
 3. 验证安装：
@@ -31,7 +34,9 @@
    ```
 
 #### macOS 系统
+
 使用 Homebrew（推荐）：
+
 ```bash
 # 安装 Homebrew（如未安装）
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -45,6 +50,7 @@ pip3 --version
 ```
 
 #### Linux 系统（Ubuntu/Debian）
+
 ```bash
 # 更新包管理器
 sudo apt update
@@ -60,6 +66,7 @@ pip3 --version
 ### 2. 获取项目源码
 
 #### 方式一：Git 克隆（推荐）
+
 ```bash
 # 克隆项目仓库
 git clone https://github.com/your-repo/nav-data.git
@@ -69,6 +76,7 @@ cd nav-data
 ```
 
 #### 方式二：下载压缩包
+
 1. 访问项目 GitHub 页面
 2. 点击 "Code" → "Download ZIP"
 3. 解压到目标目录
@@ -95,12 +103,14 @@ which python  # 应显示虚拟环境路径
 ### 4. 安装依赖包
 
 #### 核心依赖
+
 ```bash
 # 安装基础依赖
 pip install -r requirements.txt
 ```
 
 #### 手动安装依赖（如无 requirements.txt）
+
 ```bash
 # 数据处理相关
 pip install pandas numpy
@@ -122,6 +132,7 @@ pip install typing-extensions dataclasses
 ```
 
 #### 可选依赖
+
 ```bash
 # Jupyter Notebook 支持（数据分析）
 pip install jupyter
@@ -136,6 +147,7 @@ pip install black flake8
 ## 🗂️ 目录结构配置
 
 ### 标准目录布局
+
 ```
 nav-data/
 ├── Airway/                 # 航路数据处理模块
@@ -161,6 +173,7 @@ nav-data/
 ```
 
 ### 创建工作目录
+
 ```bash
 # 创建数据输入目录
 mkdir -p data/input/{csv,pdf,raw}
@@ -178,6 +191,7 @@ mkdir -p config
 ## ⚙️ 环境变量配置
 
 ### 创建环境配置文件
+
 创建 `.env` 文件（Windows 用户创建 `.env.txt` 然后重命名）：
 
 ```bash
@@ -201,6 +215,7 @@ CHINA_AREAS=ZB,ZG,ZY,ZS,ZW,ZJ,ZP,ZL,ZH,ZU
 ```
 
 ### Windows 系统环境变量设置
+
 1. 右键 "此电脑" → "属性" → "高级系统设置"
 2. 点击 "环境变量"
 3. 在 "用户变量" 中添加：
@@ -208,7 +223,9 @@ CHINA_AREAS=ZB,ZG,ZY,ZS,ZW,ZJ,ZP,ZL,ZH,ZU
    - 变量值：项目安装路径
 
 ### macOS/Linux 环境变量设置
+
 在 `~/.bashrc` 或 `~/.zshrc` 中添加：
+
 ```bash
 export NAV_DATA_HOME="/path/to/nav-data"
 export PATH="$NAV_DATA_HOME:$PATH"
@@ -217,6 +234,7 @@ export PATH="$NAV_DATA_HOME:$PATH"
 ## 🧪 安装验证
 
 ### 1. 基础功能测试
+
 ```bash
 # 进入项目目录
 cd nav-data
@@ -224,7 +242,7 @@ cd nav-data
 # 测试航路模块
 python -c "import Airway.airway; print('Airway module loaded successfully')"
 
-# 测试 PDF 处理模块  
+# 测试 PDF 处理模块
 python -c "import sys; sys.path.append('PDF extract'); import utils; print('PDF module loaded successfully')"
 
 # 测试终端补丁模块
@@ -232,7 +250,9 @@ python -c "import sys; sys.path.append('Terminal Patch'); print('Terminal Patch 
 ```
 
 ### 2. 依赖检查脚本
+
 创建 `check_installation.py`：
+
 ```python
 #!/usr/bin/env python3
 """
@@ -254,10 +274,10 @@ def check_python_version():
 def check_dependencies():
     """检查依赖包"""
     required_packages = [
-        'pandas', 'numpy', 'pdfplumber', 'tqdm', 
+        'pandas', 'numpy', 'pdfplumber', 'tqdm',
         'colorama', 'geopy', 'typing_extensions'
     ]
-    
+
     missing_packages = []
     for package in required_packages:
         try:
@@ -266,7 +286,7 @@ def check_dependencies():
         except ImportError:
             print(f"❌ {package} - 未安装")
             missing_packages.append(package)
-    
+
     return len(missing_packages) == 0, missing_packages
 
 def check_directories():
@@ -274,7 +294,7 @@ def check_directories():
     required_dirs = [
         'Airway', 'PDF extract', 'Terminal Patch', 'X-Plane CIFP'
     ]
-    
+
     missing_dirs = []
     for dirname in required_dirs:
         if os.path.exists(dirname):
@@ -282,25 +302,25 @@ def check_directories():
         else:
             print(f"❌ {dirname}/ - 目录缺失")
             missing_dirs.append(dirname)
-    
+
     return len(missing_dirs) == 0, missing_dirs
 
 def main():
     print("🔍 Nav-data 安装检查")
     print("=" * 40)
-    
+
     # 检查 Python 版本
     print("\n📍 Python 版本检查:")
     python_ok = check_python_version()
-    
+
     # 检查依赖
     print("\n📍 依赖包检查:")
     deps_ok, missing_deps = check_dependencies()
-    
+
     # 检查目录
     print("\n📍 目录结构检查:")
     dirs_ok, missing_dirs = check_directories()
-    
+
     # 总结
     print("\n" + "=" * 40)
     if python_ok and deps_ok and dirs_ok:
@@ -320,6 +340,7 @@ if __name__ == "__main__":
 ```
 
 运行检查：
+
 ```bash
 python check_installation.py
 ```
@@ -327,8 +348,10 @@ python check_installation.py
 ## 🔥 常见安装问题
 
 ### 问题 1：Python 版本兼容性
+
 **症状**：运行时出现语法错误或模块导入错误
 **解决方案**：
+
 ```bash
 # 检查 Python 版本
 python --version
@@ -340,8 +363,10 @@ python --version
 ```
 
 ### 问题 2：依赖包安装失败
+
 **症状**：`pip install` 命令失败
 **解决方案**：
+
 ```bash
 # 升级 pip
 python -m pip install --upgrade pip
@@ -355,8 +380,10 @@ pip install package_name
 ```
 
 ### 问题 3：虚拟环境问题
+
 **症状**：虚拟环境无法激活或包找不到
 **解决方案**：
+
 ```bash
 # 删除旧的虚拟环境
 rm -rf nav-data-env
@@ -370,8 +397,10 @@ pip install -r requirements.txt
 ```
 
 ### 问题 4：文件权限问题（Linux/macOS）
+
 **症状**：无法创建文件或目录
 **解决方案**：
+
 ```bash
 # 修改目录权限
 chmod -R 755 nav-data/
@@ -381,8 +410,10 @@ sudo python script.py
 ```
 
 ### 问题 5：PDF 处理模块问题
+
 **症状**：pdfplumber 安装或使用失败
 **解决方案**：
+
 ```bash
 # 安装系统依赖（Ubuntu/Debian）
 sudo apt-get install python3-dev libpoppler-cpp-dev
@@ -397,11 +428,13 @@ pip install pdfplumber
 安装完成后，您可以：
 
 1. **运行快速测试**：
+
    ```bash
    python check_installation.py
    ```
 
 2. **查看帮助信息**：
+
    ```bash
    python Airway/airway.py --help
    ```
@@ -412,6 +445,7 @@ pip install pdfplumber
 ## 🔄 更新升级
 
 ### 更新项目代码
+
 ```bash
 # 如果使用 Git
 git pull origin main
@@ -420,6 +454,7 @@ git pull origin main
 ```
 
 ### 更新依赖包
+
 ```bash
 # 激活虚拟环境
 source nav-data-env/bin/activate
@@ -432,8 +467,9 @@ pip install --upgrade package_name
 ```
 
 ### 数据文件更新
+
 定期检查和更新 NAIP 数据源，确保导航数据的时效性。
 
 ---
 
-**安装完成！** 🎉 现在可以开始使用 Nav-data 进行导航数据转换了。如遇问题，请查看 [故障排除](#常见安装问题) 或提交 GitHub Issue。 
+**安装完成！** 🎉 现在可以开始使用 Nav-data 进行导航数据转换了。如遇问题，请查看 [故障排除](#常见安装问题) 或提交 GitHub Issue。

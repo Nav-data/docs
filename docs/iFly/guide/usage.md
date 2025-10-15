@@ -9,6 +9,7 @@
 在开始转换之前，请确认您已准备好以下文件：
 
 - ✅ **Fenix 导航数据库** (`nd.db3`)
+
   ```
   位置: %APPDATA%\Microsoft Flight Simulator\Packages\fenix-a320\SimObjects\Airplanes\FenixA320\navdata\nd.db3
   大小: 通常为 50-200MB
@@ -16,6 +17,7 @@
   ```
 
 - ✅ **NAIP 航路数据** (`RTE_SEG.csv`)
+
   ```
   来源: 中国民航数据服务网站
   编码: UTF-8
@@ -28,6 +30,7 @@
 ### 2. 环境验证
 
 运行环境检查脚本：
+
 ```bash
 # 验证 Python 环境
 python --version  # 应显示 3.8 或更高版本
@@ -82,10 +85,11 @@ python main.py
 │ 请选择 Fenix A320 导航数据库文件 (nd.db3)                                                                │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 
-请输入 Fenix 数据库文件路径: 
+请输入 Fenix 数据库文件路径:
 ```
 
 **输入示例:**
+
 ```bash
 # Windows 路径
 C:\Users\Username\AppData\Roaming\Microsoft Flight Simulator\Packages\fenix-a320\SimObjects\Airplanes\FenixA320\navdata\nd.db3
@@ -95,6 +99,7 @@ C:\Users\Username\AppData\Roaming\Microsoft Flight Simulator\Packages\fenix-a320
 ```
 
 **验证过程:**
+
 ```
 🔍 正在验证数据库...
 ✅ 文件存在且可读
@@ -119,6 +124,7 @@ C:\Users\Username\AppData\Roaming\Microsoft Flight Simulator\Packages\fenix-a320
 ```
 
 **验证过程:**
+
 ```
 🔍 正在验证 CSV 文件...
 ✅ 文件编码: UTF-8
@@ -149,6 +155,7 @@ C:\Users\Username\AppData\Roaming\Microsoft Flight Simulator\Packages\fenix-a320
 ```
 
 如果自动检测失败，系统会提示手动输入：
+
 ```
 ❌ 自动检测失败
 请手动输入 iFly 737 MAX 8 安装路径:
@@ -166,6 +173,7 @@ C:\Users\Username\AppData\Roaming\Microsoft Flight Simulator\Packages\fenix-a320
 ```
 
 **配置选项说明:**
+
 ```
 📊 终端程序 ID 配置:
    • 起始 ID: 1000 (推荐)
@@ -247,7 +255,7 @@ C:\Users\Username\AppData\Roaming\Microsoft Flight Simulator\Packages\fenix-a320
 📊 终端程序统计:
 ✅ 处理机场: 145 个
 ✅ SID 程序: 234 个
-✅ STAR 程序: 198 个  
+✅ STAR 程序: 198 个
 ✅ 进近程序: 312 个
 ✅ 新增文件: 89 个
 ✅ 更新文件: 56 个
@@ -400,12 +408,12 @@ for db in databases:
 
 ```json
 {
-    "default_fenix_path": "C:\\Users\\Username\\AppData\\Roaming\\Microsoft Flight Simulator\\Packages\\fenix-a320\\SimObjects\\Airplanes\\FenixA320\\navdata\\nd.db3",
-    "default_csv_path": "D:\\Nav-Data\\RTE_SEG.csv",
-    "terminal_id_start": 1500,
-    "coordinate_precision": 8,
-    "enable_backup": true,
-    "backup_directory": "D:\\Nav-Data\\Backups"
+  "default_fenix_path": "C:\\Users\\Username\\AppData\\Roaming\\Microsoft Flight Simulator\\Packages\\fenix-a320\\SimObjects\\Airplanes\\FenixA320\\navdata\\nd.db3",
+  "default_csv_path": "D:\\Nav-Data\\RTE_SEG.csv",
+  "terminal_id_start": 1500,
+  "coordinate_precision": 8,
+  "enable_backup": true,
+  "backup_directory": "D:\\Nav-Data\\Backups"
 }
 ```
 
@@ -457,7 +465,7 @@ python main.py
 
 ---
 
-**恭喜您完成学习！** 🎉 
+**恭喜您完成学习！** 🎉
 
 现在您已经掌握了 iFly 导航数据转换器的完整使用方法。如果遇到问题，请查看 [故障排除指南](../troubleshooting.md) 或 [常见问题](../faq.md)。
 

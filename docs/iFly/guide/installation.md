@@ -5,19 +5,22 @@
 ## 📋 系统要求
 
 ### 💻 硬件要求
-| 组件 | 最低要求 | 推荐配置 |
-|------|----------|----------|
-| **处理器** | 双核 2.0GHz | 四核 3.0GHz+ |
-| **内存** | 4GB RAM | 8GB+ RAM |
-| **存储** | 500MB 可用空间 | 2GB+ 可用空间 |
-| **网络** | 无需网络连接 | 下载依赖时需要 |
+
+| 组件       | 最低要求       | 推荐配置       |
+| ---------- | -------------- | -------------- |
+| **处理器** | 双核 2.0GHz    | 四核 3.0GHz+   |
+| **内存**   | 4GB RAM        | 8GB+ RAM       |
+| **存储**   | 500MB 可用空间 | 2GB+ 可用空间  |
+| **网络**   | 无需网络连接   | 下载依赖时需要 |
 
 ### 🖥️ 操作系统支持
+
 - **Windows**: Windows 10 (1909+) / Windows 11
 - **macOS**: macOS 10.15 Catalina 或更高版本
 - **Linux**: Ubuntu 18.04+, CentOS 7+, 或其他主流发行版
 
 ### 🐍 Python 环境要求
+
 - **Python 版本**: 3.8.0 或更高版本
 - **推荐版本**: Python 3.9.x 或 3.10.x
 - **包管理器**: pip 21.0+ (通常随 Python 安装)
@@ -29,6 +32,7 @@
 #### 1️⃣ 安装 Python
 
 **方法一：从官网下载 (推荐)**
+
 ```bash
 # 1. 访问 https://www.python.org/downloads/
 # 2. 下载最新的 Python 3.9+ 版本
@@ -39,6 +43,7 @@ pip --version
 ```
 
 **方法二：使用 Microsoft Store**
+
 ```bash
 # 1. 打开 Microsoft Store
 # 2. 搜索 "Python 3.9" 或 "Python 3.10"
@@ -63,6 +68,7 @@ python -c "import rich, pandas, pygeomag; print('依赖安装成功!')"
 #### 1️⃣ 安装 Python
 
 **方法一：使用 Homebrew (推荐)**
+
 ```bash
 # 安装 Homebrew (如果尚未安装)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -76,6 +82,7 @@ pip3 --version
 ```
 
 **方法二：从官网下载**
+
 ```bash
 # 1. 访问 https://www.python.org/downloads/macos/
 # 2. 下载适用于 macOS 的 Python 安装包
@@ -99,6 +106,7 @@ python3 -c "import rich, pandas, pygeomag; print('依赖安装成功!')"
 #### 1️⃣ 安装 Python
 
 **Ubuntu/Debian:**
+
 ```bash
 # 更新包列表
 sudo apt update
@@ -116,6 +124,7 @@ pip --version
 ```
 
 **CentOS/RHEL:**
+
 ```bash
 # 安装 EPEL 仓库
 sudo yum install epel-release
@@ -129,6 +138,7 @@ pip3.9 --version
 ```
 
 **Arch Linux:**
+
 ```bash
 # 安装 Python 和 pip
 sudo pacman -S python python-pip
@@ -155,24 +165,24 @@ python -c "import rich, pandas, pygeomag; print('依赖安装成功!')"
 
 ### 核心依赖包
 
-| 包名 | 版本要求 | 用途 | 许可证 |
-|------|----------|------|--------|
-| **rich** | ≥ 12.0.0 | 现代化 CLI 界面 | MIT |
-| **pandas** | ≥ 1.3.0 | 数据处理和分析 | BSD-3 |
-| **pygeomag** | ≥ 0.4.2 | 磁偏角计算 | MIT |
-| **tqdm** | ≥ 4.60.0 | 进度条显示 | MPL-2.0 |
-| **geographiclib** | ≥ 1.52 | 地理坐标计算 | MIT |
+| 包名              | 版本要求 | 用途            | 许可证  |
+| ----------------- | -------- | --------------- | ------- |
+| **rich**          | ≥ 12.0.0 | 现代化 CLI 界面 | MIT     |
+| **pandas**        | ≥ 1.3.0  | 数据处理和分析  | BSD-3   |
+| **pygeomag**      | ≥ 0.4.2  | 磁偏角计算      | MIT     |
+| **tqdm**          | ≥ 4.60.0 | 进度条显示      | MPL-2.0 |
+| **geographiclib** | ≥ 1.52   | 地理坐标计算    | MIT     |
 
 ### 标准库依赖 (无需安装)
 
-| 模块 | 用途 |
-|------|------|
-| **pathlib** | 文件路径处理 |
-| **typing** | 类型提示支持 |
-| **sqlite3** | SQLite 数据库访问 |
-| **csv** | CSV 文件处理 |
-| **datetime** | 日期时间处理 |
-| **logging** | 日志记录 |
+| 模块         | 用途              |
+| ------------ | ----------------- |
+| **pathlib**  | 文件路径处理      |
+| **typing**   | 类型提示支持      |
+| **sqlite3**  | SQLite 数据库访问 |
+| **csv**      | CSV 文件处理      |
+| **datetime** | 日期时间处理      |
+| **logging**  | 日志记录          |
 
 ## 🔍 安装验证
 
@@ -194,7 +204,7 @@ def check_python_version():
     """检查 Python 版本"""
     version = sys.version_info
     print(f"🐍 Python 版本: {version.major}.{version.minor}.{version.micro}")
-    
+
     if version >= (3, 8):
         print("✅ Python 版本符合要求")
         return True
@@ -206,15 +216,15 @@ def check_dependencies():
     """检查依赖包"""
     dependencies = [
         'rich',
-        'pandas', 
+        'pandas',
         'pygeomag',
         'tqdm',
         'geographiclib'
     ]
-    
+
     all_ok = True
     print("\n📦 检查依赖包:")
-    
+
     for dep in dependencies:
         try:
             module = importlib.import_module(dep)
@@ -223,41 +233,41 @@ def check_dependencies():
         except ImportError:
             print(f"❌ {dep}: 未安装")
             all_ok = False
-    
+
     return all_ok
 
 def check_system_resources():
     """检查系统资源"""
     import shutil
-    
+
     print("\n💾 检查系统资源:")
-    
+
     # 检查磁盘空间
     total, used, free = shutil.disk_usage(Path.home())
     free_gb = free // (1024**3)
     print(f"📁 可用磁盘空间: {free_gb} GB")
-    
+
     if free_gb >= 1:
         print("✅ 磁盘空间充足")
         disk_ok = True
     else:
         print("⚠️ 磁盘空间不足，建议至少 1GB")
         disk_ok = False
-    
+
     return disk_ok
 
 def main():
     """主验证函数"""
     print("🔍 iFly 导航数据转换器安装验证")
     print("=" * 50)
-    
+
     # 检查项目
     checks = [
         ("Python 版本", check_python_version),
         ("依赖包", check_dependencies),
         ("系统资源", check_system_resources),
     ]
-    
+
     all_passed = True
     for name, check_func in checks:
         try:
@@ -267,7 +277,7 @@ def main():
         except Exception as e:
             print(f"❌ {name} 检查失败: {e}")
             all_passed = False
-    
+
     print("\n" + "=" * 50)
     if all_passed:
         print("🎉 所有检查通过！您可以开始使用转换器了。")
@@ -281,6 +291,7 @@ if __name__ == "__main__":
 ```
 
 运行验证脚本：
+
 ```bash
 python verify_installation.py
 ```
@@ -311,11 +322,13 @@ python -c "from pygeomag import GeoMag; gm = GeoMag(); print(f'磁偏角计算 O
 ### 问题 1: Python 版本过低
 
 **症状:**
+
 ```
 SyntaxError: invalid syntax
 ```
 
 **解决方案:**
+
 ```bash
 # 检查当前版本
 python --version
@@ -329,11 +342,13 @@ python --version
 ### 问题 2: pip 安装失败
 
 **症状:**
+
 ```
 ERROR: Could not find a version that satisfies the requirement
 ```
 
 **解决方案:**
+
 ```bash
 # 升级 pip
 python -m pip install --upgrade pip
@@ -349,11 +364,13 @@ pip install rich pandas pygeomag tqdm geographiclib
 ### 问题 3: 权限错误
 
 **症状:**
+
 ```
 PermissionError: [Errno 13] Permission denied
 ```
 
 **解决方案:**
+
 ```bash
 # Windows: 以管理员身份运行命令提示符
 # macOS/Linux: 使用用户安装
@@ -366,11 +383,13 @@ sudo pip install rich pandas pygeomag tqdm geographiclib
 ### 问题 4: 网络连接问题
 
 **症状:**
+
 ```
 WARNING: Retrying... Connection broken
 ```
 
 **解决方案:**
+
 ```bash
 # 使用国内镜像源
 pip install -i https://mirrors.aliyun.com/pypi/simple/ rich pandas pygeomag tqdm geographiclib
@@ -385,11 +404,13 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple/
 ## 🎯 安装后续步骤
 
 ### 1. 准备必要文件
+
 - **Fenix 数据库**: 获取 `nd.db3` 文件
 - **NAIP 数据**: 下载 `RTE_SEG.csv` 航路数据
 - **iFly 安装**: 确认 iFly 737 MAX 8 已安装
 
 ### 2. 创建工作目录
+
 ```bash
 # 创建专用目录
 mkdir ~/ifly-converter
@@ -400,6 +421,7 @@ cd ~/ifly-converter
 ```
 
 ### 3. 进行首次测试
+
 ```bash
 # 运行转换器
 python main.py

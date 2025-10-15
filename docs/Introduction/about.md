@@ -10,18 +10,18 @@ graph TD
     B --> C["🛩️ PMDG<br/>SQLite数据库"]
     B --> D["✈️ iniBuilds<br/>A350数据文件"]
     B --> E["🛫 X-Plane<br/>DAT格式文件"]
-    
+
     F["🗂️ 原始数据"] --> G["📥 数据解析"]
     G --> H["🔧 格式转换"]
     H --> I["✅ 数据验证"]
     I --> J["📤 输出文件"]
-    
+
     style A fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
     style B fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
     style C fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
     style D fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style E fill:#fce4ec,stroke:#c2185b,stroke-width:2px
-    
+
     style F fill:#f1f8e9,stroke:#689f38,stroke-width:2px
     style G fill:#f1f8e9,stroke:#689f38,stroke-width:2px
     style H fill:#f1f8e9,stroke:#689f38,stroke-width:2px
@@ -104,6 +104,7 @@ graph TD
 ---
 
 ## 🚀 快速开始
+
 1. 选择你的插件： [PMDG 指南](/PMDG/guide/index) | [iniBuilds 指南](/iniBuilds/guide/index)
 2. 按照指南进行配置与安装
 3. 享受更真实的飞行体验！
@@ -160,6 +161,7 @@ graph TD
 </div>
 
 ### 📚 使用指南
+
 <div class="guide-links">
   <a href="/PMDG/guide/index" class="guide-link pmdg">
     <div class="guide-icon">🛩️</div>
@@ -187,6 +189,7 @@ graph TD
 </div>
 
 ### 🆘 获取帮助
+
 <div class="help-section">
   <div class="help-category">
     <h4>🛩️ PMDG 支持</h4>
@@ -214,6 +217,7 @@ graph TD
 </div>
 
 ### 🔧 技术文档
+
 <div class="tech-links">
   <a href="/iniBuilds/architecture" class="tech-link">
     <span class="tech-icon">🏗️</span>
@@ -410,6 +414,6 @@ graph TD
 ---
 
 ## 🌍 加入我们 & 反馈建议
+
 - GitHub: [nav-data](https://github.com/nav-data)
 - 有建议或问题？欢迎通过 [Issue](https://github.com/nav-data/nav-data/issues) 或邮件联系我们！
-

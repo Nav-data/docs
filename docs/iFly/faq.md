@@ -5,6 +5,7 @@
 ### Q: 我需要什么软件才能运行转换器？
 
 **A:** 您需要以下软件：
+
 - **Python 3.8+** (推荐 Python 3.9 或更高版本)
 - **iFly 737 MAX 8** 已安装在 Microsoft Flight Simulator 中
 - **Fenix A320** (用于获取导航数据库)
@@ -13,11 +14,13 @@
 ### Q: 如何安装所需的 Python 依赖包？
 
 **A:** 在项目目录中运行：
+
 ```bash
 pip install rich pathlib typing pygeomag pandas tqdm geographiclib
 ```
 
 或者如果有 requirements.txt 文件：
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -25,6 +28,7 @@ pip install -r requirements.txt
 ### Q: 程序提示找不到 iFly 安装路径怎么办？
 
 **A:** 您可以：
+
 1. **手动指定路径**：在程序提示时输入完整的 iFly 安装路径
 2. **检查安装位置**：确认 iFly 737 MAX 8 正确安装在以下位置之一：
    - `Community\ifly-aircraft-737max8\`
@@ -40,6 +44,7 @@ pip install -r requirements.txt
 ### Q: 磁偏角是如何计算的？
 
 **A:** 转换器使用 **pygeomag** 库的 **WMM-2025** (World Magnetic Model) 地磁模型进行高精度磁偏角计算：
+
 - **本地计算**：无需网络连接
 - **高精度**：精确到小数点后多位
 - **实时更新**：基于当前日期和坐标
@@ -47,6 +52,7 @@ pip install -r requirements.txt
 ### Q: 为什么需要 NAIP RTE_SEG.csv 文件？
 
 **A:** 这个文件包含中国民航的航路段数据，用于：
+
 - 补充 iFly 缺失的中国航路信息
 - 提供准确的航路点坐标
 - 确保与实际航路网络的一致性
@@ -54,6 +60,7 @@ pip install -r requirements.txt
 ### Q: 转换后的数据放在哪里？
 
 **A:** 数据会被放置在以下位置：
+
 - **航路数据**：`Community\ifly-aircraft-737max8\Data\navdata\Permanent\WPNAVRTE.txt`
 - **终端程序**：`Community\ifly-aircraft-737max8\Data\navdata\Supplemental\`
 - **AIRAC 标识**：`FMC_Ident.txt`
@@ -63,6 +70,7 @@ pip install -r requirements.txt
 ### Q: 程序运行时出现 "数据库连接失败" 错误？
 
 **A:** 请检查：
+
 1. **文件路径**：确认 Fenix 数据库文件路径正确
 2. **文件权限**：确保文件可读
 3. **文件完整性**：尝试重新获取 Fenix 数据库文件
@@ -71,11 +79,13 @@ pip install -r requirements.txt
 ### Q: 磁偏角计算很慢怎么办？
 
 **A:** 这通常是正常的：
+
 - **首次运行**：地磁模型初始化需要时间
 - **大量数据**：航路点多时计算时间较长
 - **系统性能**：较老的硬件处理速度较慢
 
 优化建议：
+
 - 使用 SSD 硬盘
 - 确保充足的内存 (推荐 8GB+)
 - 关闭不必要的后台程序
@@ -83,6 +93,7 @@ pip install -r requirements.txt
 ### Q: 转换完成后 iFly 中看不到新数据？
 
 **A:** 请尝试：
+
 1. **重启模拟器**：完全退出并重新启动 MSFS
 2. **检查文件位置**：确认文件写入到正确目录
 3. **清除缓存**：删除 iFly 的缓存文件
@@ -91,6 +102,7 @@ pip install -r requirements.txt
 ### Q: 出现编码错误怎么办？
 
 **A:** 这通常与字符编码相关：
+
 1. **确保 Python 环境支持 UTF-8**
 2. **检查 CSV 文件编码**：确认为 UTF-8 格式
 3. **更新 Python 版本**：使用最新的 Python 版本
@@ -100,6 +112,7 @@ pip install -r requirements.txt
 ### Q: 如何提高转换速度？
 
 **A:** 性能优化建议：
+
 - **使用 SSD**：固态硬盘显著提升 I/O 性能
 - **增加内存**：推荐 8GB+ RAM
 - **关闭杀毒软件**：临时关闭实时扫描
@@ -108,6 +121,7 @@ pip install -r requirements.txt
 ### Q: 内存使用过高怎么办？
 
 **A:** 内存优化方案：
+
 1. **分批处理**：处理大文件时使用分批模式
 2. **关闭其他程序**：释放系统内存
 3. **检查数据大小**：确认数据文件大小合理
@@ -116,6 +130,7 @@ pip install -r requirements.txt
 ### Q: 可以批量处理多个数据库吗？
 
 **A:** 当前版本不直接支持批量处理，但您可以：
+
 1. **多次运行程序**：逐个处理数据库文件
 2. **编写脚本**：创建自动化批处理脚本
 3. **等待更新**：v2.1.0 将支持批量处理功能
@@ -125,6 +140,7 @@ pip install -r requirements.txt
 ### Q: 如何备份原始数据？
 
 **A:** 强烈建议转换前备份：
+
 ```bash
 # 备份 iFly 原始数据
 cp -r "Community\ifly-aircraft-737max8\Data\navdata" "backup_navdata"
@@ -133,6 +149,7 @@ cp -r "Community\ifly-aircraft-737max8\Data\navdata" "backup_navdata"
 ### Q: 如何恢复原始数据？
 
 **A:** 如果需要恢复：
+
 1. **删除转换后的文件**
 2. **从备份恢复**：
    ```bash
@@ -144,6 +161,7 @@ cp -r "Community\ifly-aircraft-737max8\Data\navdata" "backup_navdata"
 ### Q: 如何验证数据转换是否成功？
 
 **A:** 验证方法：
+
 1. **检查文件存在**：确认新文件已生成
 2. **查看文件大小**：新文件应该比原文件大
 3. **模拟器测试**：在 MSFS 中加载 iFly 737 测试
@@ -154,6 +172,7 @@ cp -r "Community\ifly-aircraft-737max8\Data\navdata" "backup_navdata"
 ### Q: 在哪里可以获得帮助？
 
 **A:** 获取帮助的渠道：
+
 1. **查看日志**：检查 `converter.log` 文件
 2. **文档查阅**：阅读完整的使用指南
 3. **GitHub Issues**：在项目页面报告问题
@@ -162,6 +181,7 @@ cp -r "Community\ifly-aircraft-737max8\Data\navdata" "backup_navdata"
 ### Q: 如何报告 Bug？
 
 **A:** 报告问题时请提供：
+
 - **详细的错误描述**
 - **完整的错误日志**
 - **系统环境信息** (OS, Python 版本等)
@@ -171,6 +191,7 @@ cp -r "Community\ifly-aircraft-737max8\Data\navdata" "backup_navdata"
 ### Q: 项目是开源的吗？
 
 **A:** 是的！项目遵循开源协议：
+
 - **查看源代码**：GitHub 仓库公开
 - **贡献代码**：欢迎提交 Pull Request
 - **功能建议**：在 Issues 中提出功能请求
@@ -181,6 +202,7 @@ cp -r "Community\ifly-aircraft-737max8\Data\navdata" "backup_navdata"
 ### Q: 计划添加哪些新功能？
 
 **A:** 即将推出的功能：
+
 - **GUI 界面** (v2.1.0)
 - **批量处理** (v2.1.0)
 - **数据验证工具** (v2.2.0)
@@ -190,6 +212,7 @@ cp -r "Community\ifly-aircraft-737max8\Data\navdata" "backup_navdata"
 ### Q: 如何获取版本更新？
 
 **A:** 保持更新：
+
 1. **关注 GitHub**：Star 项目获取更新通知
 2. **订阅发布**：启用 Release 通知
 3. **定期检查**：每月检查一次新版本

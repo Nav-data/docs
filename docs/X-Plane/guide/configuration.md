@@ -5,6 +5,7 @@
 ## 📋 配置文件概览
 
 ### 主要配置文件
+
 ```
 config/
 ├── main.conf           # 主配置文件
@@ -15,6 +16,7 @@ config/
 ```
 
 ### 环境变量配置
+
 ```bash
 # .env 文件示例
 NAV_DATA_HOME=/path/to/nav-data
@@ -81,7 +83,7 @@ validate_area_codes = true
 auto_calculate_cycle = true
 
 # 手动指定 AIRAC 周期（格式：YYMM）
-manual_cycle = 
+manual_cycle =
 
 # AIRAC 基准日期（ISO格式）
 reference_date = 2025-01-23
@@ -93,6 +95,7 @@ reference_cycle = 2501
 ### 代码中的配置选项
 
 #### 航路处理主脚本配置
+
 ```python
 # Airway/airway.py 配置示例
 
@@ -195,6 +198,7 @@ overwrite_existing = false
 ### 代码配置示例
 
 #### PDF 处理配置
+
 ```python
 # PDF extract/utils.py 配置
 
@@ -224,6 +228,7 @@ COLOR_CONFIG = {
 ```
 
 #### 坐标提取配置
+
 ```python
 # PDF extract/waypoint_1_pdf.py 配置
 
@@ -327,7 +332,7 @@ ENCODING_MAPPINGS = {
     'IF_LINE': 'E  A',
     'TRANSITION_MIDDLE': 'E   ',
     'TRANSITION_END': 'EE B',
-    'MAIN_APPROACH_IF': 'E  B', 
+    'MAIN_APPROACH_IF': 'E  B',
     'FAF_POINT': 'E  F',
     'MISSED_APPROACH_FIRST': 'E M ',
     'PROCEDURE_END': 'EE  ',
@@ -384,7 +389,7 @@ enable_procedure_mixing = true
 # VOR 数据文件
 vor_data_file = VOR.csv
 
-# NDB 数据文件  
+# NDB 数据文件
 ndb_data_file = NDB.csv
 
 # 频率处理
@@ -463,11 +468,11 @@ CSV_CONFIG = {
 REQUIRED_CSV_FIELDS = {
     'airway': [
         'CODE_POINT_START', 'CODE_TYPE_START',
-        'CODE_POINT_END', 'CODE_TYPE_END', 
+        'CODE_POINT_END', 'CODE_TYPE_END',
         'CODE_DIR', 'TXT_DESIG'
     ],
     'airport': [
-        'CODE_AIRPORT', 'GEO_LAT', 'GEO_LONG', 
+        'CODE_AIRPORT', 'GEO_LAT', 'GEO_LONG',
         'ELEVATION', 'TXT_NAME'
     ],
     'runway': [
@@ -478,6 +483,7 @@ REQUIRED_CSV_FIELDS = {
 ```
 
 ### 数据库配置
+
 ```python
 # X-Plane CIFP/数据库.py 配置
 
@@ -494,7 +500,7 @@ TABLE_SCHEMAS = {
     'waypoints': {
         'id': 'INTEGER PRIMARY KEY',
         'ident': 'TEXT NOT NULL',
-        'latitude': 'REAL NOT NULL', 
+        'latitude': 'REAL NOT NULL',
         'longitude': 'REAL NOT NULL',
         'type': 'INTEGER',
         'airport': 'TEXT',
@@ -511,7 +517,7 @@ TABLE_SCHEMAS = {
 [loggers]
 keys=root,airway,pdf_extract,terminal,cifp
 
-[handlers] 
+[handlers]
 keys=consoleHandler,fileHandler,rotatingFileHandler
 
 [formatters]
@@ -609,6 +615,7 @@ logger.info('航路处理开始')
 ## ⚙️ 性能优化配置
 
 ### 内存管理配置
+
 ```python
 # 内存使用优化
 MEMORY_CONFIG = {
@@ -627,6 +634,7 @@ CONCURRENCY_CONFIG = {
 ```
 
 ### 缓存配置
+
 ```python
 # 缓存设置
 CACHE_CONFIG = {
@@ -657,15 +665,15 @@ def validate_airway_config(config_file):
     """验证航路模块配置"""
     config = configparser.ConfigParser()
     config.read(config_file)
-    
+
     errors = []
-    
+
     # 检查必需的节
     required_sections = ['General', 'Input', 'Output', 'Filtering']
     for section in required_sections:
         if section not in config:
             errors.append(f"缺失配置节: [{section}]")
-    
+
     # 检查文件路径
     if 'Input' in config:
         for key in ['csv_file', 'earth_fix_file', 'earth_nav_file']:
@@ -673,7 +681,7 @@ def validate_airway_config(config_file):
                 file_path = config['Input'][key]
                 if not os.path.exists(file_path):
                     errors.append(f"文件不存在: {file_path}")
-    
+
     return errors
 
 def validate_all_configs():
@@ -682,12 +690,12 @@ def validate_all_configs():
     if not config_dir.exists():
         print("❌ 配置目录不存在")
         return False
-    
+
     config_files = {
         'airway.conf': validate_airway_config,
         # 可以添加更多配置验证函数
     }
-    
+
     all_valid = True
     for config_file, validator in config_files.items():
         config_path = config_dir / config_file
@@ -702,7 +710,7 @@ def validate_all_configs():
                 print(f"✅ {config_file} 配置正确")
         else:
             print(f"⚠️  {config_file} 配置文件不存在（使用默认值）")
-    
+
     return all_valid
 
 if __name__ == "__main__":
@@ -717,25 +725,29 @@ if __name__ == "__main__":
 ## 📚 配置最佳实践
 
 ### 1. 配置文件管理
+
 - 使用版本控制管理配置文件
 - 为不同环境创建不同的配置文件
 - 定期备份重要配置
 
 ### 2. 安全考虑
+
 - 不要在配置文件中存储敏感信息
 - 使用环境变量存储路径等可变信息
 - 设置适当的文件权限
 
 ### 3. 性能优化
+
 - 根据系统资源调整批处理大小
 - 合理设置内存使用限制
 - 启用适当的缓存机制
 
 ### 4. 错误处理
+
 - 为所有关键配置项设置默认值
 - 实现配置验证机制
 - 提供清晰的错误信息
 
 ---
 
-**配置完成！** 🎯 现在您可以根据具体需求调整各模块的配置参数。建议在首次使用前运行配置验证脚本确保设置正确。 
+**配置完成！** 🎯 现在您可以根据具体需求调整各模块的配置参数。建议在首次使用前运行配置验证脚本确保设置正确。
